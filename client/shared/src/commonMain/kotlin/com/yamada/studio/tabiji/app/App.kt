@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun App() {
     Box(
-        modifier = Modifier.fillMaxSize().background(Color(0xFFE0E0E0)),
+        modifier = Modifier.fillMaxSize().background(Color(0xFFEAF3FB)),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = "Tabiji(旅路)", color = Color(0xFF1C2633)) // TODO(A5) : TabijiTheme
+        Text(text = "Tabiji", color = Color(0xFF1C2633)) // TODO(A5) : TabijiTheme
     }
 }
