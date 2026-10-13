@@ -19,9 +19,23 @@
 
 ## 진행 중
 
-- **A1 — 인트로 바탕 창** ([guides/A1-intro-window.md](guides/A1-intro-window.md), 브랜치 `client/feat-a1-intro-window`)
-  - 가이드 작성 완료. 사용자 구현 대기 (`App.kt`, `main.kt`, `.ci-enabled`)
-  - 디자인 핸드오프 v1 수령 → `design/handoff/handoff-v1/` (PR #5). 로드맵을 인트로 우선으로 재구성
+- **A1 — 인트로 바탕 창** ([guides/A1-intro-window.md](guides/A1-intro-window.md), 브랜치 `client/feat-a1-intro-window`, PR #6)
+  - 가이드 작성 완료. **다음 행동: 사용자가 가이드대로 `App.kt`·`main.kt` 손코딩 → 실행 결과 붙여넣기 → Claude 진단 → 통과 시 Claude가 구현 커밋(`feat(client): render intro base window on desktop`, `Refs: A1`) 후 `.ci-enabled` 포함 push**
+  - 디자인 핸드오프 v1 + 아이콘 델타 수령 → `design/handoff/handoff-v1/` (PR #5). 로드맵을 인트로 우선으로 재구성
+
+### PR 현황 (2026-10-13 저녁 기준 · 최신은 `gh pr list`)
+
+| PR | 브랜치 | 상태 | 메모 |
+| --- | --- | --- | --- |
+| #3 CODEOWNERS 클라이언트 담당 | `repo/chore-assign-client-owner` | 열림 | 사용자가 머지. 머지 후 `.github/`·`client/` PR은 관리자 우회("bypass rules") 필요해짐 |
+| #5 디자인 핸드오프 v1 + 旅 아이콘 세트 | `design/feat-handoff-v1` | 열림 | 사용자가 머지. **머지 전까지 A1 브랜치 워크트리에는 핸드오프 문서가 안 보임** (GitHub에서 보거나 #5 먼저 머지) |
+| #6 A1 단계 | `client/feat-a1-intro-window` | 열림 | 문서 커밋만 있음. 구현 커밋까지 담은 뒤 squash merge. #3·#5 머지 후 rebase 필요할 수 있음(충돌 없을 것) |
+
+### 세션 간 로컬 메모 (레포 밖 상태 — 다른 머신에는 없음)
+
+- `.vscode/settings.json`에 사용자 로컬 수정(`gradle.autoDetect: off`, `java.gradle.buildServer.enabled: off`)이 **커밋 안 된 채** 있음 — 사용자 결정: "일단 내비둬". 커밋·stash·브랜치 전환 시 이 파일은 제외하고 다룰 것
+- 인트로 일러스트 webp 4장은 gitignore라 **이 PC 로컬에만** 있음 (`design/handoff/handoff-v1/assets/intro/`). 다른 머신에서는 팀 보관소( `~/Downloads/handoff-v1.zip` 원본)에서 같은 경로로 복사
+- 에디터를 VS Code → IntelliJ IDEA로 옮기는 중. IntelliJ에서는 `client/`를 Gradle 프로젝트로 열면 되고(루트 아님 주의 — 레포 루트에는 Gradle 빌드가 없다), `.vscode/tasks.json` 대신 `client/scripts/linux/*.sh`를 그대로 쓴다. `client/CLAUDE.md`의 "에디터 환경 (VS Code)" 절과 A0 가이드 9절의 LSP 한계 설명은 IntelliJ에서는 해당 없음 — IntelliJ는 KMP를 제대로 지원하므로 빨간 줄 기준으로 진단해도 된다 (갱신은 A1 완료 후 별도 PR로)
 
 ## 열린 일
 
@@ -46,6 +60,13 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-13 (저녁) — 아이콘 델타, IntelliJ 이사 준비
+
+- `handoff-v1-delta-icons.zip` 반영 (PR #5 두 번째 커밋): 旅 글리프 아이콘 17파일 + `docs/04_icons_favicon.md` + PROMPT T5 신설. 아이콘은 IP 확인 완료(자체 글리프)
+- T5를 로드맵에 배치: A2(런처·창 아이콘) / A9(패키지 아이콘) / F3(favicon)
+- Dependabot #2(#material3 1.13-alpha)·#4(Gradle 9.8.1) 닫음 — ADR 0002 버전 정책대로
+- 이 worklog를 IntelliJ 세션 인수인계 기준으로 갱신. 다음 세션은 `client/CLAUDE.md` → 이 파일 → `guides/A1-intro-window.md` 순으로 읽으면 이어진다
 
 ### 2026-10-13 (오후) — A0 완료, 핸드오프 v1, 인트로 우선 재구성
 
