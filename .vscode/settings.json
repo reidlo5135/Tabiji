@@ -1,0 +1,31 @@
+{
+  // ── 빌드 산출물은 파일 감시·검색에서 제외 (Gradle 빌드 중 VS Code가 느려지는 것 방지) ──
+  "files.watcherExclude": {
+    "**/build/**": true,
+    "**/.gradle/**": true,
+    "**/.kotlin/**": true
+  },
+  "search.exclude": {
+    "**/build": true,
+    "**/.gradle": true,
+    "**/.kotlin": true
+  },
+
+  // ── 저장 시 포맷: .editorconfig 기준 ──
+  // EditorConfig 확장이 저장할 때 줄 끝(LF)·마지막 줄바꿈·줄 끝 공백 규칙을 적용한다.
+  // 언어 포매터 자동 실행은 끄고(학습 중 코드가 의도치 않게 바뀌지 않게), 필요하면 직접 "Format Document"를 쓴다
+  "editor.formatOnSave": false,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": {
+    // Markdown 줄 끝 공백 두 칸은 줄바꿈 의미가 있다 (.editorconfig와 동일)
+    "files.trimTrailingWhitespace": false
+  },
+
+  // ── Gradle 프로젝트 루트는 client/ (레포 루트에는 Gradle 빌드가 없다) ──
+  // Kotlin by JetBrains 확장은 */settings.gradle.kts 를 자동 감지해 client/ 를 가져온다.
+  // (intellij.projects 설정은 절대 경로 URI가 필요해 팀 공용 설정에 넣지 않는다)
+  // Gradle for Java 확장이 client/ 하위 Gradle 프로젝트를 찾게 한다
+  "gradle.nestedProjects": ["client"]
+}

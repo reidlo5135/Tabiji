@@ -1,0 +1,56 @@
+name: Bug
+description: 버그 신고
+title: "[bug] "
+labels: ["type:fix"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역
+      options:
+        - client
+        - server
+        - ai
+        - api
+        - design
+        - ci
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 무슨 일이 일어났나요
+      description: 실제 동작과 기대 동작을 함께 적어 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 방법
+      placeholder: |
+        1. 앱 실행
+        2. ...
+        3. 오류 발생
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 버전 / 커밋
+      placeholder: "client-v0.1.0 또는 커밋 SHA"
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 플랫폼 (클라이언트일 때)
+      multiple: true
+      options:
+        - Android
+        - Desktop (Linux)
+        - Desktop (Windows)
+        - Desktop (macOS)
+  - type: textarea
+    id: logs
+    attributes:
+      label: 로그 / 스크린샷
+      description: 비밀값(API 키, 토큰)이 섞여 있지 않은지 확인해 주세요.
+      render: shell

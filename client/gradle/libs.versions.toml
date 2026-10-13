@@ -1,0 +1,66 @@
+# 클라이언트 툴체인·라이브러리 버전의 단일 원본.
+# 근거·출처: docs/decisions/0002-toolchain-versions.md (2026-10-13 확인)
+# 지금 쓰는 것만 활성화하고, 나중 단계 라이브러리는 주석으로 자리만 둔다. 해당 단계 시작 때 최신 안정 버전을 다시 확인해 연다.
+
+[versions]
+# 빌드 도구
+kotlin = "2.4.21"
+composeMultiplatform = "1.12.1"
+agp = "9.3.3"
+
+# Android SDK 레벨
+android-compileSdk = "37"
+android-targetSdk = "37"
+android-minSdk = "24"
+
+# 라이브러리
+# CMP 1.12.x와 짝인 material3는 아직 alpha뿐이다 (공식 위저드도 이 버전 사용). ADR 0002 참조
+material3 = "1.12.0-alpha03"
+androidx-activity = "1.13.0"
+kotlinx-coroutines = "1.11.0"
+
+# ── 나중 단계 (주석 해제는 그 단계에서) ──
+# androidx-lifecycle = ""        # B1 ViewModel·StateFlow (org.jetbrains.androidx.lifecycle)
+# navigation = ""                # B2 Navigation (org.jetbrains.androidx.navigation)
+# koin = ""                      # B3 DI
+# sqldelight = ""                # B6 로컬 DB
+# maplibre-compose = ""          # C1 지도 (org.maplibre.compose) — client/docs/decisions/0002-free-map-stack.md
+# ktor = ""                      # D1 HTTP 클라이언트
+# kotlinx-serialization = ""     # D1 JSON
+
+[libraries]
+# Compose Multiplatform (CMP 1.10부터 compose.xxx 별칭 대신 직접 좌표를 쓴다)
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
+
+# Desktop 진입점: Swing 이벤트 스레드를 Dispatchers.Main으로 쓴다 (공식 구조·위저드 기본 포함)
+kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+
+# Android 진입점
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+
+# 테스트
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+# ── 나중 단계 ──
+# compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }  # @Preview (IntelliJ/Android Studio에서만 보임)
+# androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+# androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+# navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
+# koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+# maplibre-compose = { module = "org.maplibre.compose:maplibre-compose", version.ref = "maplibre-compose" }
+# ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+# ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+
+[plugins]
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+# sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+# kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

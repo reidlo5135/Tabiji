@@ -1,0 +1,29 @@
+# 변경 경로 → area:* 라벨 (actions/labeler v5+ 형식)
+# 라벨은 미리 만들어 둬야 한다 (docs/github.md "라벨 생성"). 워크플로에 issues: write를 주지 않기 위해서다.
+
+"area:client":
+  - changed-files:
+      - any-glob-to-any-file: "client/**"
+
+"area:server":
+  - changed-files:
+      - any-glob-to-any-file: "server/**"
+
+"area:ai":
+  - changed-files:
+      - any-glob-to-any-file: "ai/**"
+
+"area:api":
+  - changed-files:
+      - any-glob-to-any-file: "api/**"
+
+"area:design":
+  - changed-files:
+      - any-glob-to-any-file: "design/**"
+
+"area:ci":
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**"
+          - ".github/dependabot.yml"
+          - ".github/labeler.yml"

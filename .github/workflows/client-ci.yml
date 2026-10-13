@@ -1,0 +1,92 @@
+# 클라이언트 PR·main 검증.
+# 단계별 동작 (client/docs/roadmap.md):
+#   A0 이전 — client/gradlew 없음      → "래퍼 없음" 안내 후 성공으로 건너뜀
+#   A0~A1  — gradlew 있음, .ci-enabled 없음 → 래퍼 검증만 하고 빌드는 건너뜀 (소스가 없어 빌드가 실패할 수 있으므로)
+#   A1 이후 — client/.ci-enabled 있음  → Android 디버그 빌드 + Desktop 컴파일 + commonTest
+# Action 버전 근거: docs/decisions/0002-toolchain-versions.md
+
+name: client-ci
+
+on:
+  pull_request:
+    paths:
+      - "client/**"
+      - ".github/workflows/client-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "client/**"
+      - ".github/workflows/client-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: client-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  client-ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Skip — Gradle wrapper not generated yet (before A0)
+        if: hashFiles('client/gradlew') == ''
+        run: |
+          echo "::notice title=client-ci::client/gradlew 가 없어요. A0에서 래퍼를 생성하기 전이라 빌드를 건너뜁니다."
+
+      - name: Validate Gradle wrapper
+        if: hashFiles('client/gradlew') != ''
+        uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+
+      - name: Skip — build not enabled yet (before A1)
+        if: hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') == ''
+        run: |
+          echo "::notice title=client-ci::래퍼 있음, 빌드 건너뜀. A1 완료 때 client/.ci-enabled 를 추가하면 빌드·테스트가 켜집니다."
+
+      - name: Set up JDK 17 (Temurin)
+        if: hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') != ''
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        if: hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') != ''
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          # MIT 라이선스 캐시 제공자 (기본 enhanced는 비공개 레포에서 미리보기 단계) — ADR 0002
+          cache-provider: basic
+          # main에서만 캐시를 쓰고, PR은 읽기만 한다
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Build Android (debug)
+        if: hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') != ''
+        run: ./gradlew :androidApp:assembleDebug
+
+      - name: Compile Desktop
+        if: hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') != ''
+        run: ./gradlew :desktopApp:compileKotlin
+
+      - name: Test (commonTest on JVM)
+        if: hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') != ''
+        run: ./gradlew :shared:jvmTest
+
+      - name: Upload test reports
+        if: always() && hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: client-test-reports
+          path: |
+            client/shared/build/reports/tests/
+            client/shared/build/test-results/
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,0 +1,24 @@
+# 기본: 텍스트는 LF로 정규화
+* text=auto eol=lf
+
+# 셸 스크립트·Gradle 래퍼는 항상 LF (Windows 체크아웃에서도 CI가 깨지지 않게)
+*.sh        text eol=lf
+gradlew     text eol=lf
+
+# Windows 배치 파일은 CRLF
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+
+# 바이너리
+*.jar       binary
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.webp      binary
+*.gif       binary
+*.ico       binary
+*.ttf       binary
+*.otf       binary
+*.woff      binary
+*.woff2     binary
+*.pdf       binary

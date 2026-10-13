@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub 규약
+    url: https://github.com/yamada-studio/Tabiji/blob/main/docs/github.md
+    about: 브랜치·커밋·PR·라벨 규칙

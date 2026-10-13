@@ -1,0 +1,63 @@
+{
+  // client/scripts/linux/*.sh 를 VS Code 태스크로 등록 (Terminal → Run Task...).
+  // 모든 태스크는 client/ 에서 실행된다
+  "version": "2.0.0",
+  "options": {
+    "cwd": "${workspaceFolder}/client"
+  },
+  "tasks": [
+    {
+      "label": "client: check env",
+      "type": "shell",
+      "command": "scripts/linux/check-env.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "client: run desktop",
+      "type": "shell",
+      "command": "scripts/linux/run-desktop.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "client: run desktop (hot reload)",
+      "type": "shell",
+      "command": "scripts/linux/run-desktop.sh --hot",
+      "problemMatcher": []
+    },
+    {
+      "label": "client: run desktop (save log)",
+      "type": "shell",
+      "command": "scripts/linux/run-desktop.sh --log",
+      "problemMatcher": []
+    },
+    {
+      "label": "client: install android",
+      "type": "shell",
+      "command": "scripts/linux/install-android.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "client: build + test",
+      "type": "shell",
+      "command": "scripts/linux/build.sh",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "client: clean build + test",
+      "type": "shell",
+      "command": "scripts/linux/build.sh --clean",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "client: package desktop",
+      "type": "shell",
+      "command": "scripts/linux/package-desktop.sh",
+      "problemMatcher": []
+    }
+  ]
+}
