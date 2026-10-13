@@ -29,6 +29,7 @@ handoff-v1/
 │   ├── 01_tokens.md          # 토큰 표 + Kotlin 이름 매핑 + 변경 기록
 │   ├── 02_typography.md      # 폰트, 스케일, 라이선스
 │   ├── 03_components.md      # 컴포넌트별 치수·상태·여백 (dp)
+│   ├── 04_icons_favicon.md   # 플랫폼 아이콘·파비콘 — 旅 글리프 구성 (웹/Android/Desktop/iOS)
 │   ├── 10_intro.md           # 레이어, 파티클 수·속도·방향, 시퀀스, Canvas vs Lottie
 │   ├── 11_planner.md         # Desktop/Phone 레이아웃 치수, 바텀시트 높이 단계
 │   ├── 12_trips.md
@@ -38,7 +39,8 @@ handoff-v1/
 ├── tokens/tokens.json        # 라이트/다크 색(hex+alpha), 간격, 모서리, 타이포, 모션 — 기계가 읽는 원본
 ├── assets/
 │   ├── icons/ic_*.svg        # 오리지널 라인 아이콘 22종, 24dp, 선 1.75, currentColor
-│   ├── logo/                 # 워드마크 3안(아웃라인 SVG, 라이트/다크), A안 프레임 락업, 앱 아이콘 전경/배경/Desktop 512
+│   ├── logo/                 # 워드마크 3안(아웃라인 SVG, 라이트/다크), A안 프레임 락업, 구 앱 아이콘(경로+마커, 대안 보존)
+│   ├── logo/icon/            # 旅 글리프 플랫폼 아이콘 세트: favicon.svg(라이트/다크 자동)·png 16–512·adaptive 전경·터치/maskable·Desktop 할로 — 04_icons_favicon.md
 │   ├── intro/{spring,summer,autumn,winter}.webp # 계절별 일러스트 4장, 번들용 최적화본 (긴 변 2048 · q85 · 장당 ~400KB). 원본 PNG는 팀 보관 — 크롭 규칙은 10_intro.md
 │   ├── map/map_{light,dark}.svg         # 지도 플레이스홀더 (실제 타일 아님)
 │   └── fonts/                # PretendardJP ×4, Sora ×3, Outfit/Urbanist Bold(비교용) + OFL 라이선스 4종

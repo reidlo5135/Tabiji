@@ -32,6 +32,10 @@
 - `assets/icons/ic_*.svg` 22개를 `composeResources/drawable/` 에 넣고 `TabijiIcons` 객체로 노출. `tint = LocalContentColor`.
 - 완료 조건: 디버그 화면에 22개가 24dp 와 48dp 로 `images/screens/icons.png` 와 같은 배치로 보인다.
 
+### T5. 앱 아이콘·파비콘 (旅 글리프)
+- `assets/logo/icon/` 세트를 플랫폼별로 연결: Android adaptive(전경+배경+monochrome), Desktop `Window(icon=…)`, 웹 head/manifest 스니펫. 구성 전부: `docs/04_icons_favicon.md`.
+- 완료 조건: Android 런처(원형/스퀘클 마스크)와 13+ 테마 아이콘, Desktop 작업표시줄(라이트·다크), 브라우저 탭(라이트·다크)에서 旅 가 올바른 색으로 보인다.
+
 ## 2. 플래너 (P) — 메인 화면
 
 ### P1. 배경: 지도 자리
