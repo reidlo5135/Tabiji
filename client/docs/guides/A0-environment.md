@@ -244,14 +244,29 @@ unzip kotlin-lsp-*.zip -d ~/opt/kotlin-lsp
 chmod +x ~/opt/kotlin-lsp/kotlin-lsp.sh
 mkdir -p ~/.local/bin && ln -s ~/opt/kotlin-lsp/kotlin-lsp.sh ~/.local/bin/kotlin-lsp
 which kotlin-lsp
-
-# 2) Claude Code 안에서
-/plugin install kotlin-lsp@claude-plugins-official
-#    "Marketplace not found"가 나오면: /plugin marketplace add anthropics/claude-plugins-official 후 재시도
 ```
 
+2) 플러그인 설치 — **어디서 Claude Code를 쓰는지에 따라 다르다**
+
+| 환경 | 명령 |
+| --- | --- |
+| **VS Code 확장** (이 프로젝트 기본) | `/plugin` 슬래시 명령을 지원하지 않는다("/plugin isn't available in this environment"). **VS Code 터미널에서 CLI로** 설치한다 ↓ |
+| 터미널의 `claude` | 대화창에서 `/plugin install kotlin-lsp@claude-plugins-official` |
+
+```bash
+# VS Code 터미널에서 (사용자 범위 ~/.claude 에 설치된다)
+claude plugin marketplace list                              # claude-plugins-official 이 있는지 확인
+# 없으면: claude plugin marketplace add anthropics/claude-plugins-official
+claude plugin install kotlin-lsp@claude-plugins-official
+claude plugin list                                          # kotlin-lsp 가 보이면 OK
+```
+
+3) **Claude Code 세션을 새로 시작**해야 플러그인이 로드된다 (VS Code의 Claude 패널에서 새 대화)
+
+- `--scope project`로 설치하지 않는다. 레포의 `.claude/settings.json`에 들어가 팀원 전원에게 적용되는데, 각자 바이너리를 설치해야 하므로 맞지 않다
+- 동작 확인은 `.kt` 파일이 생기는 **A1부터** 가능하다 (지금은 진단할 Kotlin 파일이 없다)
 - 같은 Kotlin LSP라서 **KMP 한계도 같다** (`commonMain` 진단이 불완전할 수 있음). 마켓플레이스 설명도 "JVM 전용 Kotlin Gradle 프로젝트에 최적화"
-- 메모리를 많이 쓰면 `/plugin disable kotlin-lsp@claude-plugins-official`
+- 메모리를 많이 쓰면 `claude plugin disable kotlin-lsp@claude-plugins-official`
 - 없어도 학습 루프에는 지장이 없다. 진단 기준은 언제나 Gradle 빌드 출력이다
 
 ---
