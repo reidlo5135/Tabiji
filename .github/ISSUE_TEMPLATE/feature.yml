@@ -1,0 +1,41 @@
+name: Feature
+description: 새 기능 또는 개선 제안
+title: "[feat] "
+labels: ["type:feat"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역
+      options:
+        - client
+        - server
+        - ai
+        - api
+        - design
+        - ci
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 해결하려는 문제
+      description: 누가, 어떤 상황에서, 무엇이 불편한가요?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: 완료 조건
+      description: 눈으로 확인할 수 있는 기준으로 적어 주세요.
+  - type: input
+    id: roadmap
+    attributes:
+      label: 관련 로드맵 단계 (클라이언트)
+      placeholder: "예: C3"

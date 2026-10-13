@@ -1,0 +1,33 @@
+# PR 변경 경로에 따라 area:* 라벨을 자동으로 붙인다 (.github/labeler.yml).
+#
+# 트리거를 pull_request_target이 아니라 pull_request로 둔 이유 (docs/decisions/0002-toolchain-versions.md):
+# - 팀원은 모두 같은 레포의 브랜치에서 PR을 연다 → pull_request에서도 pull-requests: write 토큰을 받는다
+# - pull_request_target은 base 브랜치 권한·시크릿으로 실행돼 잘못 쓰면 "pwn request" 위험이 있다
+# - 포크 PR은 토큰이 읽기 전용이라 라벨을 못 붙이므로 job을 건너뛴다 (실패로 남기지 않음)
+
+name: labeler
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: labeler-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      # 체크아웃 없이 API로 .github/labeler.yml을 읽는다 (PR 코드를 실행하지 않음)
+      - uses: actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13 # v7.0.0
+        with:
+          sync-labels: false

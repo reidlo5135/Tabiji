@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android 앱 매니페스트. 패키지 이름은 build.gradle.kts의 namespace/applicationId가 정한다.
+  <activity>는 A2에서 사용자가 MainActivity와 함께 추가한다.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:label="Tabiji"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+
+</manifest>

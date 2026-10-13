@@ -1,0 +1,45 @@
+# ── 비밀값 (절대 커밋 금지) ─────────────────────────────
+local.properties
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pem
+google-services.json
+GoogleService-Info.plist
+
+# ── Gradle / Kotlin ────────────────────────────────────
+.gradle/
+build/
+.kotlin/
+
+# ── Android ────────────────────────────────────────────
+*.apk
+*.aab
+*.ap_
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ── IDE ────────────────────────────────────────────────
+.idea/
+*.iml
+*.ipr
+*.iws
+# VS Code: 팀 공용 설정 3개만 커밋하고 나머지(개인 설정)는 무시
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+.fleet/
+out/
+
+# ── OS ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*~
+
+# ── 로그 ───────────────────────────────────────────────
+*.log

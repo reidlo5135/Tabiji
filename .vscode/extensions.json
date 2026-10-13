@@ -1,0 +1,16 @@
+{
+  // 팀 권장 확장. VS Code가 레포를 열 때 설치를 제안한다.
+  // ID는 VS Code Marketplace에서 확인 (2026-10-13)
+  "recommendations": [
+    // Kotlin 언어 지원 (JetBrains 공식, Kotlin LSP 기반, Alpha). KMP 지원은 제한적
+    "JetBrains.kotlin-server",
+    // Gradle 프로젝트·태스크 탐색, *.gradle.kts 편집 지원
+    "vscjava.vscode-gradle",
+    // .editorconfig 규칙을 저장 시 적용 (줄 끝, 들여쓰기, 마지막 줄바꿈)
+    "EditorConfig.EditorConfig",
+    // .github/workflows 문법 검사, 실행 결과 보기
+    "GitHub.vscode-github-actions",
+    // YAML 스키마 검사 (dependabot.yml, 이슈 템플릿 등)
+    "redhat.vscode-yaml"
+  ]
+}

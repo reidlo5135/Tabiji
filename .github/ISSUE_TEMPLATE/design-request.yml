@@ -1,0 +1,43 @@
+name: Design request
+description: 새 화면·컴포넌트 디자인 요청
+title: "[design] "
+labels: ["area:design"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        요청서 본문은 [`design/requests/`](https://github.com/yamada-studio/Tabiji/tree/main/design/requests)에 `YYYY-MM-DD-<slug>.md`로 PR을 올리고, 이 이슈에 링크해 주세요.
+        운용 규칙은 [`design/README.md`](https://github.com/yamada-studio/Tabiji/blob/main/design/README.md)에 있습니다.
+  - type: input
+    id: screen
+    attributes:
+      label: 화면 / 컴포넌트 이름
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 목적과 들어갈 데이터
+    validations:
+      required: true
+  - type: checkboxes
+    id: states
+    attributes:
+      label: 필요한 상태
+      options:
+        - label: 기본
+        - label: 빈 상태
+        - label: 로딩
+        - label: 오류
+        - label: 넓은 화면 (Desktop·태블릿)
+        - label: 좁은 화면 (폰)
+  - type: input
+    id: request-file
+    attributes:
+      label: 요청서 경로
+      placeholder: "design/requests/2026-10-13-trip-list.md"
+  - type: input
+    id: due
+    attributes:
+      label: 필요한 시점
+      placeholder: "예: 클라이언트 A7 시작 전"

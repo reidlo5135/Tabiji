@@ -1,0 +1,29 @@
+# 변경 경로 → area:* 라벨 (actions/labeler v5+ 형식)
+# 라벨이 없으면 labeler가 PR에 붙이면서 자동 생성한다(기본 색). 색·설명은 docs/github.md 8-3 명령(--force)으로 맞춘다.
+
+"area:client":
+  - changed-files:
+      - any-glob-to-any-file: "client/**"
+
+"area:server":
+  - changed-files:
+      - any-glob-to-any-file: "server/**"
+
+"area:ai":
+  - changed-files:
+      - any-glob-to-any-file: "ai/**"
+
+"area:api":
+  - changed-files:
+      - any-glob-to-any-file: "api/**"
+
+"area:design":
+  - changed-files:
+      - any-glob-to-any-file: "design/**"
+
+"area:ci":
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**"
+          - ".github/dependabot.yml"
+          - ".github/labeler.yml"

@@ -1,0 +1,50 @@
+# Dependabot 버전 업데이트
+# 문서: https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference
+# 커밋 prefix가 ')'로 끝나면 Dependabot이 ':'를 붙인다 → "chore(client): bump ..."
+
+version: 2
+updates:
+  # 클라이언트 Gradle 의존성 (client/gradle/libs.versions.toml, 플러그인 포함)
+  - package-ecosystem: "gradle"
+    directory: "/client"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(client)"
+    labels:
+      - "area:client"
+      - "type:chore"
+    groups:
+      # Kotlin과 CMP는 서로 호환 버전이 묶여 있어 한 PR로 올린다
+      kotlin-compose:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.compose*"
+          - "org.jetbrains.androidx*"
+      # AGP + AndroidX
+      androidx:
+        patterns:
+          - "androidx.*"
+          - "com.android*"
+      # 나머지 전부
+      others:
+        patterns:
+          - "*"
+
+  # GitHub Actions (SHA 고정 + 버전 주석도 같이 갱신된다)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "area:ci"
+      - "type:chore"
