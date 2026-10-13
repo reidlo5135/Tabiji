@@ -1,0 +1,158 @@
+<!doctype html>
+<!-- Tabiji 旅路 v2 진실 소스 — 기본(cloud) 테마로 렌더됨.
+     테마 전환 = .v2 루트에 클래스 추가(spring/summer/autumn/winter/korea/china/japan).
+     구현 수치·색의 최종 기준은 tokens/tokens.json (보드와 미세 차이 시 tokens.json 우선). -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 디자인 기조 v2 · 테마 시스템</title>
+<style>@font-face{font-family:"Jua";font-weight:400;src:url(../assets/fonts/Jua-Regular.ttf) format("truetype")}</style>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:700;src:url(../assets/fonts/PretendardJP-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2F5E9E}a:hover{color:#3E8FC7}
+.h{font-family:'Jua','Pretendard',sans-serif}
+.card{background:#FFFFFF;border:2px solid #2A3644;border-radius:10px;box-shadow:3px 3px 0 rgba(42,54,68,.22)}
+.sw{width:26px;height:26px;border-radius:7px;border:2px solid rgba(42,54,68,.8);display:inline-block}
+.cap{font-size:11px;color:#5B6878}
+.lbl{font-size:12px;font-weight:600;color:#2A3644}
+.pill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;border:1.5px solid rgba(42,54,68,.75);font-size:12px;font-weight:600;background:#FFFFFF}
+</style>
+</head>
+<body>
+<div style="width: 1440px; height: 1500px; box-sizing: border-box; padding: 36px 44px; display: flex; flex-direction: column; gap: 20px; color: #2A3644; background: #F2F7FC; background-image: repeating-linear-gradient(45deg, transparent 0 16px, #E8F1F9 16px 32px)">
+
+  <div style="display: flex; align-items: baseline; gap: 14px">
+    <h1 class="h" style="margin: 0; font-size: 30px; font-weight: 400">Tabiji 디자인 기조 v2 — "도감 같은 여행 수첩"</h1>
+    <span class="cap">PokeSix의 무드(또렷한 잉크 테두리·플랫 컬러·패널별 색 헤더)를 Tabiji 문법으로 · 레이아웃/프레임 복제 없음 · 글래스 대신 종이+잉크</span>
+  </div>
+
+  <section class="card" style="padding: 16px 18px; display: flex; gap: 22px; align-items: flex-start">
+    <div style="width: 220px; display: flex; flex-direction: column; gap: 4px">
+      <span class="h" style="font-size: 17px">스타일 DNA</span>
+      <span class="cap" style="line-height: 16px">테두리 2dp 잉크 · 모서리 10 · 그림자 = 3dp 오프셋 솔리드(블러 없음) · 배경 = 종이색 + 45° 스트라이프 · 패널 헤더만 컬러, 본문 면은 흰 종이 · 강조색만으로 "살짝 알록달록" (헤더 색상 3~4개 로테이션) · chamfer·旅 아이콘·간격 4dp 그리드는 유지</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; width: 300px">
+      <div style="border: 2px solid #2A3644; border-radius: 10px; overflow: hidden; background: #FFFFFF; box-shadow: 3px 3px 0 rgba(42,54,68,.22)">
+        <div class="h" style="height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #4A8FC2; color: #FFFFFF; border-bottom: 2px solid #2A3644; font-size: 16px"><span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; color: #2A3644; display: flex; align-items: center; justify-content: center; font-size: 13px">2</span>시즈오카 센겐 신사</div>
+        <div style="padding: 10px 12px; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 13px; font-weight: 600">10:55 – 11:40 · 45분</span>
+          <span class="cap">아오이구 미야가사키초 102-1</span>
+          <div style="display: flex; gap: 6px; margin-top: 2px"><span class="pill" style="background: #EAF3FB; color: #2F5E9E">도보 14분</span><span class="pill" style="background: #FBF0D8; color: #8A6A14">추정</span></div>
+        </div>
+      </div>
+      <span class="cap">방문지 카드 v2 — 헤더 색은 일차 안에서 h1→h2→h3 로테이션</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <button type="button" class="h" style="width: 230px; height: 50px; border: 2px solid #2A3644; cursor: pointer; font-size: 17px; color: #FFFFFF; background: #3E8FC7; box-shadow: 0 3px 0 #2A3644; border-radius: 10px; clip-path: path('M12 0 H222 L230 8 V38 A12 12 0 0 1 218 50 H12 A12 12 0 0 1 0 38 V12 A12 12 0 0 1 12 0 Z')">AI 동선 최적화</button>
+      <button type="button" style="width: 230px; height: 44px; border: 2px solid #2A3644; border-radius: 10px; cursor: pointer; font-family: 'Pretendard'; font-size: 14px; font-weight: 700; color: #2A3644; background: #FFFFFF; box-shadow: 0 3px 0 rgba(42,54,68,.45)">내 여행</button>
+      <span class="cap">버튼 — 하드 섀도 3dp, 눌림 = 2dp 내려앉음 · chamfer 유지</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px; flex: 1">
+      <span class="lbl">폰트 (한글·라틴 디스플레이 / 본문·일어는 Pretendard JP 유지)</span>
+      <div style="display: flex; gap: 10px">
+        <div class="card" style="flex: 1; padding: 10px 12px; box-shadow: none">
+          <div style="font-family: 'Jua'; font-size: 22px">내 여행 · Day 2 시즈오카</div>
+          <div style="font-family: 'Jua'; font-size: 14px; color: #3E8FC7">시작하기 · 추천 A안 — Jua(주아)</div>
+          <span class="cap">둥글고 손글씨 느낌 · PokeSix 버튼 인상과 가장 근접 · OFL(Google Fonts)</span>
+        </div>
+        <div class="card" style="flex: 1; padding: 10px 12px; box-shadow: none">
+          <div style="font-family: 'Do Hyeon'; font-size: 22px">내 여행 · Day 2 시즈오카</div>
+          <div style="font-family: 'Do Hyeon'; font-size: 14px; color: #3E8FC7">시작하기 · B안 — Do Hyeon(도현)</div>
+          <span class="cap">각지고 응축 · 더 단단한 도감 인상 · OFL(Google Fonts)</span>
+        </div>
+      </div>
+      <span class="cap">둘 다 한자·가나 없음 → 일본 지명·旅路 가 섞이는 줄은 자동으로 Pretendard JP 폴백. 숫자·코드는 기존 Sora 유지</span>
+    </div>
+  </section>
+
+  <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; align-items: baseline; gap: 10px"><span class="h" style="font-size: 17px">테마 팔레트 8종</span><span class="cap">사용자가 설정에서 선택 · 기본 = 구름 · 열: 종이(배경) / 스트라이프 / 잉크(테두리·본문) / 강조 / 패널 헤더 로테이션 h1·h2·h3(·h4) / 보조글자</span></div>
+
+    <div style="display: grid; grid-template-columns: 150px repeat(4, 56px) 230px 120px 1fr; gap: 6px 10px; align-items: center; font-size: 12px">
+      <span class="lbl">테마</span><span class="cap">종이</span><span class="cap">스트라이프</span><span class="cap">잉크</span><span class="cap">강조</span><span class="cap">헤더 로테이션</span><span class="cap">보조글자</span><span class="cap">무드 키워드</span>
+
+      <span class="h" style="font-size: 15px">☁ 기본 · 구름</span>
+      <span class="sw" style="background:#F2F7FC"></span><span class="sw" style="background:#E8F1F9"></span><span class="sw" style="background:#2A3644"></span><span class="sw" style="background:#3E8FC7"></span>
+      <span><span class="sw" style="background:#4A8FC2"></span> <span class="sw" style="background:#5F74B8"></span> <span class="sw" style="background:#4A9A93"></span></span>
+      <span class="sw" style="background:#5B6878"></span>
+      <span class="cap">하늘하늘·뭉게구름 · 청색 계열만으로 알록달록 (하늘·청보라·청록)</span>
+
+      <span class="h" style="font-size: 15px">🌸 봄</span>
+      <span class="sw" style="background:#FCF3F5"></span><span class="sw" style="background:#F7E8EC"></span><span class="sw" style="background:#43313A"></span><span class="sw" style="background:#C95E7E"></span>
+      <span><span class="sw" style="background:#C95E7E"></span> <span class="sw" style="background:#7FA255"></span> <span class="sw" style="background:#9A77C2"></span></span>
+      <span class="sw" style="background:#6E5A63"></span>
+      <span class="cap">벚꽃 종이 · 분홍/새순 연두/라일락</span>
+
+      <span class="h" style="font-size: 15px">🌊 여름</span>
+      <span class="sw" style="background:#EFF9FB"></span><span class="sw" style="background:#E2F2F6"></span><span class="sw" style="background:#1E3B4C"></span><span class="sw" style="background:#1F96B8"></span>
+      <span><span class="sw" style="background:#1F96B8"></span> <span class="sw" style="background:#2C7FC9"></span> <span class="sw" style="background:#2E9E85"></span></span>
+      <span class="sw" style="background:#4E6B7A"></span>
+      <span class="cap">바다·시안 · 가장 청량</span>
+
+      <span class="h" style="font-size: 15px">🍁 가을</span>
+      <span class="sw" style="background:#FBF3E6"></span><span class="sw" style="background:#F4E8D3"></span><span class="sw" style="background:#46321F"></span><span class="sw" style="background:#C97A2E"></span>
+      <span><span class="sw" style="background:#C97A2E"></span> <span class="sw" style="background:#A8891F"></span> <span class="sw" style="background:#B35C3B"></span></span>
+      <span class="sw" style="background:#77614A"></span>
+      <span class="cap">단풍·호박 · 따뜻한 갈색 잉크</span>
+
+      <span class="h" style="font-size: 15px">⛄ 겨울</span>
+      <span class="sw" style="background:#F1F5FA"></span><span class="sw" style="background:#E6EDF6"></span><span class="sw" style="background:#2A3650"></span><span class="sw" style="background:#5674AE"></span>
+      <span><span class="sw" style="background:#5674AE"></span> <span class="sw" style="background:#7585C2"></span> <span class="sw" style="background:#7E6FB5"></span></span>
+      <span class="sw" style="background:#5B6880"></span>
+      <span class="cap">설원·은청 · 차분한 남보라</span>
+
+      <span class="h" style="font-size: 15px">🇰🇷 한국</span>
+      <span class="sw" style="background:#FAF4EA"></span><span class="sw" style="background:#F2E9DA"></span><span class="sw" style="background:#30261C"></span><span class="sw" style="background:#2F5E9E"></span>
+      <span><span class="sw" style="background:#2F5E9E"></span> <span class="sw" style="background:#BE4450"></span> <span class="sw" style="background:#2E7D5B"></span> <span class="sw" style="background:#C9992E"></span></span>
+      <span class="sw" style="background:#6B5D4A"></span>
+      <span class="cap">한지 + 단청(청·적·녹·황) · 강조는 쪽빛</span>
+
+      <span class="h" style="font-size: 15px">🇨🇳 중국</span>
+      <span class="sw" style="background:#FCF2EA"></span><span class="sw" style="background:#F6E6D8"></span><span class="sw" style="background:#3C241C"></span><span class="sw" style="background:#BE4435"></span>
+      <span><span class="sw" style="background:#BE4435"></span> <span class="sw" style="background:#C2922A"></span> <span class="sw" style="background:#357F63"></span></span>
+      <span class="sw" style="background:#7A5A48"></span>
+      <span class="cap">주홍·금·옥 · 등롱 느낌의 따뜻한 종이</span>
+
+      <span class="h" style="font-size: 15px">🇯🇵 일본</span>
+      <span class="sw" style="background:#F6F5F0"></span><span class="sw" style="background:#ECEAE2"></span><span class="sw" style="background:#2B2B30"></span><span class="sw" style="background:#2B4C7E"></span>
+      <span><span class="sw" style="background:#2B4C7E"></span> <span class="sw" style="background:#C25548"></span> <span class="sw" style="background:#6E7F49"></span></span>
+      <span class="sw" style="background:#5F5F66"></span>
+      <span class="cap">아이(藍)·주홍·말차 · 와시 종이의 무채 바탕</span>
+    </div>
+  </section>
+
+  <section class="card" style="padding: 14px 18px; display: flex; gap: 24px; align-items: center">
+    <span class="h" style="font-size: 16px; width: 170px">테마 미니 프리뷰</span>
+    <div style="display: flex; gap: 12px; flex: 1">
+      <div style="flex: 1; border: 2px solid #2A3644; border-radius: 10px; overflow: hidden; background: #F2F7FC"><div class="h" style="height: 26px; background: #4A8FC2; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #2A3644">구름</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #5F74B8"></span><span class="sw" style="width: 18px; height: 18px; background: #4A9A93"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #3E8FC7"></span></div></div>
+      <div style="flex: 1; border: 2px solid #43313A; border-radius: 10px; overflow: hidden; background: #FCF3F5"><div class="h" style="height: 26px; background: #C95E7E; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #43313A">봄</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #7FA255; border-color: #43313A"></span><span class="sw" style="width: 18px; height: 18px; background: #9A77C2; border-color: #43313A"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #C95E7E"></span></div></div>
+      <div style="flex: 1; border: 2px solid #1E3B4C; border-radius: 10px; overflow: hidden; background: #EFF9FB"><div class="h" style="height: 26px; background: #1F96B8; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #1E3B4C">여름</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #2C7FC9; border-color: #1E3B4C"></span><span class="sw" style="width: 18px; height: 18px; background: #2E9E85; border-color: #1E3B4C"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #1F96B8"></span></div></div>
+      <div style="flex: 1; border: 2px solid #46321F; border-radius: 10px; overflow: hidden; background: #FBF3E6"><div class="h" style="height: 26px; background: #C97A2E; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #46321F">가을</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #A8891F; border-color: #46321F"></span><span class="sw" style="width: 18px; height: 18px; background: #B35C3B; border-color: #46321F"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #C97A2E"></span></div></div>
+      <div style="flex: 1; border: 2px solid #2A3650; border-radius: 10px; overflow: hidden; background: #F1F5FA"><div class="h" style="height: 26px; background: #5674AE; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #2A3650">겨울</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #7585C2; border-color: #2A3650"></span><span class="sw" style="width: 18px; height: 18px; background: #7E6FB5; border-color: #2A3650"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #5674AE"></span></div></div>
+      <div style="flex: 1; border: 2px solid #30261C; border-radius: 10px; overflow: hidden; background: #FAF4EA"><div class="h" style="height: 26px; background: #2F5E9E; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #30261C">한국</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #BE4450; border-color: #30261C"></span><span class="sw" style="width: 18px; height: 18px; background: #2E7D5B; border-color: #30261C"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #C9992E"></span></div></div>
+      <div style="flex: 1; border: 2px solid #3C241C; border-radius: 10px; overflow: hidden; background: #FCF2EA"><div class="h" style="height: 26px; background: #BE4435; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #3C241C">중국</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #C2922A; border-color: #3C241C"></span><span class="sw" style="width: 18px; height: 18px; background: #357F63; border-color: #3C241C"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #BE4435"></span></div></div>
+      <div style="flex: 1; border: 2px solid #2B2B30; border-radius: 10px; overflow: hidden; background: #F6F5F0"><div class="h" style="height: 26px; background: #2B4C7E; color: #fff; display: flex; align-items: center; padding: 0 8px; font-size: 12px; border-bottom: 2px solid #2B2B30">일본</div><div style="height: 40px; display: flex; gap: 4px; align-items: center; padding: 0 8px"><span class="sw" style="width: 18px; height: 18px; background: #C25548; border-color: #2B2B30"></span><span class="sw" style="width: 18px; height: 18px; background: #6E7F49; border-color: #2B2B30"></span><span style="flex: 1; height: 8px; border-radius: 4px; background: #2B4C7E"></span></div></div>
+    </div>
+  </section>
+
+  <section class="card" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 6px">
+    <span class="h" style="font-size: 16px">적용 계획 · 결정할 것</span>
+    <span style="font-size: 13px; line-height: 19px">① 옆의 <strong>플래너 v2</strong> 보드에서 우하단 셀렉터로 8종을 직접 넘겨보며 확인 → ② 디스플레이 폰트 = Jua 확정(완료) → ③ 전 화면 v2 리스킨 + tokens.json 테마×역할 2차원 구조 전환(완료 — 이 패키지가 그 결과물). 인트로의 계절 일러스트·旅 아이콘·chamfer·간격 체계는 그대로 유지. 다크 테마는 테마별 다크 변형으로 2단계에서.</span>
+    <span class="cap">주의: 컬러 헤더 위 흰 글자는 디스플레이 폰트(18sp 상당 굵은 글씨) 기준 3:1 이상으로 조정했고, 본문 4.5:1 검증은 리스킨 확정 후 contrast_check 로 전 테마 일괄 수행</span>
+  </section>
+</div>
+
+<!-- ▼ 미리보기 전용 테마 셀렉터 — 구현 대상 아님. 앱에서는 설정 화면의 테마 선택이 이 역할을 한다. -->
+<select id="themePreview" aria-label="테마 미리보기"
+ style="position:fixed;right:10px;bottom:10px;z-index:9999;font:600 12px system-ui;padding:4px 6px;
+ border:2px solid #2A3644;border-radius:8px;background:#FFF;box-shadow:0 2px 0 rgba(42,54,68,.3)"
+ onchange="var r=document.querySelector('.v2');r.className='v2'+(this.value==='cloud'?'':' '+this.value)">
+<option value="cloud">cloud (기본)</option><option>spring</option><option>summer</option><option>autumn</option>
+<option>winter</option><option>korea</option><option>china</option><option>japan</option>
+</select>
+<!-- ▲ 미리보기 전용 끝 -->
+</body>
+</html>

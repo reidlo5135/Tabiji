@@ -1,0 +1,101 @@
+<!doctype html>
+<!-- Tabiji 旅路 v2 진실 소스 — 기본(cloud) 테마로 렌더됨.
+     테마 전환 = .v2 루트에 클래스 추가(spring/summer/autumn/winter/korea/china/japan).
+     구현 수치·색의 최종 기준은 tokens/tokens.json (보드와 미세 차이 시 tokens.json 우선). -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji AI 제안 시트 v2 · Desktop</title>
+<style>@font-face{font-family:"Jua";font-weight:400;src:url(../assets/fonts/Jua-Regular.ttf) format("truetype")}</style>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:700;src:url(../assets/fonts/PretendardJP-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2F5E9E}a:hover{color:#3E8FC7}
+.v2{--paper:#F2F7FC;--stripe:#E8F1F9;--ink:#2A3644;--card:#FFFFFF;--accent:#3E8FC7;--sub:#5B6878;--h1:#4A8FC2;--h2:#5F74B8;--h3:#4A9A93;--soft:#EAF3FB;--shadow:rgba(42,54,68,.22);--ok:#2E7D5B}
+.v2.spring{--paper:#FCF3F5;--stripe:#F7E8EC;--ink:#43313A;--card:#FFFFFF;--accent:#C95E7E;--sub:#6E5A63;--h1:#C95E7E;--h2:#7FA255;--h3:#9A77C2;--soft:#F9E9EE;--shadow:rgba(67,49,58,.22)}
+.v2.summer{--paper:#EFF9FB;--stripe:#E2F2F6;--ink:#1E3B4C;--card:#FFFFFF;--accent:#1F96B8;--sub:#4E6B7A;--h1:#1F96B8;--h2:#2C7FC9;--h3:#2E9E85;--soft:#E2F4F8;--shadow:rgba(30,59,76,.22)}
+.v2.autumn{--paper:#FBF3E6;--stripe:#F4E8D3;--ink:#46321F;--card:#FFFDF8;--accent:#C97A2E;--sub:#77614A;--h1:#C97A2E;--h2:#A8891F;--h3:#B35C3B;--soft:#F7EAD6;--shadow:rgba(70,50,31,.22)}
+.v2.winter{--paper:#F1F5FA;--stripe:#E6EDF6;--ink:#2A3650;--card:#FFFFFF;--accent:#5674AE;--sub:#5B6880;--h1:#5674AE;--h2:#7585C2;--h3:#7E6FB5;--soft:#E8EEF8;--shadow:rgba(42,54,80,.22)}
+.v2.korea{--paper:#FAF4EA;--stripe:#F2E9DA;--ink:#30261C;--card:#FFFCF5;--accent:#2F5E9E;--sub:#6B5D4A;--h1:#2F5E9E;--h2:#BE4450;--h3:#2E7D5B;--soft:#EDE4D2;--shadow:rgba(48,38,28,.22)}
+.v2.china{--paper:#FCF2EA;--stripe:#F6E6D8;--ink:#3C241C;--card:#FFFAF3;--accent:#BE4435;--sub:#7A5A48;--h1:#BE4435;--h2:#C2922A;--h3:#357F63;--soft:#F6E3D6;--shadow:rgba(60,36,28,.22)}
+.v2.japan{--paper:#F6F5F0;--stripe:#ECEAE2;--ink:#2B2B30;--card:#FFFEFA;--accent:#2B4C7E;--sub:#5F5F66;--h1:#2B4C7E;--h2:#C25548;--h3:#6E7F49;--soft:#E9E7DC;--shadow:rgba(43,43,48,.22)}
+.h{font-family:'Jua','Pretendard',sans-serif;font-weight:400}
+.row{display:flex;align-items:center;gap:10px;height:42px;padding:0 10px;border:2px solid var(--ink);border-radius:9px;background:var(--card)}
+.num{width:22px;height:22px;border-radius:6px;border:2px solid var(--ink);background:var(--soft);display:flex;align-items:center;justify-content:center;font-family:'Jua','Pretendard',sans-serif;font-size:12px;flex:0 0 auto}
+</style>
+</head>
+<body>
+<div class="v2" style="position: relative; width: 1440px; height: 900px; overflow: hidden; font-family: 'Pretendard', system-ui, sans-serif; color: var(--ink); background: var(--paper); background-image: repeating-linear-gradient(45deg, transparent 0 16px, var(--stripe) 16px 32px)">
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(0,0,0,.34)"></div>
+
+  <section role="dialog" aria-labelledby="ai2-title" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 780px; box-sizing: border-box; display: flex; flex-direction: column; border: 2px solid var(--ink); border-radius: 12px; background: var(--card); box-shadow: 5px 5px 0 rgba(0,0,0,.35); overflow: hidden">
+
+    <header class="h" style="height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: var(--accent); color: #FFFFFF; border-bottom: 2px solid var(--ink)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
+      <h2 id="ai2-title" style="margin: 0; font-size: 20px; font-weight: 400">AI 동선 제안 · Day 2</h2>
+      <span style="font-family: 'Pretendard'; font-size: 12px; font-weight: 600; opacity: .92">고정 시간 1건 유지 · 실제 이동시간 기준</span>
+      <span style="flex: 1"></span>
+      <span style="font-family: 'Pretendard'; background: #FFFFFF; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 3px 12px; display: inline-flex; align-items: baseline; gap: 6px"><span class="h" style="font-size: 18px">−24분</span><span style="font-size: 11px; font-weight: 700; color: var(--sub)">1시간 12분 → 48분</span></span>
+    </header>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: var(--soft)">
+      <div style="display: flex; flex-direction: column; gap: 7px; padding: 14px 16px 18px 18px; border-right: 2px solid var(--ink)">
+        <span class="h" style="font-size: 15px; color: var(--sub)">변경 전</span>
+        <div class="row"><span class="num">1</span><span style="font-size: 13px; font-weight: 600; flex: 1">슨푸성 공원</span><span style="font-size: 12px; color: var(--sub)">09:30</span></div>
+        <div class="row"><span class="num">2</span><span style="font-size: 13px; font-weight: 600; flex: 1">시즈오카 센겐 신사</span><span style="font-size: 12px; color: var(--sub)">10:55</span></div>
+        <div class="row" style="opacity: .55"><span class="num">3</span><span style="font-size: 13px; font-weight: 600; flex: 1; text-decoration: line-through">니혼다이라 전망대</span><span style="font-size: 12px; color: var(--sub)">12:05</span></div>
+        <div class="row" style="opacity: .55"><span class="num">4</span><span style="font-size: 13px; font-weight: 600; flex: 1; text-decoration: line-through">미호노마쓰바라</span><span style="font-size: 12px; color: var(--sub)">14:00 고정</span></div>
+        <div class="row"><span class="num">5</span><span style="font-size: 13px; font-weight: 600; flex: 1">숙소 · 시미즈 역 앞</span><span style="font-size: 12px; color: var(--sub)">16:30</span></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 7px; padding: 14px 18px 18px 16px">
+        <span class="h" style="font-size: 15px; color: var(--accent)">변경 후 · 2건</span>
+        <div class="row"><span class="num">1</span><span style="font-size: 13px; font-weight: 600; flex: 1">슨푸성 공원</span><span style="font-size: 12px; color: var(--sub)">09:30</span></div>
+
+        <div style="border: 2px solid var(--accent); border-radius: 9px; background: var(--card); box-shadow: 2px 2px 0 var(--shadow); padding: 8px 10px; display: flex; flex-direction: column; gap: 5px">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
+            <input type="checkbox" checked style="width: 17px; height: 17px; margin: 0; accent-color: #2A3644">
+            <span class="num" style="background: var(--accent); color: #FFFFFF">2</span>
+            <span style="font-size: 13px; font-weight: 600; flex: 1">시즈오카 센겐 신사</span>
+            <span style="font-size: 12px; color: var(--sub)"><s style="opacity: .6">10:55</s> <strong>10:45</strong></span>
+          </label>
+          <span style="display: flex; gap: 6px; font-size: 12px; color: var(--sub); padding-left: 27px; line-height: 16px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; margin-top: 1px"><path d="M20 6L9 17l-5-5"/></svg>출발을 10분 당기면 11:02 버스에 맞춰 환승 대기 6분이 사라져요</span>
+        </div>
+
+        <div style="border: 2px solid var(--accent); border-radius: 9px; background: var(--card); box-shadow: 2px 2px 0 var(--shadow); padding: 8px 10px; display: flex; flex-direction: column; gap: 5px">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
+            <input type="checkbox" checked style="width: 17px; height: 17px; margin: 0; accent-color: #2A3644">
+            <span class="num" style="background: var(--accent); color: #FFFFFF">3</span>
+            <span style="font-size: 13px; font-weight: 600; flex: 1">미호노마쓰바라 <span style="font-size: 11px; color: var(--sub)">(4 → 3)</span></span>
+            <span style="font-size: 12px; font-weight: 700">14:00 고정</span>
+          </label>
+          <span style="display: flex; gap: 6px; font-size: 12px; color: var(--sub); padding-left: 27px; line-height: 16px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; margin-top: 1px"><path d="M20 6L9 17l-5-5"/></svg>니혼다이라와 순서를 바꾸면 되돌아가는 9.2km 구간이 사라져요 (−18분)</span>
+        </div>
+
+        <div class="row"><span class="num">4</span><span style="font-size: 13px; font-weight: 600; flex: 1">니혼다이라 전망대 <span style="font-size: 11px; color: var(--sub)">(3 → 4)</span></span><span style="font-size: 12px; color: var(--sub)">15:20</span></div>
+        <div class="row"><span class="num">5</span><span style="font-size: 13px; font-weight: 600; flex: 1">숙소 · 시미즈 역 앞</span><span style="font-size: 12px; color: var(--sub)">16:06</span></div>
+      </div>
+    </div>
+
+    <footer style="display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-top: 2px solid var(--ink); background: var(--card)">
+      <span style="font-size: 12px; color: var(--sub); flex: 1">체크를 풀면 그 변경만 빼고 적용됩니다</span>
+      <button type="button" class="h" style="height: 44px; padding: 0 18px; border-radius: 9px; border: 2px solid var(--ink); background: transparent; color: var(--ink); font-size: 15px; cursor: pointer">거절</button>
+      <button type="button" class="h" style="height: 44px; padding: 0 18px; border-radius: 9px; border: 2px solid var(--ink); background: var(--soft); color: var(--ink); font-size: 15px; cursor: pointer; box-shadow: 0 3px 0 var(--shadow)">일부 수락</button>
+      <button type="button" class="h" style="width: 150px; height: 48px; border: 2px solid var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 17px; color: #FFFFFF; background: var(--accent); box-shadow: 0 3px 0 var(--ink); border-radius: 9px; clip-path: path('M12 0 H142 L150 8 V36 A12 12 0 0 1 138 48 H12 A12 12 0 0 1 0 36 V12 A12 12 0 0 1 12 0 Z')">수락</button>
+    </footer>
+  </section>
+</div>
+
+<!-- ▼ 미리보기 전용 테마 셀렉터 — 구현 대상 아님. 앱에서는 설정 화면의 테마 선택이 이 역할을 한다. -->
+<select id="themePreview" aria-label="테마 미리보기"
+ style="position:fixed;right:10px;bottom:10px;z-index:9999;font:600 12px system-ui;padding:4px 6px;
+ border:2px solid #2A3644;border-radius:8px;background:#FFF;box-shadow:0 2px 0 rgba(42,54,68,.3)"
+ onchange="var r=document.querySelector('.v2');r.className='v2'+(this.value==='cloud'?'':' '+this.value)">
+<option value="cloud">cloud (기본)</option><option>spring</option><option>summer</option><option>autumn</option>
+<option>winter</option><option>korea</option><option>china</option><option>japan</option>
+</select>
+<!-- ▲ 미리보기 전용 끝 -->
+</body>
+</html>

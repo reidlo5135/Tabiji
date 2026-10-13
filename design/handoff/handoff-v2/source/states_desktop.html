@@ -1,0 +1,111 @@
+<!doctype html>
+<!-- Tabiji 旅路 v2 진실 소스 — 기본(cloud) 테마로 렌더됨.
+     테마 전환 = .v2 루트에 클래스 추가(spring/summer/autumn/winter/korea/china/japan).
+     구현 수치·색의 최종 기준은 tokens/tokens.json (보드와 미세 차이 시 tokens.json 우선). -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 공통 상태 v2 · Desktop</title>
+<style>@font-face{font-family:"Jua";font-weight:400;src:url(../assets/fonts/Jua-Regular.ttf) format("truetype")}</style>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2F5E9E}a:hover{color:#3E8FC7}
+.v2{--paper:#F2F7FC;--stripe:#E8F1F9;--ink:#2A3644;--card:#FFFFFF;--accent:#3E8FC7;--sub:#5B6878;--h1:#4A8FC2;--h2:#5F74B8;--h3:#4A9A93;--soft:#EAF3FB;--shadow:rgba(42,54,68,.22);--est:#E3A23B;--err:#C0463C;--errsoft:#F7E3E0;--skel:#DEE6EE}
+.v2.spring{--paper:#FCF3F5;--stripe:#F7E8EC;--ink:#43313A;--card:#FFFFFF;--accent:#C95E7E;--sub:#6E5A63;--h1:#C95E7E;--h2:#7FA255;--h3:#9A77C2;--soft:#F9E9EE;--shadow:rgba(67,49,58,.22);--skel:#EEDDE2}
+.v2.summer{--paper:#EFF9FB;--stripe:#E2F2F6;--ink:#1E3B4C;--card:#FFFFFF;--accent:#1F96B8;--sub:#4E6B7A;--h1:#1F96B8;--h2:#2C7FC9;--h3:#2E9E85;--soft:#E2F4F8;--shadow:rgba(30,59,76,.22);--skel:#D8EBF1}
+.v2.autumn{--paper:#FBF3E6;--stripe:#F4E8D3;--ink:#46321F;--card:#FFFDF8;--accent:#C97A2E;--sub:#77614A;--h1:#C97A2E;--h2:#A8891F;--h3:#B35C3B;--soft:#F7EAD6;--shadow:rgba(70,50,31,.22);--skel:#ECDFC8}
+.v2.winter{--paper:#F1F5FA;--stripe:#E6EDF6;--ink:#2A3650;--card:#FFFFFF;--accent:#5674AE;--sub:#5B6880;--h1:#5674AE;--h2:#7585C2;--h3:#7E6FB5;--soft:#E8EEF8;--shadow:rgba(42,54,80,.22);--skel:#DCE4F0}
+.v2.korea{--paper:#FAF4EA;--stripe:#F2E9DA;--ink:#30261C;--card:#FFFCF5;--accent:#2F5E9E;--sub:#6B5D4A;--h1:#2F5E9E;--h2:#BE4450;--h3:#2E7D5B;--soft:#EDE4D2;--shadow:rgba(48,38,28,.22);--skel:#E8DFC F}
+.v2.korea{--paper:#FAF4EA;--stripe:#F2E9DA;--ink:#30261C;--card:#FFFCF5;--accent:#2F5E9E;--sub:#6B5D4A;--h1:#2F5E9E;--h2:#BE4450;--h3:#2E7D5B;--soft:#EDE4D2;--shadow:rgba(48,38,28,.22);--skel:#E8DFCF}
+.v2.china{--paper:#FCF2EA;--stripe:#F6E6D8;--ink:#3C241C;--card:#FFFAF3;--accent:#BE4435;--sub:#7A5A48;--h1:#BE4435;--h2:#C2922A;--h3:#357F63;--soft:#F6E3D6;--shadow:rgba(60,36,28,.22);--skel:#EFDFD2}
+.v2.japan{--paper:#F6F5F0;--stripe:#ECEAE2;--ink:#2B2B30;--card:#FFFEFA;--accent:#2B4C7E;--sub:#5F5F66;--h1:#2B4C7E;--h2:#C25548;--h3:#6E7F49;--soft:#E9E7DC;--shadow:rgba(43,43,48,.22);--skel:#E2E0D6}
+.h{font-family:'Jua','Pretendard',sans-serif;font-weight:400}
+.cell{border:2px solid var(--ink);border-radius:10px;background:var(--card);box-shadow:3px 3px 0 var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.cellhead{height:36px;display:flex;align-items:center;padding:0 12px;color:#FFFFFF;border-bottom:2px solid var(--ink);font-family:'Jua','Pretendard',sans-serif;font-size:15px}
+.sk{border-radius:6px;background:var(--skel)}
+</style>
+</head>
+<body>
+<div class="v2" style="width: 1440px; height: 900px; box-sizing: border-box; padding: 36px 44px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 22px; font-family: 'Pretendard', system-ui, sans-serif; color: var(--ink); background: var(--paper); background-image: repeating-linear-gradient(45deg, transparent 0 16px, var(--stripe) 16px 32px)">
+
+  <section class="cell" aria-labelledby="sv1">
+    <div id="sv1" class="cellhead" style="background: var(--h1)">로딩 · 스켈레톤 (구조 유지)</div>
+    <div style="flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px; background: var(--soft)">
+      <div style="border: 2px solid var(--ink); border-radius: 9px; background: var(--card); overflow: hidden">
+        <div style="height: 28px; background: var(--skel); border-bottom: 2px solid var(--ink)"></div>
+        <div style="padding: 9px 10px; display: flex; flex-direction: column; gap: 7px"><span class="sk" style="width: 45%; height: 12px"></span><span class="sk" style="width: 65%; height: 10px"></span></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 10px"><span style="width: 3px; height: 20px; background: var(--skel)"></span><span class="sk" style="width: 130px; height: 24px; border-radius: 999px; border: 2px solid var(--ink)"></span></div>
+      <div style="border: 2px solid var(--ink); border-radius: 9px; background: var(--card); overflow: hidden">
+        <div style="height: 28px; background: var(--skel); border-bottom: 2px solid var(--ink)"></div>
+        <div style="padding: 9px 10px; display: flex; flex-direction: column; gap: 7px"><span class="sk" style="width: 55%; height: 12px"></span><span class="sk" style="width: 38%; height: 10px"></span></div>
+      </div>
+      <span style="font-size: 11px; color: var(--sub)">시머: skel → card 가로 그라데이션 1.2s 반복 · 동작 줄이기 시 정지</span>
+    </div>
+  </section>
+
+  <section class="cell" aria-labelledby="sv2">
+    <div id="sv2" class="cellhead" style="background: var(--err)">오류 배너 · 콘텐츠 유지</div>
+    <div style="flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px; background: var(--soft)">
+      <div role="alert" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 2px solid var(--err); border-radius: 9px; background: var(--errsoft); box-shadow: 2px 2px 0 var(--shadow)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--err)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v5M12 16h.01"/></svg>
+        <span style="font-size: 13px; font-weight: 600; flex: 1">이동시간을 불러오지 못했어요. 마지막 계산값을 표시합니다.</span>
+        <button type="button" class="h" style="height: 32px; padding: 0 12px; border-radius: 8px; border: 2px solid var(--ink); background: var(--card); color: var(--ink); font-size: 13px; cursor: pointer; box-shadow: 0 2px 0 var(--shadow)">다시 시도</button>
+        <button type="button" aria-label="닫기" style="width: 30px; height: 30px; border-radius: 8px; border: 2px solid var(--ink); background: var(--card); color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div style="border: 2px solid var(--ink); border-radius: 9px; background: var(--card); overflow: hidden">
+        <div class="h" style="height: 30px; display: flex; align-items: center; gap: 7px; padding: 0 10px; background: var(--h1); color: #FFFFFF; border-bottom: 2px solid var(--ink); font-size: 13px">1 · 슨푸성 공원</div>
+        <div style="padding: 8px 10px"><span style="font-size: 12px; font-weight: 600">09:30 – 10:40 · 1시간 10분</span></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 10px"><span style="width: 3px; height: 20px; background: var(--h2)"></span><span style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; border: 2px dashed var(--ink); background: var(--card); font-size: 12px; font-weight: 600; color: var(--sub)">도보 14분 · 재계산 필요</span></div>
+    </div>
+  </section>
+
+  <section class="cell" aria-labelledby="sv3">
+    <div id="sv3" class="cellhead" style="background: var(--h2)">오프라인 · 추정 모드 강등</div>
+    <div style="position: relative; flex: 1; overflow: hidden">
+      <img src="../assets/map/map_light.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.55)">
+      <div role="status" class="h" style="position: absolute; left: 50%; top: 12px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; border: 2px solid var(--ink); background: var(--card); box-shadow: 0 3px 0 var(--shadow); font-size: 14px; color: var(--ink); white-space: nowrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--sub)"><path d="M3 3l18 18"/><path d="M8.5 19H17a4 4 0 0 0 .9-7.9A6 6 0 0 0 7.6 8.6"/><path d="M5.3 9.6A4.5 4.5 0 0 0 7.5 19h1"/></svg>오프라인 · 저장된 일정 표시 중
+      </div>
+      <div style="position: absolute; left: 12px; bottom: 12px; display: flex; gap: 8px">
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; border: 2px solid var(--ink); background: var(--card); font-size: 12px; font-weight: 600">도보 14분<span style="background: var(--est); border: 1.5px solid var(--ink); border-radius: 999px; padding: 1px 7px; font-size: 10px; color: #2A1D08">추정</span></span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; border: 2px solid var(--ink); background: var(--card); font-size: 12px; font-weight: 600">대중교통 23분<span style="background: var(--est); border: 1.5px solid var(--ink); border-radius: 999px; padding: 1px 7px; font-size: 10px; color: #2A1D08">추정</span></span>
+      </div>
+      <button type="button" disabled class="h" style="position: absolute; right: 12px; bottom: 12px; height: 40px; padding: 0 14px; border: 2px solid var(--ink); border-radius: 9px; background: var(--skel); color: var(--sub); font-size: 14px">AI 최적화 · 온라인 필요</button>
+    </div>
+  </section>
+
+  <section class="cell" aria-labelledby="sv4">
+    <div id="sv4" class="cellhead" style="background: var(--h3)">빈 상태</div>
+    <div style="flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 12px; background: var(--soft)">
+      <div style="border: 2px solid var(--ink); border-radius: 9px; background: var(--card); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 14px; text-align: center">
+        <svg width="52" height="52" viewBox="0 0 44 54" aria-hidden="true"><path d="M22 2 C11 2 2 11 2 22 C2 36 22 52 22 52 C22 52 42 36 42 22 C42 11 33 2 22 2 Z" fill="var(--soft)" stroke="var(--ink)" stroke-width="2.5"/><circle cx="22" cy="22" r="13" fill="#FFFFFF" stroke="var(--ink)" stroke-width="2"/><path d="M22 16v12M16 22h12" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <span class="h" style="font-size: 16px">아직 여행이 없어요</span>
+        <span style="font-size: 12px; color: var(--sub); line-height: 16px">지역과 날짜만 정하면<br>바로 일정을 만들 수 있어요</span>
+        <button type="button" class="h" style="height: 40px; padding: 0 16px; border: 2px solid var(--ink); border-radius: 9px; background: var(--accent); color: #FFFFFF; font-size: 14px; cursor: pointer; box-shadow: 0 3px 0 var(--ink)">첫 여행 만들기</button>
+      </div>
+      <div style="border: 2px solid var(--ink); border-radius: 9px; background: var(--card); display: flex; flex-direction: column; overflow: hidden">
+        <div class="h" style="height: 30px; display: flex; align-items: center; gap: 7px; padding: 0 10px; background: var(--h1); color: #FFFFFF; border-bottom: 2px solid var(--ink); font-size: 13px">Day 3 · 9월 21일 (일)</div>
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 12px; text-align: center">
+          <span class="h" style="font-size: 14px">이 날은 아직 비어 있어요</span>
+          <span style="font-size: 11px; color: var(--sub); line-height: 15px">지도에서 장소를 검색해 추가하거나<br>다른 날의 장소를 끌어오세요</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ▼ 미리보기 전용 테마 셀렉터 — 구현 대상 아님. 앱에서는 설정 화면의 테마 선택이 이 역할을 한다. -->
+<select id="themePreview" aria-label="테마 미리보기"
+ style="position:fixed;right:10px;bottom:10px;z-index:9999;font:600 12px system-ui;padding:4px 6px;
+ border:2px solid #2A3644;border-radius:8px;background:#FFF;box-shadow:0 2px 0 rgba(42,54,68,.3)"
+ onchange="var r=document.querySelector('.v2');r.className='v2'+(this.value==='cloud'?'':' '+this.value)">
+<option value="cloud">cloud (기본)</option><option>spring</option><option>summer</option><option>autumn</option>
+<option>winter</option><option>korea</option><option>china</option><option>japan</option>
+</select>
+<!-- ▲ 미리보기 전용 끝 -->
+</body>
+</html>
