@@ -1,5 +1,5 @@
 # 변경 경로 → area:* 라벨 (actions/labeler v5+ 형식)
-# 라벨은 미리 만들어 둬야 한다 (docs/github.md "라벨 생성"). 워크플로에 issues: write를 주지 않기 위해서다.
+# 라벨이 없으면 labeler가 PR에 붙이면서 자동 생성한다(기본 색). 색·설명은 docs/github.md 8-3 명령(--force)으로 맞춘다.
 
 "area:client":
   - changed-files:

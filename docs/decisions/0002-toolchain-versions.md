@@ -114,7 +114,7 @@ Kotlin Multiplatform **공식 권장 구조**를 따른다. "앱 진입점마다
 - `pull_request_target`은 base 브랜치 권한·시크릿으로 실행되어, 잘못 쓰면 PR 작성자가 쓰기 권한·시크릿을 얻는 "pwn request" 위험이 있다 ([labeler README](https://github.com/actions/labeler/blob/v7.0.0/README.md#notes-regarding-pull_request_target-event))
 - 우리 팀은 모두 **같은 레포의 브랜치**로 PR을 연다 → `pull_request`에서도 job 단위 `pull-requests: write`가 동작한다
 - 포크 PR은 토큰이 읽기 전용이라 라벨을 못 붙이므로 job 조건으로 건너뛴다 (실패로 남기지 않음)
-- 라벨은 미리 만들어 두고(`docs/github.md` 8-3) `issues: write`는 주지 않는다
+- `issues: write`는 주지 않는다. 없는 라벨은 PR에 붙일 때 자동 생성된다(2026-10-13 PR #1에서 확인, 기본 색). 색·설명은 `docs/github.md` 8-3 명령으로 맞춘다
 - 덤: `pull_request`라서 이 부트스트랩 PR에서 labeler 자체를 바로 검증할 수 있다
 
 ## 5. 에디터 (VS Code 확장 ID)
