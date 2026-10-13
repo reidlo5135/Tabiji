@@ -11,19 +11,21 @@
 | --- | --- | --- | --- |
 | `check-env.sh` | ✅ 모두 OK | 2026-10-13 | JDK 21 · SDK `~/Android/Sdk` · adb · gh 2.102 |
 | `./gradlew --version` | ✅ 9.7.1 | 2026-10-13 | 래퍼 커밋 완료 (PR #1) |
-| 에뮬레이터 | ⬜ AVD만 생성 | — | `tabiji-api37`(API 37) 생성됨, 부팅·`adb devices`는 A2 가이드 0번에서 확인 |
+| 에뮬레이터 | ⬜ 부팅 시도 | 2026-10-14 | `default_boot` 스냅샷 로드 실패 → 콜드 부트로 넘어감(정상 동작). `adb devices` 미확인. Phase M까지 보류 |
 | Desktop 실행 | ✅ 하늘색 창 + Hot Reload | 2026-10-14 | 사용자 보고("A1 마저 완성"). 출력 로그는 받지 않음 |
-| Android 설치 | ⬜ A2 진행 중 | — | `<activity>` 없음 (정상) |
+| Android 설치 | ⬜ Phase M | — | `<activity>` 없음 (정상). 데스크톱 우선 결정 |
 | `client-ci` | ✅ 초록 (3m) | 2026-10-14 | PR #6: `.ci-enabled` 후 **첫 실제 빌드·테스트** 통과 |
 | `client-release` | ⬜ 미실행 | — | A9에서 첫 실행 |
+| IntelliJ Gradle 동기화 | ❌ 실패 | 2026-10-14 | "incompatible AGP 9.3.3, latest supported 9.1.0" — IntelliJ 2026.2.3 번들 Android 플러그인 한계. 명령줄 빌드는 무관 |
 
 ## 진행 중
 
-- **A2 — Android 진입점 + 旅 런처 아이콘** ([guides/A2-android-entry.md](guides/A2-android-entry.md), 브랜치 `client/feat-a2-android-entry`, A1 브랜치 위에 쌓음, PR 아직 없음)
-  - 가이드 작성 완료. **다음 행동: 에뮬레이터 부팅 → `MainActivity.kt`·매니페스트·런처 아이콘 XML 3개 손코딩 → `install-android.sh` 결과·스크린샷 붙여넣기 → 진단 → 통과 시 Claude가 커밋·push·PR**
-  - PR은 #6 머지 후 `main` 기준으로 rebase해서 연다 (스택 PR 피하기)
-- **A1 — 인트로 바탕 창** (PR #6): 사용자 완료 보고 → 완료 커밋 `9a6e550`(+`.ci-enabled`) push. `client-ci` 초록 확인. **남은 것: 사용자 squash merge**
-- **디자인 핸드오프 v2** (PR #7, `design/feat-handoff-v2`, base `design/feat-handoff-v1`): 무드 전면 교체(글래스 → 도감, 테마 8종). 로드맵을 v2 기준으로 고쳐 씀 (A2 브랜치)
+- **A3 — 인트로 사분면 + 잉크 경계** ([guides/A3-intro-quadrants.md](guides/A3-intro-quadrants.md), 브랜치 `client/feat-a3-intro-quadrants`, A1 브랜치 위에 쌓음, PR 아직 없음)
+  - 가이드 작성 완료. **다음 행동: 사용자가 `feature/intro/IntroScreen.kt` 작성 + `App.kt` 정리 → `run-desktop.sh --hot` 스크린샷 + Modifier 순서 실험 → 진단 → 통과 시 Claude가 커밋·push·PR (#6 머지 후 `main` 기준으로 rebase해서 열기)**
+- **데스크톱 우선 전환 (2026-10-14 사용자 결정)**: IntelliJ 동기화 실패(AGP 9.3.3 미지원)를 계기로 Android·iOS를 Phase M으로 미룸. A2 → M1(가이드는 `guides/M1-android-entry.md`로 보존), F2 → M3. 시점은 사용자가 정함(기본 제안: Phase B 이후)
+  - `client/feat-a2-android-entry` 원격 브랜치는 A3 브랜치에 커밋이 전부 포함돼 쓸모없음 → 삭제 여부 사용자 확인 대기
+- **A1** (PR #6): 완료, CI 초록. **사용자 squash merge 대기**
+- **디자인 핸드오프 v2** (PR #7): #5 다음에 머지
 
 ### PR 현황 (2026-10-14 기준 · 최신은 `gh pr list`)
 
@@ -55,7 +57,7 @@
 - [ ] handoff PROMPT "열린 질문" 중 개발 몫: 폰트 서브셋(v1 §9-1 — v2는 PretendardJP 4벌 22MB + Jua 2.8MB라 더 시급, A6에서), MapLibre Desktop 경로(v1 §9-3, C1에서) — 해당 단계에서 ADR로 답. v1 §9-2 Desktop 블러는 v2에서 블러 자체가 없어져 해소
 - [ ] handoff-v2 PROMPT §8 팀 결정: 테마별 다크 변형 방식, v2 컴포넌트 보드 추가 제작 여부, **테마 선택 UI 디자인(B6 전에 디자인 요청 필요)**, 인트로와 테마 결합 여부
 - [ ] Android API 24·25용 런처 아이콘 폴백 PNG (adaptive icon은 26+). A9 패키징 전 점검
-- [ ] `client/CLAUDE.md` "에디터 환경 (VS Code)" 절을 IntelliJ 기준으로 갱신 — 별도 PR
+- [ ] **에디터 결정**: IntelliJ 2026.2.3은 AGP 9.3.3 동기화 실패 → 코드 인사이트 없음. 선택지: Android Studio로 이사(추천) / IntelliJ Android 플러그인 갱신 대기 / 명령줄만으로 진행. 결정 후 `client/CLAUDE.md` "에디터 환경" 절을 갱신 — 별도 PR
 
 ## 환경 메모
 
@@ -68,6 +70,14 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 (오전) — 데스크톱 우선 전환, A3 시작
+
+- A2 진행 중 에뮬레이터 첫 부팅: adb 데몬 미기동 경고 + `default_boot` 스냅샷 로드 실패 → 둘 다 무해(콜드 부트로 진행)라고 설명
+- 사용자가 `MainActivity.kt`를 `shared/androidMain`에 만듦 → 진입점은 `androidApp/src/main/kotlin`이라고 안내
+- IntelliJ "Configure Kotlin" 마법사가 루트 `build.gradle.kts`에 `kotlin("jvm")`·`jvmToolchain(8)`을 추가 → 되돌림(`git restore`). 마법사는 쓰지 말 것
+- IntelliJ 동기화 실패: AGP 9.3.3 > 지원 상한 9.1.0. 사용자 결정: **데스크톱 우선**으로 로드맵 재구성 (Phase M 신설). 사용자가 "CMP가 Flutter처럼 같은 소스로 빌드만 달리하는 줄 알았다"고 해서, 실제로 그 모델이 맞고 문제는 IDE 도구 버전이라고 설명
+- A3 가이드 작성, 브랜치 `client/feat-a3-intro-quadrants`
 
 ### 2026-10-14 — A1 완료, 디자인 핸드오프 v2, A2 시작
 

@@ -1,6 +1,10 @@
-# A2 — Android 진입점: 같은 `App()`을 에뮬레이터에, 旅 런처 아이콘
+# M1 — Android 진입점: 같은 `App()`을 에뮬레이터에, 旅 런처 아이콘
 
-> 브랜치: `client/feat-a2-android-entry` (Claude가 만들어 둠, A1 브랜치 위에 쌓음) · 커밋 footer `Refs: A2`
+> **보류 중인 가이드.** 2026-10-14에 A2로 썼다가 데스크톱 우선 결정으로 Phase M으로 옮겼다. M1을 시작할 때 아래를 다시 확인한다.
+> - IDE: IntelliJ IDEA 2026.2.3의 Android 플러그인은 AGP 9.1.0까지만 지원해 Gradle 동기화가 실패했다 (프로젝트는 AGP 9.3.3). Android Studio로 옮기거나, 그 사이 IntelliJ 플러그인이 갱신됐는지 본다
+> - 그때의 `App()`은 하늘색 화면이 아니라 인트로·플래너다. "같은 화면" 완료 조건은 그 시점 화면으로 읽는다
+>
+> 브랜치: 시작할 때 `client/feat-m1-android-entry`로 만든다 · 커밋 footer `Refs: M1`
 > 시각 기준: `design/handoff/handoff-v2/` (PR #7). 이번 단계에서 쓰는 것은 `docs/04_icons_favicon.md`와 `assets/logo/icon/`뿐이고, 둘 다 v1과 같다.
 
 ## 목표
@@ -13,7 +17,7 @@ A1에서 Desktop에 띄운 **바로 그 `App()`** 을 Android 에뮬레이터에
 
 이번 단계에서 화면 코드는 한 줄도 바꾸지 않는다. **"공용 라이브러리 + 플랫폼별 실행 파일"** 구조가 실제로 어떻게 동작하는지 눈으로 확인하는 단계다.
 
-> 로드맵 변경: v1 로드맵에서 A2에 있던 **Desktop 창 아이콘**(`Window(icon = …)`)은 A6으로 옮겼다. Compose Resources를 배우는 단계에서 같이 하는 편이 자연스럽다.
+> 로드맵 변경: v1 로드맵에서 A2(현 M1)에 있던 **Desktop 창 아이콘**(`Window(icon = …)`)은 A6으로 옮겼다. Compose Resources를 배우는 단계에서 같이 하는 편이 자연스럽다.
 
 ## 먼저 읽을 것 (30분)
 
@@ -138,7 +142,7 @@ import com.yamada.studio.tabiji.app.App
 ```
 
 - `android:exported`는 "다른 앱(런처 포함)이 이 Activity를 열 수 있나"다. 런처가 열어야 하니 답은 정해져 있다. `intent-filter`가 있는 Activity는 이 속성을 **반드시 명시**해야 한다(API 31+). 빠뜨리면 빌드가 실패한다.
-- 파일 위쪽 주석("A2에서 사용자가 추가한다")은 현재 상태에 맞게 고쳐 둔다.
+- 파일 위쪽 주석("A2에서 사용자가 추가한다" — 지금은 M1)은 현재 상태에 맞게 고쳐 둔다.
 
 ### 3. 런처 아이콘 — SVG를 VectorDrawable로 손 변환
 
@@ -230,4 +234,4 @@ adb logcat -s AndroidRuntime:E
 4. 에뮬레이터 스크린샷: 앱 서랍(아이콘), 앱 화면, 테마 아이콘
 5. `build.sh` 마지막 10줄
 
-→ 진단을 통과하면 Claude가 커밋(`feat(client): add android entry point and launcher icon`, `Refs: A2`)과 push를 하고 PR을 연다. CI를 확인한 뒤 사용자가 squash merge한다. 그다음 A3(인트로 사분면 + 잉크 경계)로 간다.
+→ 진단을 통과하면 Claude가 커밋(`feat(client): add android entry point and launcher icon`, `Refs: M1`)과 push를 하고 PR을 연다. CI를 확인한 뒤 사용자가 squash merge한다. 그다음 M2(Android 화면 점검)로 간다.
