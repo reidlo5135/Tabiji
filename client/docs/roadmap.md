@@ -15,7 +15,8 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 
 | 핸드오프 단계 | 로드맵 위치 |
 | --- | --- |
-| T 토큰·폰트·도형 | A5 (T1 테마) · A6 (T2 폰트) · A7 (T3 도형 일부) · B1 (T4 아이콘) |
+| T 토큰·폰트·도형 | A5 (T1 테마) · A6 (T2 폰트) · A7 (T3 도형 일부) · B1 (T4 UI 아이콘) |
+| T5 앱 아이콘·파비콘 (04_icons_favicon) | A2 (Android adaptive + Desktop 창 아이콘) · A9 (설치 패키지 아이콘) · F3 (favicon·manifest) |
 | I 인트로 | **A3~A8 (정적 화면)** · E1~E3 (파티클·시퀀스·패럴랙스) |
 | P 플래너 | B1~B2 (골격·컴포넌트·상태) · B8 (드래그) · C (지도) |
 | L 여행 목록 | B3 (내비게이션과 함께) |
@@ -33,7 +34,7 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 | --- | --- | --- | --- | --- |
 | A0 | ✅ 완료 (PR #1) | Gradle 래퍼, KMP 모듈·소스셋 구조, JDK·Android SDK, VS Code, `gh` 인증 | 개발 환경, Gradle 래퍼, GitHub 원격 설정 | `check-env.sh` 모두 OK · `./gradlew --version` 9.7.1 · 부트스트랩 PR의 `client-ci` 초록 · 머지 완료 |
 | A1 | ▶ 진행 중 | `main()`, `application {}`, `Window`, `@Composable`, `Modifier`, Compose Hot Reload, 모듈 의존(`project(":shared")`) | `shared`에 `App()` — 하늘색 배경 + 중앙 "Tabiji" 글자. `desktopApp`에 `main.kt`. `client/.ci-enabled` 추가 | `run-desktop.sh`로 제목 "Tabiji" 창 + 하늘색 화면 · `--hot`으로 문구를 고쳐 저장하면 **재시작 없이** 바뀜 · PR에서 `client-ci`가 실제 빌드·테스트까지 초록 |
-| A2 | | `ComponentActivity`, `setContent`, 매니페스트(`<activity>`, 런처 intent-filter) | `androidApp`에 `MainActivity` + 매니페스트 `<activity>`. `shared`의 `App()` 공유 | `install-android.sh`로 에뮬레이터(tabiji-api37)에 설치, Desktop과 같은 화면 · `App()` 문구를 바꾸면 두 플랫폼 모두 바뀜 |
+| A2 | | `ComponentActivity`, `setContent`, 매니페스트(`<activity>`, 런처 intent-filter), adaptive icon 리소스 | `androidApp`에 `MainActivity` + 매니페스트 `<activity>` + 旅 글리프 런처 아이콘(전경·배경·monochrome), Desktop `Window(icon = …)` | `install-android.sh`로 에뮬레이터(tabiji-api37)에 설치, Desktop과 같은 화면 · `App()` 문구를 바꾸면 두 플랫폼 모두 바뀜 · 런처(원형 마스크)와 13+ 테마 아이콘·Desktop 작업표시줄에 旅가 보임 |
 | A3 | | `Row`/`Column`/`Box`, `weight`, `Modifier` 체인 순서 | 인트로 배경 골격 — 2×2 사분면(봄·여름·가을·겨울 임시 단색, 하드 엣지) | 창 크기를 바꿔도 정확히 4등분 유지 · padding↔background 순서를 바꾼 차이를 스크린샷으로 비교 |
 | A4 | | `remember`, `mutableStateOf`, state hoisting, 클릭·호버 입력 | 사분면 선택 — 누른(올린) 사분면만 밝아지는 오버레이 | 클릭·호버한 사분면만 강조 · 선택 상태가 부모 Composable에 있고 사분면 Composable은 상태 없음(코드 리뷰) |
 | A5 | | `MaterialTheme` 커스텀, `CompositionLocal` | `TabijiTheme` — `tokens.json`의 색·간격·모서리 토큰(라이트/다크 + 디버그 토글), 임시 리터럴 제거 (핸드오프 T1) | 디버그 스와치 화면에 색 토큰 32종이 이름과 함께, 토글 시 전부 전환 · 화면 코드에 색 리터럴 0개(grep) |
