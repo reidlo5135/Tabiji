@@ -9,17 +9,19 @@
 
 | 항목 | 상태 | 확인 날짜 | 메모 |
 | --- | --- | --- | --- |
-| `check-env.sh` | ⬜ 미확인 | — | 2026-10-13 정적 확인: JDK 21 있음, Android SDK·`adb`·`gh` 없음 |
-| `./gradlew --version` | ⬜ 래퍼 없음 | — | A0에서 생성 |
-| Desktop 실행 | ⬜ A1 전 | — | `main.kt` 없음 (정상) |
+| `check-env.sh` | ✅ 모두 OK | 2026-10-13 | JDK 21 · SDK `~/Android/Sdk` · adb · gh 2.102 |
+| `./gradlew --version` | ✅ 9.7.1 | 2026-10-13 | 래퍼 커밋 완료 (PR #1) |
+| 에뮬레이터 | ⬜ AVD만 생성 | — | `tabiji-api37`(API 37) 생성됨, 부팅·`adb devices`는 미확인 — A2 전까지 |
+| Desktop 실행 | ⬜ A1 진행 중 | — | 사용자가 `App()`·`main.kt` 작성 중 |
 | Android 설치 | ⬜ A2 전 | — | `<activity>` 없음 (정상) |
-| `client-ci` | ⬜ 미실행 | — | 부트스트랩 PR에서 첫 실행 |
+| `client-ci` | ✅ 초록 | 2026-10-13 | PR #1: 래퍼 검증 통과·빌드 건너뜀. 실제 빌드는 A1의 `.ci-enabled` 후 |
 | `client-release` | ⬜ 미실행 | — | A9에서 첫 실행 |
 
 ## 진행 중
 
-- **A0 — 개발 환경과 첫 PR** ([guides/A0-environment.md](guides/A0-environment.md))
-  - 부트스트랩 커밋 완료(브랜치 `repo/chore-bootstrap-monorepo`). push·PR은 이 PC의 GitHub 인증이 없어 사용자가 진행
+- **A1 — 인트로 바탕 창** ([guides/A1-intro-window.md](guides/A1-intro-window.md), 브랜치 `client/feat-a1-intro-window`)
+  - 가이드 작성 완료. 사용자 구현 대기 (`App.kt`, `main.kt`, `.ci-enabled`)
+  - 디자인 핸드오프 v1 수령 → `design/handoff/handoff-v1/` (PR #5). 로드맵을 인트로 우선으로 재구성
 
 ## 열린 일
 
@@ -28,7 +30,10 @@
 - [ ] ruleset 결정: 코드 오너 리뷰 필수 + 관리자 PR 우회 vs 코드 오너 리뷰 미강제 (`docs/github.md` 4절)
 - [ ] 필수 상태 체크(`client-ci`)는 경로 필터 문제로 보류 — 필요해지면 `ci/` PR로 job 내부 판별 방식으로 전환
 - [ ] AppImage 배포는 후속 (`docs/decisions/0002-toolchain-versions.md` 3절)
-- [ ] Dependabot이 AGP 9.4 / Gradle 9.8을 제안하면 Kotlin 호환성 가이드 갱신 여부 확인 후 머지
+- [ ] Dependabot이 AGP 9.4 / Gradle 9.8을 제안하면 Kotlin 호환성 가이드 갱신 여부 확인 후 머지 (1차: #2·#4 닫음)
+- [ ] **인트로 일러스트 4장 권리 처리 또는 교체** (제3자 캐릭터 포함, 팀 판단 — handoff PROMPT §9-8). 그 전까지 레포 커밋 금지(.gitignore), 앱 리소스는 A6에서 IP 없는 플레이스홀더로
+- [ ] `design/requests/0001-handoff-v1.md` — handoff README가 참조하는 요청 프롬프트 사본이 레포에 없음. 디자인 담당에게 사본 요청
+- [ ] handoff PROMPT "열린 질문" 중 개발 몫: 폰트 서브셋(§9-1), Desktop 블러(§9-2), MapLibre Desktop 경로(§9-3, C1에서) — 해당 단계에서 ADR로 답
 
 ## 환경 메모
 
@@ -41,6 +46,13 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-13 (오후) — A0 완료, 핸드오프 v1, 인트로 우선 재구성
+
+- A0 완료 확인: check-env 모두 OK, 래퍼 9.7.1, PR #1 머지, 원격 설정 8-1~8-5 적용. 에뮬레이터 부팅 확인만 A2 전 숙제로 남김
+- 디자인 핸드오프 v1.1 수령·배치 (PR #5). **인트로 일러스트 4장은 제3자 캐릭터 포함으로 커밋 제외** — 열린 일 참조
+- 사용자 결정: 첫 화면은 인트로부터. roadmap Phase A를 인트로 완성 아크로 재구성 (핸드오프 T·I 단계를 학습 순서로 재배열, P는 Phase B로)
+- A1 가이드 작성 (guides/A1-intro-window.md)
 
 ### 2026-10-13 — 부트스트랩
 
