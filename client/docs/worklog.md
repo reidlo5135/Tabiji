@@ -11,37 +11,35 @@
 | --- | --- | --- | --- |
 | `check-env.sh` | ✅ 모두 OK | 2026-10-13 | JDK 21 · SDK `~/Android/Sdk` · adb · gh 2.102 |
 | `./gradlew --version` | ✅ 9.7.1 | 2026-10-13 | 래퍼 커밋 완료 (PR #1) |
-| 에뮬레이터 | ⬜ AVD만 생성 | — | `tabiji-api37`(API 37) 생성됨, 부팅·`adb devices`는 미확인 — A2 전까지 |
-| Desktop 실행 | ⬜ A1 진행 중 | — | 첫 실행에서 `LocalFontFamilyResolver not present`(Window 누락) → 수정했으나 재실행 미확인 |
-| Android 설치 | ⬜ A2 전 | — | `<activity>` 없음 (정상) |
-| `client-ci` | ✅ 초록 | 2026-10-13 | PR #1: 래퍼 검증 통과·빌드 건너뜀. 실제 빌드는 A1의 `.ci-enabled` 후 |
+| 에뮬레이터 | ⬜ AVD만 생성 | — | `tabiji-api37`(API 37) 생성됨, 부팅·`adb devices`는 A2 가이드 0번에서 확인 |
+| Desktop 실행 | ✅ 하늘색 창 + Hot Reload | 2026-10-14 | 사용자 보고("A1 마저 완성"). 출력 로그는 받지 않음 |
+| Android 설치 | ⬜ A2 진행 중 | — | `<activity>` 없음 (정상) |
+| `client-ci` | ⏳ 실행 중 | 2026-10-14 | PR #6에 `.ci-enabled` 추가 → **첫 실제 빌드·테스트**. 결과 확인 필요 (`gh pr checks 6`) |
 | `client-release` | ⬜ 미실행 | — | A9에서 첫 실행 |
 
 ## 진행 중
 
-- **A1 — 인트로 바탕 창** ([guides/A1-intro-window.md](guides/A1-intro-window.md), 브랜치 `client/feat-a1-intro-window`, PR #6)
-  - `App.kt`·`main.kt` 초안 작성, WIP 커밋으로 push (2026-10-13 밤). 진단 미통과 상태 — squash merge라 최종 커밋 메시지는 PR 제목으로 정리됨
-  - **다음 행동: 아래 리뷰 잔여 사항 반영 → `scripts/linux/run-desktop.sh` 재실행 결과 붙여넣기 → 진단 → `--hot` → `build.sh` → `.ci-enabled` 추가 후 push**
-  - 리뷰 잔여 사항 (가이드 대비)
-    - `main.kt`: `Window`에 `title = "Tabiji"` 없음 (완료 조건이 제목 표시줄 "Tabiji")
-    - `App.kt`: 배경 `Color(0xFFE0E0E0)` → 가이드 값 `0xFFEAF3FB`(`bg.sky.top`). 사용자가 일부러 바꾼 것인지 확인
-    - `App.kt`: 글자 `"Tabiji(旅路)"` → 가이드는 `"Tabiji"` (旅路는 Hot Reload 체험용). 의도 확인
-    - TODO 주석이 글자 색 줄에만 있음 → 배경색 줄에도 `// TODO(A5): TabijiTheme 토큰으로`
-  - 디자인 핸드오프 v1 + 아이콘 델타 수령 → `design/handoff/handoff-v1/` (PR #5). 로드맵을 인트로 우선으로 재구성
+- **A2 — Android 진입점 + 旅 런처 아이콘** ([guides/A2-android-entry.md](guides/A2-android-entry.md), 브랜치 `client/feat-a2-android-entry`, A1 브랜치 위에 쌓음, PR 아직 없음)
+  - 가이드 작성 완료. **다음 행동: 에뮬레이터 부팅 → `MainActivity.kt`·매니페스트·런처 아이콘 XML 3개 손코딩 → `install-android.sh` 결과·스크린샷 붙여넣기 → 진단 → 통과 시 Claude가 커밋·push·PR**
+  - PR은 #6 머지 후 `main` 기준으로 rebase해서 연다 (스택 PR 피하기)
+- **A1 — 인트로 바탕 창** (PR #6): 사용자 완료 보고 → 완료 커밋 `9a6e550`(+`.ci-enabled`) push. **남은 것: `client-ci` 초록 확인 → 사용자 squash merge**
+- **디자인 핸드오프 v2** (PR #7, `design/feat-handoff-v2`, base `design/feat-handoff-v1`): 무드 전면 교체(글래스 → 도감, 테마 8종). 로드맵을 v2 기준으로 고쳐 씀 (A2 브랜치)
 
-### PR 현황 (2026-10-13 저녁 기준 · 최신은 `gh pr list`)
+### PR 현황 (2026-10-14 기준 · 최신은 `gh pr list`)
 
 | PR | 브랜치 | 상태 | 메모 |
 | --- | --- | --- | --- |
 | #3 CODEOWNERS 클라이언트 담당 | `repo/chore-assign-client-owner` | 열림 | 사용자가 머지. 머지 후 `.github/`·`client/` PR은 관리자 우회("bypass rules") 필요해짐 |
-| #5 디자인 핸드오프 v1 + 旅 아이콘 세트 | `design/feat-handoff-v1` | 열림 | 사용자가 머지. **머지 전까지 A1 브랜치 워크트리에는 핸드오프 문서가 안 보임** (GitHub에서 보거나 #5 먼저 머지) |
-| #6 A1 단계 | `client/feat-a1-intro-window` | 열림 | 문서 커밋만 있음. 구현 커밋까지 담은 뒤 squash merge. #3·#5 머지 후 rebase 필요할 수 있음(충돌 없을 것) |
+| #5 디자인 핸드오프 v1 + 旅 아이콘 세트 | `design/feat-handoff-v1` | 열림 | 사용자가 머지. v2가 대체하지만 스냅샷 보존 원칙(`design/README.md`)대로 머지 권장 |
+| #6 A1 단계 | `client/feat-a1-intro-window` | 열림 | 구현 완료. CI 확인 후 squash merge |
+| #7 디자인 핸드오프 v2 | `design/feat-handoff-v2` | 열림 | **#5 다음에 머지** (base를 `main`으로 바꾼 뒤). 루트 `.gitignore`의 인트로 webp 규칙을 `design/handoff/*/assets/intro/*.webp`로 넓힘 |
 
 ### 세션 간 로컬 메모 (레포 밖 상태 — 다른 머신에는 없음)
 
 - `.vscode/settings.json`에 사용자 로컬 수정(`gradle.autoDetect: off`, `java.gradle.buildServer.enabled: off`)이 **커밋 안 된 채** 있음 — 사용자 결정: "일단 내비둬". 커밋·stash·브랜치 전환 시 이 파일은 제외하고 다룰 것
 - `client/.mcp.json`(IntelliJ MCP 연결, `127.0.0.1:64342`)이 untracked로 있음. 머신 로컬 설정이므로 커밋하지 않음 — gitignore 추가 여부는 나중에 결정
-- 인트로 일러스트 webp 4장은 gitignore라 **이 PC 로컬에만** 있음 (`design/handoff/handoff-v1/assets/intro/`). 다른 머신에서는 팀 보관소( `~/Downloads/handoff-v1.zip` 원본)에서 같은 경로로 복사
+- 인트로 일러스트 webp 4장은 gitignore라 **이 PC 로컬에만** 있음 (`design/handoff/handoff-v1/assets/intro/`, `handoff-v2/assets/intro/` — 두 벌은 sha256 동일). 다른 머신에서는 팀 보관소(`~/Downloads/handoff-v2.zip` 원본)에서 같은 경로로 복사
+- `design/handoff/handoff-v1/`·`handoff-v2/`가 클라이언트 브랜치에서 **untracked 사본**으로 있음 (#5·#7 미머지라 이 브랜치엔 없음). **#5·#7 머지 후 `main`을 pull·rebase하기 전에** 두 폴더의 `assets/intro/*.webp`를 잠시 다른 곳에 옮기고 두 폴더를 지운 뒤 pull, 그다음 webp를 제자리로 — 안 그러면 git이 "untracked working tree files would be overwritten"으로 멈춘다
 - 에디터를 VS Code → IntelliJ IDEA로 옮기는 중. IntelliJ에서는 `client/`를 Gradle 프로젝트로 열면 되고(루트 아님 주의 — 레포 루트에는 Gradle 빌드가 없다), `.vscode/tasks.json` 대신 `client/scripts/linux/*.sh`를 그대로 쓴다. `client/CLAUDE.md`의 "에디터 환경 (VS Code)" 절과 A0 가이드 9절의 LSP 한계 설명은 IntelliJ에서는 해당 없음 — IntelliJ는 KMP를 제대로 지원하므로 빨간 줄 기준으로 진단해도 된다 (갱신은 A1 완료 후 별도 PR로)
 
 ## 열린 일
@@ -52,9 +50,12 @@
 - [ ] 필수 상태 체크(`client-ci`)는 경로 필터 문제로 보류 — 필요해지면 `ci/` PR로 job 내부 판별 방식으로 전환
 - [ ] AppImage 배포는 후속 (`docs/decisions/0002-toolchain-versions.md` 3절)
 - [ ] Dependabot이 AGP 9.4 / Gradle 9.8을 제안하면 Kotlin 호환성 가이드 갱신 여부 확인 후 머지 (1차: #2·#4 닫음)
-- [ ] **인트로 일러스트 4장 권리 처리 또는 교체** (제3자 캐릭터 포함, 팀 판단 — handoff PROMPT §9-8). 그 전까지 레포 커밋 금지(.gitignore), 앱 리소스는 A6에서 IP 없는 플레이스홀더로
+- [ ] **인트로 일러스트 4장 권리 처리 또는 교체** (제3자 캐릭터 포함, 팀 판단 — handoff-v1 PROMPT §9-8, v2 README 라이선스 절). 그 전까지 레포 커밋 금지(.gitignore), 앱 리소스는 A6에서 IP 없는 플레이스홀더로
 - [ ] `design/requests/0001-handoff-v1.md` — handoff README가 참조하는 요청 프롬프트 사본이 레포에 없음. 디자인 담당에게 사본 요청
-- [ ] handoff PROMPT "열린 질문" 중 개발 몫: 폰트 서브셋(§9-1), Desktop 블러(§9-2), MapLibre Desktop 경로(§9-3, C1에서) — 해당 단계에서 ADR로 답
+- [ ] handoff PROMPT "열린 질문" 중 개발 몫: 폰트 서브셋(v1 §9-1 — v2는 PretendardJP 4벌 22MB + Jua 2.8MB라 더 시급, A6에서), MapLibre Desktop 경로(v1 §9-3, C1에서) — 해당 단계에서 ADR로 답. v1 §9-2 Desktop 블러는 v2에서 블러 자체가 없어져 해소
+- [ ] handoff-v2 PROMPT §8 팀 결정: 테마별 다크 변형 방식, v2 컴포넌트 보드 추가 제작 여부, **테마 선택 UI 디자인(B6 전에 디자인 요청 필요)**, 인트로와 테마 결합 여부
+- [ ] Android API 24·25용 런처 아이콘 폴백 PNG (adaptive icon은 26+). A9 패키징 전 점검
+- [ ] `client/CLAUDE.md` "에디터 환경 (VS Code)" 절을 IntelliJ 기준으로 갱신 — 별도 PR
 
 ## 환경 메모
 
@@ -62,11 +63,20 @@
 | --- | --- |
 | OS | Ubuntu 24.04, x86_64, `/dev/kvm` 있음 |
 | JDK | OpenJDK 21.0.12 (시스템) |
-| 에디터 | VS Code + Kotlin by JetBrains (Alpha, KMP 지원 제한) |
+| 에디터 | IntelliJ IDEA 2026.2 (`client/`를 Gradle 프로젝트로) + Claude Code(IntelliJ MCP). 이전: VS Code + Kotlin LSP |
 | Android SDK | 예정: `~/Android/Sdk` (cmdline-tools 단독) |
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 — A1 완료, 디자인 핸드오프 v2, A2 시작
+
+- 사용자가 A1 완료 보고: 제목 "Tabiji", 배경 `#EAF3FB`, 문구 복원, `.ci-enabled` 추가 → 완료 커밋 push (PR #6). `client-ci` 첫 실제 빌드 결과는 아직 확인 전
+- 디자인 핸드오프 v2 수령(`~/Downloads/handoff-v2.zip`, Claude Design 제작) → `design/handoff/handoff-v2/`에 배치, PR #7. 사용자는 `../docs/design/`을 말했지만 레포 규칙(`design/README.md`, 루트 `CLAUDE.md`)의 `design/handoff/handoff-vN/`을 따름
+  - 무드 전면 교체: 글래스·실버 → "도감 같은 여행 수첩"(잉크 테두리·하드 섀도·색 머리띠·Jua), 테마 8종 × 역할 15개, 다크는 2단계
+  - 인트로 webp 4장은 v1과 동일 파일(sha256 일치) → 커밋 제외 유지, ignore 규칙 일반화
+- 로드맵을 v2 기준으로 다시 씀: A3 잉크 경계, A5 테마 8종·크로스페이드, A6 Jua 폴백 체인 + Desktop 창 아이콘(A2에서 이동), A7 아웃라인 워드마크·하드 섀도·pressSink, B1 스트라이프·inkPanel, B6 테마 선택, C2/C3 지도 스타일·마커 v2
+- A2 가이드 작성, 브랜치 `client/feat-a2-android-entry` (A1 위)
 
 ### 2026-10-13 (밤) — A1 첫 실행·진단, WIP push
 

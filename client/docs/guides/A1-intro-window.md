@@ -72,6 +72,7 @@ fun App() {
 - 정중앙: `Alignment.Center`
 - 글자: `Text("Tabiji", color = Color(0xFF1C2633))`
 - 두 색은 핸드오프 토큰 `bg.sky.top`·`text.primary`의 라이트 값이다. **A5에서 토큰으로 옮길 것이므로 두 줄에 `// TODO(A5): TabijiTheme 토큰으로` 주석**을 달아 둔다 (conventions의 하드코딩 금지 규칙에 대한 한시적 예외)
+  - > 2026-10-14 핸드오프 v2로 바뀐 뒤: 위 두 이름은 v1 토큰이다. v2에는 하늘색 배경이 없고, 이 배경은 A3에서 잉크 경계 사분면으로 바뀐다. v2 cloud 테마로 치면 `#EAF3FB`는 `soft`, 글자색은 `ink`(`#2A3644`)가 이어받는다 (A5에서 교체)
 
 LSP가 자동완성을 못 해 줄 수 있으니 import를 직접 적는다:
 
