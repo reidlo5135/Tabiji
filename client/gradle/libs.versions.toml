@@ -15,7 +15,7 @@ android-minSdk = "24"
 
 # 라이브러리
 # CMP 1.12.x와 짝인 material3는 아직 alpha뿐이다 (공식 위저드도 이 버전 사용). ADR 0002 참조
-material3 = "1.12.0-alpha03"
+material3 = "1.13.0-alpha02"
 androidx-activity = "1.13.0"
 kotlinx-coroutines = "1.11.0"
 
