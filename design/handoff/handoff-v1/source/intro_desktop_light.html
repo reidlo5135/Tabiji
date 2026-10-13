@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 인트로 · 사계절 · Desktop</title>
+<!-- 디자인 원본. 수치가 이미지와 다르면 이 파일이 정답. 1px = 1dp -->
+</head>
+<body>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:500;src:url(../assets/fonts/PretendardJP-Medium.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:700;src:url(../assets/fonts/PretendardJP-Bold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:400;src:url(../assets/fonts/Sora-Regular.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:600;src:url(../assets/fonts/Sora-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:700;src:url(../assets/fonts/Sora-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1A78A8}a:hover{color:#2FA8E0}
+.tj{--glass:rgba(255,255,255,.72);--silver-from:#F4F6F9;--silver-to:#C9D1DB;--hl:rgba(255,255,255,.8);--line:#D5DCE4;--text:#1C2633;--text2:#5B6878;--accent:#2FA8E0;--accent-text:#1A78A8;--on-accent:#0E1621;--shadow:0 8px 24px rgba(28,38,51,.10)}
+.tj.dark{--glass:rgba(30,39,51,.72);--silver-from:#2A3441;--silver-to:#3A4655;--hl:rgba(255,255,255,.14);--line:#334051;--text:#E9EEF4;--text2:#9AA7B6;--accent:#5CC3F0;--accent-text:#5CC3F0;--on-accent:#0E1621;--shadow:0 8px 24px rgba(0,0,0,.35)}
+@keyframes tj-fall{0%{transform:translate(0,-20px) rotate(0deg);opacity:0}10%{opacity:.9}100%{transform:translate(40px,460px) rotate(300deg);opacity:0}}
+@keyframes tj-snow{0%{transform:translate(0,-20px);opacity:0}10%{opacity:.95}100%{transform:translate(-30px,460px);opacity:0}}
+@keyframes tj-drift{0%{transform:translateX(0)}100%{transform:translateX(60px)}}
+@keyframes tj-glint{0%,100%{opacity:.3}50%{opacity:.9}}
+@media (prefers-reduced-motion: reduce){.tj *{animation:none !important}}
+</style>
+<div class="tj light" style="position: relative; width: 100%; height: 100vh; min-height: 900px; overflow: hidden; font-family: 'Pretendard', system-ui, sans-serif; color: var(--text); background: #EAF3FB">
+
+  
+  <div style="position: absolute; inset: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr))">
+
+    <section aria-label="봄" style="position: relative; overflow: hidden">
+      
+        <img src="../assets/intro/spring.webp" alt="봄 풍경" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%">
+                  <span aria-hidden="true" style="position: absolute; left: 12%; top: 0; width: 10px; height: 7px; border-radius: 50% 50% 50% 0; background: #F7C9D8; animation: tj-fall 9s linear infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 30%; top: 0; width: 8px; height: 6px; border-radius: 50% 50% 50% 0; background: #FBE1E9; animation: tj-fall 11s linear 2s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 58%; top: 0; width: 9px; height: 6px; border-radius: 50% 50% 50% 0; background: #F5BCCF; animation: tj-fall 10s linear 4s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 78%; top: 0; width: 8px; height: 6px; border-radius: 50% 50% 50% 0; background: #F7C9D8; animation: tj-fall 12s linear 1s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 90%; top: 0; width: 7px; height: 5px; border-radius: 50% 50% 50% 0; background: #FBE1E9; animation: tj-fall 8.5s linear 6s infinite"></span>
+    </section>
+
+    <section aria-label="여름" style="position: relative; overflow: hidden">
+      
+        <img src="../assets/intro/summer.webp" alt="여름 풍경" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%">
+                  <span aria-hidden="true" style="position: absolute; left: 10%; top: 14%; width: 140px; height: 44px; border-radius: 999px; background: rgba(255,255,255,.85); animation: tj-drift 14s ease-in-out infinite alternate"></span>
+      <span aria-hidden="true" style="position: absolute; left: 60%; top: 26%; width: 90px; height: 30px; border-radius: 999px; background: rgba(255,255,255,.8); animation: tj-drift 18s ease-in-out 3s infinite alternate"></span>
+      <span aria-hidden="true" style="position: absolute; left: 20%; top: 66%; width: 28px; height: 4px; border-radius: 2px; background: #FFFFFF; animation: tj-glint 2.4s ease-in-out infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 72%; top: 70%; width: 22px; height: 4px; border-radius: 2px; background: #FFFFFF; animation: tj-glint 3s ease-in-out 1s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 40%; top: 74%; width: 18px; height: 3px; border-radius: 2px; background: #FFFFFF; animation: tj-glint 2s ease-in-out .5s infinite"></span>
+    </section>
+
+    <section aria-label="가을" style="position: relative; overflow: hidden">
+      
+        <img src="../assets/intro/autumn.webp" alt="가을 풍경" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%">
+                  <span aria-hidden="true" style="position: absolute; left: 16%; top: 0; width: 12px; height: 7px; border-radius: 50% 0; background: #E0792E; animation: tj-fall 10s linear infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 36%; top: 0; width: 11px; height: 6px; border-radius: 50% 0; background: #E8A354; animation: tj-fall 12s linear 3s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 64%; top: 0; width: 12px; height: 7px; border-radius: 50% 0; background: #C95B2A; animation: tj-fall 9.5s linear 5s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 84%; top: 0; width: 10px; height: 6px; border-radius: 50% 0; background: #D9C24A; animation: tj-fall 11s linear 1.5s infinite"></span>
+    </section>
+
+    <section aria-label="겨울" style="position: relative; overflow: hidden">
+      
+        <img src="../assets/intro/winter.webp" alt="겨울 풍경" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%">
+                  <span aria-hidden="true" style="position: absolute; left: 8%; top: 0; width: 7px; height: 7px; border-radius: 999px; background: #FFFFFF; animation: tj-snow 12s linear infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 26%; top: 0; width: 5px; height: 5px; border-radius: 999px; background: #FFFFFF; animation: tj-snow 14s linear 2s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 48%; top: 0; width: 6px; height: 6px; border-radius: 999px; background: #FFFFFF; animation: tj-snow 13s linear 5s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 66%; top: 0; width: 8px; height: 8px; border-radius: 999px; background: #FFFFFF; animation: tj-snow 11s linear 1s infinite"></span>
+      <span aria-hidden="true" style="position: absolute; left: 86%; top: 0; width: 5px; height: 5px; border-radius: 999px; background: #FFFFFF; animation: tj-snow 15s linear 7s infinite"></span>
+    </section>
+  </div>
+
+  
+  
+  <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 28px; width: 340px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+      <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 56px; font-weight: 700; letter-spacing: -0.02em; line-height: 64px; color: #FFFFFF; text-shadow: 0 2px 4px rgba(14,22,33,.5), 0 8px 28px rgba(14,22,33,.55)">Tabiji</span>
+      <span style="font-size: 16px; font-weight: 600; letter-spacing: 0.12em; color: rgba(255,255,255,.95); padding-left: 0.12em; text-shadow: 0 1px 3px rgba(14,22,33,.55), 0 4px 16px rgba(14,22,33,.45)">여행(旅路) 도우미</span>
+    </div>
+    <nav aria-label="시작 메뉴" style="display: flex; flex-direction: column; gap: 10px; width: 340px; filter: drop-shadow(0 10px 24px rgba(14,22,33,.28))">
+      <a href="planner_desktop_light.html" style="height: 56px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 0 16px; text-decoration: none; color: var(--on-accent); background: var(--accent); box-shadow: inset 0 1px 0 rgba(255,255,255,.55); clip-path: path('M12 0 H332 L340 8 V44 A12 12 0 0 1 328 56 H12 A12 12 0 0 1 0 44 V12 A12 12 0 0 1 12 0 Z')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <span style="display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0">
+          <span style="font-size: 15px; font-weight: 700; line-height: 20px">시작하기</span>
+          <span style="font-size: 11px; font-weight: 500; line-height: 14px; opacity: .78">새 여행 일정 만들기</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; opacity: .85"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a href="trips_desktop_light.html" style="height: 52px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 0 16px; text-decoration: none; color: var(--text); border-radius: 12px; border: 1px solid var(--line); background: var(--glass); box-shadow: inset 0 1px 0 var(--hl); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: var(--accent-text)"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>
+        <span style="display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0">
+          <span style="font-size: 14px; font-weight: 600; line-height: 18px">내 여행</span>
+          <span style="font-size: 11px; line-height: 14px; color: var(--text2)">저장된 일정 보기</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: var(--text2)"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#settings" style="height: 52px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 0 16px; text-decoration: none; color: var(--text); border-radius: 12px; border: 1px solid var(--line); background: var(--glass); box-shadow: inset 0 1px 0 var(--hl); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: var(--accent-text)"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span style="display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0">
+          <span style="font-size: 14px; font-weight: 600; line-height: 18px">설정</span>
+          <span style="font-size: 11px; line-height: 14px; color: var(--text2)">테마 · 언어 · 데이터</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: var(--text2)"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </nav>
+  </div>
+</div>
+</body>
+</html>

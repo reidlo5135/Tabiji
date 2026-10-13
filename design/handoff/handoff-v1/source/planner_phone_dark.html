@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 플래너 · Phone</title>
+<!-- 디자인 원본. 수치가 이미지와 다르면 이 파일이 정답. 1px = 1dp -->
+</head>
+<body>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:500;src:url(../assets/fonts/PretendardJP-Medium.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:700;src:url(../assets/fonts/PretendardJP-Bold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:400;src:url(../assets/fonts/Sora-Regular.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:600;src:url(../assets/fonts/Sora-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:700;src:url(../assets/fonts/Sora-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1A78A8}a:hover{color:#2FA8E0}
+.tj{--bg-top:#EAF3FB;--bg-bot:#F7F9FC;--glass:rgba(255,255,255,.72);--glass-solid:rgba(255,255,255,.92);--card:rgba(255,255,255,.82);--chip:rgba(255,255,255,.9);--silver-from:#F4F6F9;--silver-to:#C9D1DB;--hl:rgba(255,255,255,.8);--line:#D5DCE4;--text:#1C2633;--text2:#5B6878;--accent:#2FA8E0;--accent-text:#1A78A8;--accent-soft:rgba(47,168,224,.14);--accent-line:#1A8FC6;--on-accent:#0E1621;--transit:#6C7BE0;--drive:#3A9A74;--err-text:#B23A36;--est:#E3A23B;--err:#D9534F;--err-soft:rgba(217,83,79,.12);--skeleton:#E6EBF1;--shadow:0 8px 24px rgba(28,38,51,.10);--shadow-lift:0 14px 32px rgba(28,38,51,.16)}
+.tj.dark{--bg-top:#0E1621;--bg-bot:#18212D;--glass:rgba(30,39,51,.72);--glass-solid:rgba(30,39,51,.92);--card:rgba(30,39,51,.82);--chip:rgba(36,46,60,.9);--silver-from:#2A3441;--silver-to:#3A4655;--hl:rgba(255,255,255,.14);--line:#334051;--text:#E9EEF4;--text2:#9AA7B6;--accent:#5CC3F0;--accent-text:#5CC3F0;--accent-soft:rgba(92,195,240,.18);--accent-line:#5CC3F0;--on-accent:#0E1621;--transit:#8E9AF0;--drive:#6FC9A6;--err-text:#F6A09D;--est:#F0B862;--err:#F07A76;--err-soft:rgba(240,122,118,.16);--skeleton:#2A3441;--shadow:0 8px 24px rgba(0,0,0,.35);--shadow-lift:0 14px 32px rgba(0,0,0,.45)}
+</style>
+<div class="tj dark" style="position: relative; width: 390px; height: 844px; overflow: hidden; font-family: 'Pretendard', system-ui, sans-serif; color: var(--text); background: var(--bg-bot)">
+
+    
+    <img src="../assets/map/map_dark.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 40%">
+  
+  <svg viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none">
+    <path d="M 96 214 L 212 162" fill="none" stroke="var(--accent-line)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 9"/>
+    <path d="M 228 178 C 270 220, 290 230, 302 270" fill="none" stroke="var(--transit)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 296 292 C 260 330, 210 330, 166 344" fill="none" stroke="var(--drive)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <div style="position: absolute; left: 64px; top: 176px; width: 32px; height: 40px">
+    <svg width="32" height="40" viewBox="0 0 32 40" aria-hidden="true"><defs><linearGradient id="mkp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F6F9"/><stop offset="1" stop-color="#C9D1DB"/></linearGradient></defs><path d="M16 1 C7.7 1 1 7.7 1 16 C1 26.5 16 39 16 39 C16 39 31 26.5 31 16 C31 7.7 24.3 1 16 1 Z" fill="url(#mkp)" stroke="#AEB8C4" stroke-width="1"/><circle cx="16" cy="16" r="10.5" fill="#FFFFFF"/><text x="16" y="20.5" text-anchor="middle" font-family="Sora, system-ui, sans-serif" font-size="12" font-weight="600" fill="#1C2633">1</text></svg>
+  </div>
+  <div style="position: absolute; left: 196px; top: 122px; width: 32px; height: 40px">
+    <svg width="32" height="40" viewBox="0 0 32 40" aria-hidden="true"><path d="M16 1 C7.7 1 1 7.7 1 16 C1 26.5 16 39 16 39 C16 39 31 26.5 31 16 C31 7.7 24.3 1 16 1 Z" fill="url(#mkp)" stroke="#AEB8C4" stroke-width="1"/><circle cx="16" cy="16" r="10.5" fill="#FFFFFF"/><text x="16" y="20.5" text-anchor="middle" font-family="Sora, system-ui, sans-serif" font-size="12" font-weight="600" fill="#1C2633">2</text></svg>
+  </div>
+  <div style="position: absolute; left: 282px; top: 240px; width: 40px; height: 50px; filter: drop-shadow(0 6px 10px rgba(47,168,224,.45))">
+    <svg width="40" height="50" viewBox="0 0 40 50" aria-hidden="true"><path d="M20 1 C9.5 1 1 9.5 1 20 C1 33 20 49 20 49 C20 49 39 33 39 20 C39 9.5 30.5 1 20 1 Z" fill="#2FA8E0" stroke="#FFFFFF" stroke-width="2"/><circle cx="20" cy="20" r="13" fill="#FFFFFF"/><text x="20" y="25" text-anchor="middle" font-family="Sora, system-ui, sans-serif" font-size="14" font-weight="700" fill="#1C2633">3</text></svg>
+  </div>
+  <div style="position: absolute; left: 150px; top: 326px; width: 32px; height: 40px">
+    <svg width="32" height="40" viewBox="0 0 32 40" aria-hidden="true"><path d="M16 1 C7.7 1 1 7.7 1 16 C1 26.5 16 39 16 39 C16 39 31 26.5 31 16 C31 7.7 24.3 1 16 1 Z" fill="url(#mkp)" stroke="#AEB8C4" stroke-width="1"/><circle cx="16" cy="16" r="10.5" fill="#FFFFFF"/><text x="16" y="20.5" text-anchor="middle" font-family="Sora, system-ui, sans-serif" font-size="12" font-weight="600" fill="#1C2633">4</text></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1C2633" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: -6px; top: -6px; background: #FFFFFF; border-radius: 999px; padding: 2px; box-sizing: content-box; border: 1px solid #AEB8C4"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>
+  </div>
+
+  <form style="position: absolute; left: 16px; right: 16px; top: 56px; height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 14px; box-sizing: border-box; border-radius: 12px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--text2); flex: 0 0 auto"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+    <label for="qp" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">장소 검색</label>
+    <input id="qp" type="search" placeholder="장소, 주소, 역 이름 검색" style="flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 14px; color: var(--text); outline: none">
+  </form>
+
+  <div style="position: absolute; right: 16px; bottom: 436px; display: flex; flex-direction: column; gap: 8px">
+    <button type="button" aria-label="내 위치" style="width: 48px; height: 48px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+    </button>
+    <button type="button" aria-label="확대" style="width: 48px; height: 48px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <section aria-label="일정 시트 (절반)" style="position: absolute; left: 0; right: 0; bottom: 0; height: 420px; display: flex; flex-direction: column; box-sizing: border-box; border-radius: 20px 20px 0 0; background: var(--glass); border: 1px solid var(--line); border-bottom: 0; box-shadow: inset 0 1px 0 var(--hl), 0 -8px 24px rgba(28,38,51,.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); overflow: hidden">
+    <div style="display: flex; justify-content: center; padding: 8px 0 4px 0">
+      <span aria-hidden="true" style="width: 36px; height: 4px; border-radius: 2px; background: var(--line)"></span>
+    </div>
+    <header style="display: flex; align-items: center; gap: 12px; padding: 4px 16px 10px 16px; border-bottom: 1px solid var(--line)">
+      <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+        <div style="display: flex; align-items: baseline; gap: 8px">
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">Day 2</span>
+          <span style="font-size: 14px; color: var(--text2)">9월 20일 (토)</span>
+        </div>
+        <span style="font-size: 12px; color: var(--text2)">총 이동 1시간 12분 · 5곳</span>
+      </div>
+      <button type="button" aria-label="일차 접기" style="width: 36px; height: 36px; border-radius: 999px; border: 1px solid var(--line); background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); box-shadow: inset 0 1px 0 var(--hl); display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </header>
+
+    <div style="flex: 1; min-height: 0; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px">
+      <article style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--line)">
+        <span style="width: 28px; height: 28px; border-radius: 999px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); box-shadow: inset 0 1px 0 var(--hl); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 12px; font-weight: 600; flex: 0 0 auto">2</span>
+        <div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0">
+          <span style="font-size: 14px; font-weight: 600; line-height: 20px">시즈오카 센겐 신사</span>
+          <span style="font-size: 12px; color: var(--text2)">10:55 – 11:40 · 45분</span>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color: var(--text2); flex: 0 0 auto"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+      </article>
+
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 14px; height: 32px">
+        <span style="width: 2px; height: 32px; background: var(--transit); border-radius: 1px"></span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--chip); border: 1px solid var(--line); font-size: 12px; color: var(--text)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--transit)"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14"/><circle cx="8.5" cy="14.5" r="1"/><circle cx="15.5" cy="14.5" r="1"/><path d="M7 21l1.5-3M17 21l-1.5-3"/></svg>
+          <span>대중교통 23분 · 6.4km</span>
+          <span style="display: inline-flex; align-items: center; gap: 3px; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--est); color: #1C2633; font-size: 11px; font-weight: 600">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 9.5c2-3 4-3 6 0s4 3 6 0 4-3 6 0M4 15c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg>추정
+          </span>
+        </span>
+      </div>
+
+      <article aria-current="true" style="display: flex; gap: 12px; align-items: flex-start; padding: 11px; border-radius: 12px; background: var(--card); border: 2px solid var(--accent-line); box-shadow: 0 0 0 4px var(--accent-soft)">
+        <span style="width: 28px; height: 28px; border-radius: 999px; background: var(--accent); color: var(--on-accent); display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 12px; font-weight: 700; flex: 0 0 auto">3</span>
+        <div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0">
+          <span style="font-size: 14px; font-weight: 600; line-height: 20px">니혼다이라 전망대</span>
+          <span style="font-size: 12px; color: var(--text2)">12:05 – 13:30 · 1시간 25분</span>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color: var(--text2); flex: 0 0 auto"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+      </article>
+
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 14px; height: 32px">
+        <span style="width: 2px; height: 32px; background: var(--drive); border-radius: 1px"></span>
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--chip); border: 1px dashed var(--text2); font-size: 12px; color: var(--text2)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--drive)"><path d="M4 15.5V12l2.2-5a1.6 1.6 0 0 1 1.5-1h8.6a1.6 1.6 0 0 1 1.5 1l2.2 5v3.5"/><path d="M4 12h16M4 15.5h16"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>
+          <span>자동차 18분 · 9.2km</span>
+          <span style="font-size: 11px; font-weight: 600">재계산 필요</span>
+        </span>
+      </div>
+
+      <article style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 12px; background: var(--card); border: 1px solid var(--line)">
+        <span style="width: 28px; height: 28px; border-radius: 999px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); box-shadow: inset 0 1px 0 var(--hl); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 12px; font-weight: 600; flex: 0 0 auto">4</span>
+        <div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0">
+          <span style="font-size: 14px; font-weight: 600; line-height: 20px">미호노마쓰바라</span>
+          <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+            <span style="font-weight: 600">14:00 고정</span><span style="color: var(--text2)">· 1시간</span>
+          </span>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color: var(--text2); flex: 0 0 auto"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+      </article>
+    </div>
+
+    <footer style="padding: 12px 16px 28px 16px; border-top: 1px solid var(--line); display: flex; justify-content: center">
+      <button type="button" style="width: 358px; height: 48px; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 14px; font-weight: 600; color: var(--on-accent); background: var(--accent); box-shadow: inset 0 1px 0 rgba(255,255,255,.55); clip-path: path('M12 0 H350 L358 8 V36 A12 12 0 0 1 346 48 H12 A12 12 0 0 1 0 36 V12 A12 12 0 0 1 12 0 Z')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg>
+        <span>AI 동선 최적화</span>
+      </button>
+    </footer>
+  </section>
+</div>
+</body>
+</html>
