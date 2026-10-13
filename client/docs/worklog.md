@@ -14,7 +14,7 @@
 | 에뮬레이터 | ⬜ AVD만 생성 | — | `tabiji-api37`(API 37) 생성됨, 부팅·`adb devices`는 A2 가이드 0번에서 확인 |
 | Desktop 실행 | ✅ 하늘색 창 + Hot Reload | 2026-10-14 | 사용자 보고("A1 마저 완성"). 출력 로그는 받지 않음 |
 | Android 설치 | ⬜ A2 진행 중 | — | `<activity>` 없음 (정상) |
-| `client-ci` | ⏳ 실행 중 | 2026-10-14 | PR #6에 `.ci-enabled` 추가 → **첫 실제 빌드·테스트**. 결과 확인 필요 (`gh pr checks 6`) |
+| `client-ci` | ✅ 초록 (3m) | 2026-10-14 | PR #6: `.ci-enabled` 후 **첫 실제 빌드·테스트** 통과 |
 | `client-release` | ⬜ 미실행 | — | A9에서 첫 실행 |
 
 ## 진행 중
@@ -22,7 +22,7 @@
 - **A2 — Android 진입점 + 旅 런처 아이콘** ([guides/A2-android-entry.md](guides/A2-android-entry.md), 브랜치 `client/feat-a2-android-entry`, A1 브랜치 위에 쌓음, PR 아직 없음)
   - 가이드 작성 완료. **다음 행동: 에뮬레이터 부팅 → `MainActivity.kt`·매니페스트·런처 아이콘 XML 3개 손코딩 → `install-android.sh` 결과·스크린샷 붙여넣기 → 진단 → 통과 시 Claude가 커밋·push·PR**
   - PR은 #6 머지 후 `main` 기준으로 rebase해서 연다 (스택 PR 피하기)
-- **A1 — 인트로 바탕 창** (PR #6): 사용자 완료 보고 → 완료 커밋 `9a6e550`(+`.ci-enabled`) push. **남은 것: `client-ci` 초록 확인 → 사용자 squash merge**
+- **A1 — 인트로 바탕 창** (PR #6): 사용자 완료 보고 → 완료 커밋 `9a6e550`(+`.ci-enabled`) push. `client-ci` 초록 확인. **남은 것: 사용자 squash merge**
 - **디자인 핸드오프 v2** (PR #7, `design/feat-handoff-v2`, base `design/feat-handoff-v1`): 무드 전면 교체(글래스 → 도감, 테마 8종). 로드맵을 v2 기준으로 고쳐 씀 (A2 브랜치)
 
 ### PR 현황 (2026-10-14 기준 · 최신은 `gh pr list`)
@@ -31,7 +31,7 @@
 | --- | --- | --- | --- |
 | #3 CODEOWNERS 클라이언트 담당 | `repo/chore-assign-client-owner` | 열림 | 사용자가 머지. 머지 후 `.github/`·`client/` PR은 관리자 우회("bypass rules") 필요해짐 |
 | #5 디자인 핸드오프 v1 + 旅 아이콘 세트 | `design/feat-handoff-v1` | 열림 | 사용자가 머지. v2가 대체하지만 스냅샷 보존 원칙(`design/README.md`)대로 머지 권장 |
-| #6 A1 단계 | `client/feat-a1-intro-window` | 열림 | 구현 완료. CI 확인 후 squash merge |
+| #6 A1 단계 | `client/feat-a1-intro-window` | 열림 | 구현 완료, CI 초록. 사용자 squash merge 대기 |
 | #7 디자인 핸드오프 v2 | `design/feat-handoff-v2` | 열림 | **#5 다음에 머지** (base를 `main`으로 바꾼 뒤). 루트 `.gitignore`의 인트로 webp 규칙을 `design/handoff/*/assets/intro/*.webp`로 넓힘 |
 
 ### 세션 간 로컬 메모 (레포 밖 상태 — 다른 머신에는 없음)
@@ -71,7 +71,7 @@
 
 ### 2026-10-14 — A1 완료, 디자인 핸드오프 v2, A2 시작
 
-- 사용자가 A1 완료 보고: 제목 "Tabiji", 배경 `#EAF3FB`, 문구 복원, `.ci-enabled` 추가 → 완료 커밋 push (PR #6). `client-ci` 첫 실제 빌드 결과는 아직 확인 전
+- 사용자가 A1 완료 보고: 제목 "Tabiji", 배경 `#EAF3FB`, 문구 복원, `.ci-enabled` 추가 → 완료 커밋 push (PR #6). `client-ci` 첫 실제 빌드 초록(3m)
 - 디자인 핸드오프 v2 수령(`~/Downloads/handoff-v2.zip`, Claude Design 제작) → `design/handoff/handoff-v2/`에 배치, PR #7. 사용자는 `../docs/design/`을 말했지만 레포 규칙(`design/README.md`, 루트 `CLAUDE.md`)의 `design/handoff/handoff-vN/`을 따름
   - 무드 전면 교체: 글래스·실버 → "도감 같은 여행 수첩"(잉크 테두리·하드 섀도·색 머리띠·Jua), 테마 8종 × 역할 15개, 다크는 2단계
   - 인트로 webp 4장은 v1과 동일 파일(sha256 일치) → 커밋 제외 유지, ignore 규칙 일반화
