@@ -6,9 +6,9 @@ Claude Code가 이 레포에서 작업할 때 가장 먼저 읽는 파일이다.
 
 | 경로 | 내용 | 담당 |
 | --- | --- | --- |
-| `client/` | Kotlin + Compose Multiplatform 앱 (Android, Desktop) | `@<CLIENT_OWNER>` |
-| `server/` | 백엔드 API 서버 | `@<SERVER_OWNER>` |
-| `ai/` | 동선 최적화 AI | `@<AI_OWNER>` |
+| `client/` | Kotlin + Compose Multiplatform 앱 (Android, Desktop) | `@reidlo5135` |
+| `server/` | 백엔드 API 서버 | 미정 |
+| `ai/` | 동선 최적화 AI | 미정 |
 | `api/` | 클라이언트↔서버 계약 (`openapi.yaml`) | 클라이언트 + 서버 공동 |
 | `design/` | 디자인 요청서와 핸드오프 | AI·디자인 + 클라이언트 |
 | `docs/` | 팀 공용 설계 문서, ADR, GitHub 규약 | 공동 |
