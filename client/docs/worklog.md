@@ -46,7 +46,7 @@
 
 ## 열린 일
 
-- [ ] 팀원 GitHub 계정으로 플레이스홀더 교체: `<CLIENT_OWNER>`, `<SERVER_OWNER>`, `<AI_OWNER>` (`.github/CODEOWNERS`, 루트 `CLAUDE.md`, `server/README.md`, `ai/README.md`, ADR들)
+- [ ] 서버·AI 담당 계정이 정해지면 `.github/CODEOWNERS`(목표 형태는 파일 주석), 루트 `CLAUDE.md` 담당 칸에 추가. `server/README.md`·`ai/README.md`의 플레이스홀더는 각 담당자가 교체
 - [ ] `docs/github.md` 8절 원격 설정 적용 (관리자)
 - [ ] ruleset 결정: 코드 오너 리뷰 필수 + 관리자 PR 우회 vs 코드 오너 리뷰 미강제 (`docs/github.md` 4절)
 - [ ] 필수 상태 체크(`client-ci`)는 경로 필터 문제로 보류 — 필요해지면 `ci/` PR로 job 내부 판별 방식으로 전환

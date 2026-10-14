@@ -2,7 +2,7 @@
 
 - 상태: 채택
 - 날짜: 2026-10-13
-- 결정한 사람: @<CLIENT_OWNER>
+- 결정한 사람: @reidlo5135
 - 영역: client
 
 > 클라이언트 ADR은 루트 `docs/decisions/`와 번호가 겹치지 않도록 `C-NNNN`으로 부른다.

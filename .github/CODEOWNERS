@@ -1,10 +1,17 @@
 # 경로별 담당자. 아래쪽 규칙이 위쪽보다 우선한다.
 # 문서: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# 지금은 클라이언트 담당만 확정. 서버·AI 담당은 영역이 겹칠 수 있어 계정이 정해지면 추가한다.
+# 추가할 때의 목표 형태:
+#   /server/    @<server>
+#   /ai/        @<ai>
+#   /design/    @<ai> @reidlo5135
+#   /api/       @reidlo5135 @<server>
+#   /.github/   @reidlo5135 @<server>
+#   /CLAUDE.md  @reidlo5135 @<server> @<ai>
 
-/client/        @<CLIENT_OWNER>
-/server/        @<SERVER_OWNER>
-/ai/            @<AI_OWNER>
-/design/        @<AI_OWNER> @<CLIENT_OWNER>
-/api/           @<CLIENT_OWNER> @<SERVER_OWNER>
-/.github/       @<CLIENT_OWNER> @<SERVER_OWNER>
-/CLAUDE.md      @<CLIENT_OWNER> @<SERVER_OWNER> @<AI_OWNER>
+/client/        @reidlo5135
+/design/        @reidlo5135
+/api/           @reidlo5135
+/.github/       @reidlo5135
+/CLAUDE.md      @reidlo5135
