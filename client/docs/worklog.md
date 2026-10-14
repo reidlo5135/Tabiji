@@ -22,7 +22,8 @@
 ## 진행 중
 
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
-- **다음: A4 — 사분면 선택(`remember`, state hoisting)**. 가이드는 A4 시작 때 작성
+- **A4 — 사분면 선택** ([guides/A4-intro-selection.md](guides/A4-intro-selection.md), 브랜치 `client/feat-a4-intro-selection`, #8 위에 쌓음). 가이드 작성 완료(첫 React 비유 가이드). **다음 행동: 사용자가 `Season.kt` + `IntroScreen.kt` 수정 → 스크린샷·`remember` 실험 → 진단 → 커밋. PR은 #8 머지 후 `main` merge하고 열기**
+- **PR 머지 순서 안내함: #5 → #7 → #8 → #3** (#3 CODEOWNERS를 넣으면 본인 PR에 오너 리뷰가 필요해져 bypass가 필요하므로 마지막)
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 - **디자인 핸드오프 v2** (PR #7): #5 다음에 머지
 
