@@ -53,6 +53,7 @@ Claude Code가 `client/`에서 작업할 때 읽는 파일이다. 루트 `CLAUDE
 - 이 확장은 JVM 프로젝트 중심이고 **KMP 지원이 제한적**이다. `commonMain`에서 빨간 줄, 자동완성 누락, 정의 이동 실패가 생길 수 있다
 - 진단의 기준은 **Gradle 빌드 결과**다. IDE에만 오류가 보이고 빌드는 통과하면, LSP 한계일 가능성을 먼저 설명하고 코드를 고치게 하지 않는다
 - 자동완성이 약하므로 가이드에서 쓰일 API의 **import 경로와 시그니처를 명시**한다. **단계(4-1, 4-2 …)마다 파일별 import 블록**을 붙이고, 이름이 겹치는 클래스(`TextStyle`·`Font`·`painterResource`·`Color`·`Text` 등 androidx / org.jetbrains.compose / org.jetbrains.skia / java.awt)는 "맞는 import / 고르면 안 되는 것" 표를 둔다 (2026-10-14 사용자 요청)
+- 레이아웃을 만들거나 바꾸는 **단계마다 Composable 트리 그림**(`├──`/`└──`, 각 노드에 핵심 modifier·파라미터)을 넣는다. 기존 구조가 바뀌면 "전 → 후" 트리를 나란히 둔다. 줄글만으로 구조를 설명하지 않는다 (2026-10-14 사용자 요청)
 - Compose Preview가 없으므로 화면 확인은 **Desktop 실행 + Compose Hot Reload**를 기본으로 하고, Android는 에뮬레이터 설치로 확인한다
 - 디버거가 필요한 단계에서는 VS Code로 가능한 방법과, 막히면 Android Studio/IntelliJ를 보조로 여는 방법을 함께 안내한다
 
