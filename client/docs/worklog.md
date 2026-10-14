@@ -26,6 +26,8 @@
 - **A5**: PR #10 머지 완료
 - **A6 — Compose Resources**: 완료 → 구현 커밋 + PR #11. 실제 일러스트 4-3 로컬 확인 후 되돌림, 커밋된 `intro_*.webp`는 플레이스홀더임을 확인함. **남은 것: CI → 사용자 squash merge (bypass)**
 - **A7 — 반응형** ([guides/A7-responsive-intro.md](guides/A7-responsive-intro.md), 브랜치 `client/feat-a7-responsive-intro`, A6 위). 가이드 작성 완료: `WidthClass` enum(600/840) + `LocalWidthClass`/`ProvideWidthClass`(BoxWithConstraints), `QuadrantGrid`/`QuadrantStack`(반복문), Phone 초점 0.16, 스택 310/360, 워드마크 46sp, 디버그 창 크기 프리셋. PR은 #11 머지 후
+  - **진행 상황 (2026-10-14 밤, 코드는 미커밋 — 로컬 작업 트리에만)**: `WidthClass.kt`(enum·`of()`·`LocalWidthClass`) ✓, `Season` 초점 2개 ✓, `main.kt` 창 크기 프리셋 ✓, `SeasonQuadrant`는 대안 방식(안에서 `LocalWidthClass` 읽어 초점 선택) ✓
+  - **남은 것**: ① `App.kt`를 `ProvideWidthClass`로 감싸기(안 감싸서 늘 EXPANDED) ② 함수 이름 `ProviderWidthClass` → `ProvideWidthClass` ③ `QuadrantGrid`(`chunked(2)`)·`QuadrantStack`(`forEach`) 본문 채우기 ④ `IntroScreen`의 `when` 뒤에 남은 예전 2×2 `Column`을 `QuadrantGrid`로 옮기기 ⑤ `when`의 MEDIUM·EXPANDED 묶기(선택) ⑥ 5-5 스택 폭 310/360·COMPACT 워드마크 46/52 ⑦ 토큰 화면 구간 표시(선택) → 그다음 6장 실험, 스크린샷
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -68,6 +70,11 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 (밤) — A7 진행 중 마무리
+
+- A7 가이드 5-3 "칸은 `focusY` 하나만 받는다"가 "둘로 나누라는 거 아니냐"로 읽힘 → enum에 저장 / 배치가 고름 / 칸이 씀 흐름 그림 추가. 사용자는 칸이 `LocalWidthClass`를 읽는 대안 방식을 택함 (허용)
+- 다음 세션: 위 "남은 것" ①~⑦부터. PR #11(A6) 머지 여부 확인 → 머지됐으면 A7 브랜치에 `main` merge
 
 ### 2026-10-14 (저녁) — A6 완료
 
