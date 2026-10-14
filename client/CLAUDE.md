@@ -59,9 +59,9 @@ Claude Code가 `client/`에서 작업할 때 읽는 파일이다. 루트 `CLAUDE
 ### 소통
 
 - 답변은 **한국어**. 기술 용어는 영어 병기 가능
-- 사용자는 ROS 2 로보틱스 엔지니어이고 C++/Qt6 Widgets로 데스크톱 앱을 만들어 봤다. Kotlin은 처음에 가깝다
+- 사용자는 ROS 2 로보틱스 엔지니어이고 C++ 경험이 있다. **Qt·QML은 잘 모르고 React는 안다** (2026-10-14 사용자 정정). Kotlin은 처음에 가깝다
   - Kotlin 문법(null 안전성, data class, 람다·trailing lambda, 확장 함수, sealed class, 코루틴·Flow)은 **처음 등장할 때** 짧게 설명한다
-  - Compose 고유 개념(composition/recomposition, state와 remember, state hoisting, side effect, Modifier 체인 순서, CompositionLocal)은 자세히, 가능하면 **Qt(시그널/슬롯, 모델/뷰, QML 바인딩)나 ROS 2(토픽 구독, 노드 라이프사이클)에 빗대어** 설명한다
+  - Compose 고유 개념(composition/recomposition, state와 remember, state hoisting, side effect, Modifier 체인 순서, CompositionLocal)은 자세히, 가능하면 **React(컴포넌트·props, `useState`·hooks, 리렌더, JSX 트리, CSS flexbox)나 ROS 2(토픽 구독, 노드 라이프사이클)에 빗대어** 설명한다. Qt·QML 비유는 쓰지 않는다
   - Gradle/KMP 구조(소스셋, expect/actual, 타깃)는 CMake 타깃·조건부 컴파일에 빗대어 설명한다
 
 ## 2. 영역 요약
