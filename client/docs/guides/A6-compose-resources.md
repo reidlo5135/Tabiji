@@ -407,13 +407,28 @@ Text("displayXL  Day 2 · 시즈오카 센겐 신사 · 駿府城 · 旅路 1.8k
 
 ### 4-5. 워드마크와 부제
 
-`IntroScreen`의 가운데 `Text` 하나를 **두 줄짜리 `Column`** 으로 바꾼다 (`Box` 안에서 `Modifier.align(Alignment.Center)`, `horizontalAlignment = Alignment.CenterHorizontally`).
+`IntroScreen`의 가운데 `Text` 하나를 **두 줄짜리 `Column`** 으로 바꾼다. **새 `Box`는 넣지 않는다.** 이미 있는 바깥 `Box` 안에 놓이니 `Modifier.align`을 쓸 수 있다.
+
+```
+IntroScreen
+└── Box (이미 있는 바깥 Box, fillMaxSize)
+    ├── Column (사분면 2×2)                         ← 그대로
+    └── Column (가운데 스택)                         ← 원래 Text 한 개 자리
+          modifier = Modifier.align(Alignment.Center)
+          horizontalAlignment = Alignment.CenterHorizontally
+        ├── Text 워드마크
+        └── Text 부제
+```
+
+`Column` 안에 `Box`를 또 두면 두 `Text`가 위아래가 아니라 **겹쳐** 쌓인다 (A3).
 
 | 줄 | 문자열 | 스타일 |
 | --- | --- | --- |
 | 워드마크 | `Res.string.intro_wordmark` | `TabijiTheme.typography.wordmark`, 흰색 |
 | 부제 | `Res.string.intro_subtitle` | `displayM.copy(fontSize = 17.sp, letterSpacing = 0.1.em)`, 흰색 (`10_intro.md`: Jua 17sp, 자간 0.1em) |
 
+- 스타일·색은 `Text`의 파라미터다: `Text(text = stringResource(…), style = TabijiTheme.typography.wordmark, color = Color.White)`. `stringResource(키, …)`의 두 번째 인자부터는 문자열 안 `%1$s` 자리에 끼울 값(React i18n의 `t('key', { name })`)이라, 스타일을 넣으면 **오류 없이 무시된다**
+- 스타일은 4-4 ③에서 연결한 `TabijiTheme.typography`로 읽는다. `tabijiTypography()`를 화면에서 직접 부르지 않는다 (색을 `TabijiTheme.colors`로 읽는 것과 같은 이유)
 - `copy(…)`는 A4에서 본 data class 복사다. `TextStyle`도 일부 값만 바꾼 복사본을 만들 수 있다
 - 흰 글자는 밝은 이미지 위에서 잘 안 읽힐 수 있다. **잉크 아웃라인과 하드 섀도는 A8에서** 입힌다
 
