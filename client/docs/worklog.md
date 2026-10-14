@@ -50,7 +50,7 @@
 - [ ] Dependabot이 AGP 9.4 / Gradle 9.8을 제안하면 Kotlin 호환성 가이드 갱신 여부 확인 후 머지 (1차: #2·#4 닫음)
 - [ ] **인트로 일러스트 4장 권리 처리 또는 교체** (제3자 캐릭터 포함, 팀 판단 — handoff-v1 PROMPT §9-8, v2 README 라이선스 절). 그 전까지 레포 커밋 금지(.gitignore), 앱 리소스는 A6에서 IP 없는 플레이스홀더로
 - [ ] `design/requests/0001-handoff-v1.md` — handoff README가 참조하는 요청 프롬프트 사본이 레포에 없음. 디자인 담당에게 사본 요청
-- [ ] Compose `FontFamily(Jua, PretendardJP)` 목록이 글자 단위 폴백으로 동작하는지 플랫폼별 미확인 (A6 1-6). Linux는 시스템 Noto CJK가 있어 두부는 안 나옴. Android는 M2에서 확인, 필요하면 `AnnotatedString`으로 한자 구간만 Pretendard 지정
+- [ ] Compose `FontFamily(Jua, PretendardJP)` 목록이 글자 단위 폴백으로 동작하는지 플랫폼별 미확인 (A6 1-6). **2026-10-14 Desktop 관찰: display 줄의 駿府城·旅路가 주변 Jua보다 가늘게 렌더 → 체인의 Pretendard SemiBold가 아니라 OS 시스템 폰트(Noto CJK)로 대체된 것으로 추정.** 즉 Desktop에서도 체인 폴백은 안 되는 듯. Linux는 시스템 Noto CJK가 있어 두부는 안 나옴. Android는 M2에서 확인, 필요하면 `AnnotatedString`으로 한자 구간만 Pretendard 지정
 - [ ] handoff PROMPT "열린 질문" 중 개발 몫: 폰트 서브셋(v1 §9-1 — v2는 PretendardJP 4벌 22MB + Jua 2.8MB라 더 시급, A6에서), MapLibre Desktop 경로(v1 §9-3, C1에서) — 해당 단계에서 ADR로 답. v1 §9-2 Desktop 블러는 v2에서 블러 자체가 없어져 해소
 - [ ] handoff-v2 PROMPT §8 팀 결정: 테마별 다크 변형 방식, v2 컴포넌트 보드 추가 제작 여부, **테마 선택 UI 디자인(B6 전에 디자인 요청 필요)**, 인트로와 테마 결합 여부
 - [ ] Android API 24·25용 런처 아이콘 폴백 PNG (adaptive icon은 26+). A9 패키징 전 점검
