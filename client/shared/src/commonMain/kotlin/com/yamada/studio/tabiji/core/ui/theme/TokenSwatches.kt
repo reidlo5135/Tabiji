@@ -33,6 +33,19 @@ fun TokenSwatches(modifier: Modifier = Modifier) {
         "ok" to c.ok,
     ) + c.headers.mapIndexed { i, color -> "h${i + 1}" to color }
 
+    val t = TabijiTheme.typography
+    val typeRows = listOf(
+        "displayXL" to t.displayXL,
+        "displayL" to t.displayL,
+        "displayM" to t.displayM,
+        "displayS" to t.displayS,
+        "body" to t.body,
+        "caption" to t.caption,
+        "badge" to t.badge,
+        "numeric" to t.numeric,
+        "wordmark" to t.wordmark
+    )
+
     Column(
         modifier = modifier.background(c.paper).verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -54,6 +67,15 @@ fun TokenSwatches(modifier: Modifier = Modifier) {
                     color = c.ink
                 )
             }
+        }
+
+        // 디버그 샘플
+        typeRows.forEach { (name, type) ->
+            Text(
+                text = "$name Day 2 · 시즈오카 센겐 신사 · 駿府城 · 旅路 1.8km",
+                style = type,
+                color = c.ink
+            )
         }
     }
 }

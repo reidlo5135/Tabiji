@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tabiji</string>
+    <string name="intro_wordmark">Tabiji</string>
+    <string name="intro_subtitle">여행(旅路) 도우미</string>
+    <string name="season_spring">봄</string>
+    <string name="season_summer">여름</string>
+    <string name="season_autumn">가을</string>
+    <string name="season_winter">겨울</string>
+</resources>

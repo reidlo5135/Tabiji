@@ -23,8 +23,9 @@
 
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
 - **A4**: PR #9 머지 완료
-- **A5 — TabijiTheme**: PR #10 (#9 머지 후 `main` merge로 맞춤). **CI 확인 → 사용자 squash merge (bypass)**
-- **A6 — Compose Resources** ([guides/A6-compose-resources.md](guides/A6-compose-resources.md), 브랜치 `client/feat-a6-compose-resources`, A5 위). 가이드 작성 + IP 없는 인트로 플레이스홀더 4장 생성(Claude, PIL, 원본과 같은 비율 + 격자·초점 십자선·1.6:1 안전 영역). **실제 일러스트는 4-3에서 로컬로만 덮어써 확인 후 `git restore` — 커밋 전에 `intro_*.webp`가 플레이스홀더인지 반드시 확인**
+- **A5**: PR #10 머지 완료
+- **A6 — Compose Resources**: 완료 → 구현 커밋 + PR. 실제 일러스트 4-3 로컬 확인 후 되돌림, 커밋된 `intro_*.webp`는 플레이스홀더임을 확인함. **남은 것: CI → 사용자 squash merge (bypass)**
+- **A7 — 반응형** (가이드 작성, 브랜치 `client/feat-a7-responsive-intro`, A6 위)
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -67,6 +68,13 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 (저녁) — A6 완료
+
+- 막힌 곳: `SeasonQuadrant`를 이미지로 바꾸며 A4 시그니처·덮개를 지움(가이드가 "시그니처 유지"를 안 적음 → 전/후 그림으로 보강), `stringResource(키, 스타일)`로 스타일을 format 인자에 넣음(오류 없이 무시됨), 4-5 문장 "Box 안에서"를 새 Box로 읽음 → 트리로 교체, import 혼동(skia `TextStyle`, androidx `Font`, `FontStyle.SemiBold`) → 단계별 import 블록 + 겹치는 이름 표
+- **사용자 요청(규칙화)**: 가이드에 단계·파일별 import 블록, 단계별 Composable 트리 그림 (`client/CLAUDE.md` 반영)
+- 관찰: display 줄의 한자가 Jua보다 가늘게 → `FontFamily` 체인 폴백이 아니라 OS 시스템 폰트 대체로 추정 (열린 일)
+- Ubuntu에서 Gradle 실행 앱은 독 아이콘이 Java 기본일 수 있음. 창 아이콘 코드는 연결됨 → A9 `.deb`에서 독 아이콘 확인
 
 ### 2026-10-14 (저녁) — 창 기본 크기·반응형 순서 조정
 
