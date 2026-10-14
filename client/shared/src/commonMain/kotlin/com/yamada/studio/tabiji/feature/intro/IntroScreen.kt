@@ -9,6 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.yamada.studio.tabiji.core.ui.theme.TabijiPalette
+import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
 
 
 @Composable
@@ -22,7 +24,7 @@ fun IntroScreen(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().background(Color(0xFF2A3644)), // TODO(A5): TabijiTheme 토큰으로
+            modifier = Modifier.fillMaxSize().background(TabijiTheme.colors.ink),
             verticalArrangement = Arrangement.spacedBy(3.dp),
         ) {
             Row(
@@ -94,12 +96,11 @@ private fun SeasonQuadrant(
 }
 
 private fun seasonColor(season: Season): Color {
-    // TODO(A6): 계절 이미지로
     return when (season) {
-        Season.SPRING -> Color(0xFFC95E7E)
-        Season.SUMMER -> Color(0xFF1F96B8)
-        Season.AUTUMN -> Color(0xFFC06F22)
-        Season.WINTER -> Color(0xFF5674AE)
+        Season.SPRING -> TabijiPalette.SPRING.colors.accent
+        Season.SUMMER -> TabijiPalette.SUMMER.colors.accent
+        Season.AUTUMN -> TabijiPalette.AUTUMN.colors.accent
+        Season.WINTER -> TabijiPalette.WINTER.colors.accent
     }
 }
 
