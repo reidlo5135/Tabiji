@@ -23,7 +23,8 @@
 
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
 - **A4 — 사분면 선택**: 완료 → 구현 커밋 + PR (브랜치 `client/feat-a4-intro-selection`). **남은 것: CI 확인 → 사용자 squash merge (#3 이후라 관리자 bypass 필요)**
-- **A5 — TabijiTheme** ([guides/A5-tabiji-theme.md](guides/A5-tabiji-theme.md), 브랜치 `client/feat-a5-tabiji-theme`, A4 위에 쌓음). 가이드 작성 완료
+- **A5 — TabijiTheme**: 완료 → 구현 커밋 (브랜치 `client/feat-a5-tabiji-theme`, #9 위). **PR은 #9 머지 후 `main` merge하고 연다**
+- **다음: A6 — Compose Resources (계절 이미지·폰트·문자열·Desktop 창 아이콘)**. 가이드는 A6 시작 때
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -65,6 +66,14 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 (오후 늦게) — A5 완료
+
+- 가이드 4-3 예시에 `Foo` 같은 가짜 이름을 써서 사용자가 "선언 안 된 타입"으로 읽음 → 실제 이름(`TabijiColors`, `LocalTabijiColors`)과 React Context 대응 코드로 교체. 앞으로 가이드 예시는 실제 이름으로
+- 사용자 요청으로 나머지 팔레트 7개를 Claude가 `tokens.json`에서 생성 (일회용 스크립트, cloud를 같은 스크립트로 만들어 사용자 손코딩본과 글자 단위로 일치 확인). 사용자 cloud에서 `paper` hex 한 자리 누락(`0xFF2F7FC`) 버그를 사전에 잡음
+- 막힌 곳: `main.kt`에 메뉴바 대신 Material2 `RadioButton` 위젯, `selected = p.equals(p)`, `onClick`에서 상태 안 바꿈, `val` 위임 / `TokenSwatches`가 리턴 없이 그린다는 개념(Compose는 JSX를 돌려주지 않고 호출로 등록) / `Column`에 `verticalAlignment`(주축 Arrangement·교차축 Alignment) / **부모 `modifier`를 안쪽 반복 자식에 재사용** → 첫 색 상자가 화면 전체를 덮음, 한 번은 반대로 바꿈 → "받은 modifier는 최상위 한 번, 안쪽은 `Modifier`로 새로" 정리
+- IDE 저장 지연: 리뷰 시점에 디스크에 반영 전이라 "안 고쳐졌다"고 오판할 뻔함. 파일 mtime으로 확인
+- 결과: 메뉴바로 8테마 전환 + 240ms 크로스페이드, 토큰 화면 korea 18줄이 tokens.json과 일치, 화면 코드 색 리터럴 0개
 
 ### 2026-10-14 (오후) — A4 완료
 
