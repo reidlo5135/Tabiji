@@ -1,0 +1,72 @@
+<!doctype html>
+<!-- Tabiji 旅路 v2 진실 소스 — 기본(cloud) 테마로 렌더됨.
+     테마 전환 = .v2 루트에 클래스 추가(spring/summer/autumn/winter/korea/china/japan).
+     구현 수치·색의 최종 기준은 tokens/tokens.json (보드와 미세 차이 시 tokens.json 우선). -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 인트로 v2 · Phone</title>
+<style>@font-face{font-family:"Jua";font-weight:400;src:url(../assets/fonts/Jua-Regular.ttf) format("truetype")}</style>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:700;src:url(../assets/fonts/Sora-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2F5E9E}a:hover{color:#3E8FC7}
+.v2{--paper:#F2F7FC;--stripe:#E8F1F9;--ink:#2A3644;--card:#FFFFFF;--accent:#3E8FC7;--sub:#5B6878;--h1:#4A8FC2;--h2:#5F74B8;--h3:#4A9A93;--soft:#EAF3FB;--shadow:rgba(42,54,68,.22)}
+.v2.spring{--paper:#FCF3F5;--stripe:#F7E8EC;--ink:#43313A;--card:#FFFFFF;--accent:#C95E7E;--sub:#6E5A63;--h1:#C95E7E;--h2:#7FA255;--h3:#9A77C2;--soft:#F9E9EE;--shadow:rgba(67,49,58,.22)}
+.v2.summer{--paper:#EFF9FB;--stripe:#E2F2F6;--ink:#1E3B4C;--card:#FFFFFF;--accent:#1F96B8;--sub:#4E6B7A;--h1:#1F96B8;--h2:#2C7FC9;--h3:#2E9E85;--soft:#E2F4F8;--shadow:rgba(30,59,76,.22)}
+.v2.autumn{--paper:#FBF3E6;--stripe:#F4E8D3;--ink:#46321F;--card:#FFFDF8;--accent:#C97A2E;--sub:#77614A;--h1:#C97A2E;--h2:#A8891F;--h3:#B35C3B;--soft:#F7EAD6;--shadow:rgba(70,50,31,.22)}
+.v2.winter{--paper:#F1F5FA;--stripe:#E6EDF6;--ink:#2A3650;--card:#FFFFFF;--accent:#5674AE;--sub:#5B6880;--h1:#5674AE;--h2:#7585C2;--h3:#7E6FB5;--soft:#E8EEF8;--shadow:rgba(42,54,80,.22)}
+.v2.korea{--paper:#FAF4EA;--stripe:#F2E9DA;--ink:#30261C;--card:#FFFCF5;--accent:#2F5E9E;--sub:#6B5D4A;--h1:#2F5E9E;--h2:#BE4450;--h3:#2E7D5B;--soft:#EDE4D2;--shadow:rgba(48,38,28,.22)}
+.v2.china{--paper:#FCF2EA;--stripe:#F6E6D8;--ink:#3C241C;--card:#FFFAF3;--accent:#BE4435;--sub:#7A5A48;--h1:#BE4435;--h2:#C2922A;--h3:#357F63;--soft:#F6E3D6;--shadow:rgba(60,36,28,.22)}
+.v2.japan{--paper:#F6F5F0;--stripe:#ECEAE2;--ink:#2B2B30;--card:#FFFEFA;--accent:#2B4C7E;--sub:#5F5F66;--h1:#2B4C7E;--h2:#C25548;--h3:#6E7F49;--soft:#E9E7DC;--shadow:rgba(43,43,48,.22)}
+.h{font-family:'Jua','Pretendard',sans-serif;font-weight:400}
+</style>
+</head>
+<body>
+<div class="v2" style="position: relative; width: 390px; height: 844px; overflow: hidden; font-family: 'Pretendard', system-ui, sans-serif; color: var(--ink); background: var(--ink)">
+
+  <div style="position: absolute; inset: 0; display: grid; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 3px; background: var(--ink)">
+    <img src="../assets/intro/spring.webp" alt="봄 풍경" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%">
+    <img src="../assets/intro/summer.webp" alt="여름 풍경" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%">
+    <img src="../assets/intro/autumn.webp" alt="가을 풍경" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%">
+    <img src="../assets/intro/winter.webp" alt="겨울 풍경" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%">
+  </div>
+
+  <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 20px; width: 310px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+      <span style="font-family: 'Sora', 'Pretendard', sans-serif; font-size: 46px; font-weight: 700; letter-spacing: -0.02em; line-height: 52px; color: #FFFFFF; text-shadow: 3px 3px 0 var(--ink), -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 0 8px 20px rgba(0,0,0,.35)">Tabiji</span>
+      <span class="h" style="font-size: 15px; letter-spacing: 0.1em; color: #FFFFFF; padding-left: 0.1em; text-shadow: 2px 2px 0 var(--ink), -1.5px -1.5px 0 var(--ink), 1.5px -1.5px 0 var(--ink), -1.5px 1.5px 0 var(--ink)">여행(旅路) 도우미</span>
+    </div>
+    <nav aria-label="시작 메뉴" style="display: flex; flex-direction: column; gap: 11px; width: 310px">
+      <a href="PlannerV2Phone.dc.html" class="h" style="height: 56px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 0 14px; text-decoration: none; color: #FFFFFF; background: var(--accent); border: 2px solid var(--ink); box-shadow: 0 4px 0 var(--ink); border-radius: 10px; clip-path: path('M12 0 H302 L310 8 V44 A12 12 0 0 1 298 56 H12 A12 12 0 0 1 0 44 V12 A12 12 0 0 1 12 0 Z')">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <span style="display: flex; flex-direction: column; flex: 1"><span style="font-size: 17px; line-height: 21px">시작하기</span><span style="font-family: 'Pretendard'; font-size: 11px; font-weight: 600; line-height: 14px; opacity: .85">새 여행 일정 만들기</span></span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a href="TripsV2Phone.dc.html" class="h" style="height: 50px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 0 14px; text-decoration: none; color: var(--ink); background: var(--card); border: 2px solid var(--ink); box-shadow: 0 4px 0 var(--ink); border-radius: 10px">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>
+        <span style="font-size: 16px; flex: 1">내 여행</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#settings" class="h" style="height: 50px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 0 14px; text-decoration: none; color: var(--ink); background: var(--card); border: 2px solid var(--ink); box-shadow: 0 4px 0 var(--ink); border-radius: 10px">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span style="font-size: 16px; flex: 1">설정</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </nav>
+  </div>
+</div>
+
+<!-- ▼ 미리보기 전용 테마 셀렉터 — 구현 대상 아님. 앱에서는 설정 화면의 테마 선택이 이 역할을 한다. -->
+<select id="themePreview" aria-label="테마 미리보기"
+ style="position:fixed;right:10px;bottom:10px;z-index:9999;font:600 12px system-ui;padding:4px 6px;
+ border:2px solid #2A3644;border-radius:8px;background:#FFF;box-shadow:0 2px 0 rgba(42,54,68,.3)"
+ onchange="var r=document.querySelector('.v2');r.className='v2'+(this.value==='cloud'?'':' '+this.value)">
+<option value="cloud">cloud (기본)</option><option>spring</option><option>summer</option><option>autumn</option>
+<option>winter</option><option>korea</option><option>china</option><option>japan</option>
+</select>
+<!-- ▲ 미리보기 전용 끝 -->
+</body>
+</html>

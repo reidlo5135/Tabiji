@@ -42,9 +42,9 @@ Thumbs.db
 *~
 
 # ── 타사 IP 포함 에셋 (커밋 금지 — 루트 CLAUDE.md) ──────
-# handoff-v1 인트로 일러스트 4장: 제3자 캐릭터 포함 (handoff README·PROMPT §9-8).
-# 팀 보관소에서 받아 이 경로에 두면 로컬에서만 쓰인다. 교체본이 오면 이 규칙을 지운다.
-design/handoff/handoff-v1/assets/intro/*.webp
+# 핸드오프 인트로 일러스트 4장: 제3자 캐릭터 포함 (handoff-v1 PROMPT §9-8, handoff-v2 README 라이선스 절).
+# v1·v2 모두 같은 파일이다. 팀 보관소에서 받아 이 경로에 두면 로컬에서만 쓰인다. 교체본이 오면 이 규칙을 지운다.
+design/handoff/*/assets/intro/*.webp
 
 # ── 로그 ───────────────────────────────────────────────
 *.log
