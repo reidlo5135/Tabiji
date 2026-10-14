@@ -23,31 +23,24 @@
 
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
 - **A4 — 사분면 선택** ([guides/A4-intro-selection.md](guides/A4-intro-selection.md), 브랜치 `client/feat-a4-intro-selection`, #8 위에 쌓음). 가이드 작성 완료(첫 React 비유 가이드). **다음 행동: 사용자가 `Season.kt` + `IntroScreen.kt` 수정 → 스크린샷·`remember` 실험 → 진단 → 커밋. PR은 #8 머지 후 `main` merge하고 열기**
-- **PR 머지 순서 안내함: #5 → #7 → #8 → #3** (#3 CODEOWNERS를 넣으면 본인 PR에 오너 리뷰가 필요해져 bypass가 필요하므로 마지막)
+- **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
-- **디자인 핸드오프 v2** (PR #7): #5 다음에 머지
 
 ### PR 현황 (2026-10-14 기준 · 최신은 `gh pr list`)
 
-| PR | 브랜치 | 상태 | 메모 |
-| --- | --- | --- | --- |
-| #3 CODEOWNERS 클라이언트 담당 | `repo/chore-assign-client-owner` | 열림 | 사용자가 머지. 머지 후 `.github/`·`client/` PR은 관리자 우회("bypass rules") 필요해짐 |
-| #5 디자인 핸드오프 v1 + 旅 아이콘 세트 | `design/feat-handoff-v1` | 열림 | 사용자가 머지. v2가 대체하지만 스냅샷 보존 원칙(`design/README.md`)대로 머지 권장 |
-| #6 A1 단계 | `client/feat-a1-intro-window` | ✅ 머지 | `08c1383` |
-| #7 디자인 핸드오프 v2 | `design/feat-handoff-v2` | 열림 | **#5 다음에 머지** (base를 `main`으로 바꾼 뒤). 루트 `.gitignore`의 인트로 webp 규칙을 `design/handoff/*/assets/intro/*.webp`로 넓힘 |
-| #8 A3 단계 | `client/feat-a3-intro-quadrants` | 열림 | 로드맵 v2·데스크톱 우선 문서 포함. CI 확인 후 squash merge |
+열린 PR 없음. #1·#3·#5·#6·#7·#8 머지 완료 (Dependabot #2·#4는 닫음). A4 PR은 구현 커밋 후 연다.
 
 ### 세션 간 로컬 메모 (레포 밖 상태 — 다른 머신에는 없음)
 
 - `.vscode/settings.json`에 사용자 로컬 수정(`gradle.autoDetect: off`, `java.gradle.buildServer.enabled: off`)이 **커밋 안 된 채** 있음 — 사용자 결정: "일단 내비둬". 커밋·stash·브랜치 전환 시 이 파일은 제외하고 다룰 것
 - `client/.mcp.json`(IntelliJ MCP 연결, `127.0.0.1:64342`)이 untracked로 있음. 머신 로컬 설정이므로 커밋하지 않음 — gitignore 추가 여부는 나중에 결정
+- `design/handoff/handoff-v1/`·`handoff-v2/`는 이제 `main`에 커밋됨 (#5·#7). 이전의 untracked 사본은 머지 전에 `/tmp/tabiji-handoff-backup/`으로 옮겨 정리함
 - 인트로 일러스트 webp 4장은 gitignore라 **이 PC 로컬에만** 있음 (`design/handoff/handoff-v1/assets/intro/`, `handoff-v2/assets/intro/` — 두 벌은 sha256 동일). 다른 머신에서는 팀 보관소(`~/Downloads/handoff-v2.zip` 원본)에서 같은 경로로 복사
-- `design/handoff/handoff-v1/`·`handoff-v2/`가 클라이언트 브랜치에서 **untracked 사본**으로 있음 (#5·#7 미머지라 이 브랜치엔 없음). **#5·#7 머지 후 `main`을 pull·rebase하기 전에** 두 폴더의 `assets/intro/*.webp`를 잠시 다른 곳에 옮기고 두 폴더를 지운 뒤 pull, 그다음 webp를 제자리로 — 안 그러면 git이 "untracked working tree files would be overwritten"으로 멈춘다
 - 에디터를 VS Code → IntelliJ IDEA로 옮기는 중. IntelliJ에서는 `client/`를 Gradle 프로젝트로 열면 되고(루트 아님 주의 — 레포 루트에는 Gradle 빌드가 없다), `.vscode/tasks.json` 대신 `client/scripts/linux/*.sh`를 그대로 쓴다. `client/CLAUDE.md`의 "에디터 환경 (VS Code)" 절과 A0 가이드 9절의 LSP 한계 설명은 IntelliJ에서는 해당 없음 — IntelliJ는 KMP를 제대로 지원하므로 빨간 줄 기준으로 진단해도 된다 (갱신은 A1 완료 후 별도 PR로)
 
 ## 열린 일
 
-- [ ] 팀원 GitHub 계정으로 플레이스홀더 교체: `<CLIENT_OWNER>`, `<SERVER_OWNER>`, `<AI_OWNER>` (`.github/CODEOWNERS`, 루트 `CLAUDE.md`, `server/README.md`, `ai/README.md`, ADR들)
+- [ ] 서버·AI 담당 계정이 정해지면 `.github/CODEOWNERS`(목표 형태는 파일 주석), 루트 `CLAUDE.md` 담당 칸에 추가. `server/README.md`·`ai/README.md`의 플레이스홀더는 각 담당자가 교체
 - [ ] `docs/github.md` 8절 원격 설정 적용 (관리자)
 - [ ] ruleset 결정: 코드 오너 리뷰 필수 + 관리자 PR 우회 vs 코드 오너 리뷰 미강제 (`docs/github.md` 4절)
 - [ ] 필수 상태 체크(`client-ci`)는 경로 필터 문제로 보류 — 필요해지면 `ci/` PR로 job 내부 판별 방식으로 전환

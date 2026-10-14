@@ -1,0 +1,112 @@
+<!doctype html>
+<!-- Tabiji 旅路 v2 진실 소스 — 기본(cloud) 테마로 렌더됨.
+     테마 전환 = .v2 루트에 클래스 추가(spring/summer/autumn/winter/korea/china/japan).
+     구현 수치·색의 최종 기준은 tokens/tokens.json (보드와 미세 차이 시 tokens.json 우선). -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 여행 목록 v2 · Desktop</title>
+<style>@font-face{font-family:"Jua";font-weight:400;src:url(../assets/fonts/Jua-Regular.ttf) format("truetype")}</style>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:700;src:url(../assets/fonts/Sora-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2F5E9E}a:hover{color:#3E8FC7}
+.v2{--paper:#F2F7FC;--stripe:#E8F1F9;--ink:#2A3644;--card:#FFFFFF;--accent:#3E8FC7;--sub:#5B6878;--h1:#4A8FC2;--h2:#5F74B8;--h3:#4A9A93;--soft:#EAF3FB;--shadow:rgba(42,54,68,.22)}
+.v2.spring{--paper:#FCF3F5;--stripe:#F7E8EC;--ink:#43313A;--card:#FFFFFF;--accent:#C95E7E;--sub:#6E5A63;--h1:#C95E7E;--h2:#7FA255;--h3:#9A77C2;--soft:#F9E9EE;--shadow:rgba(67,49,58,.22)}
+.v2.summer{--paper:#EFF9FB;--stripe:#E2F2F6;--ink:#1E3B4C;--card:#FFFFFF;--accent:#1F96B8;--sub:#4E6B7A;--h1:#1F96B8;--h2:#2C7FC9;--h3:#2E9E85;--soft:#E2F4F8;--shadow:rgba(30,59,76,.22)}
+.v2.autumn{--paper:#FBF3E6;--stripe:#F4E8D3;--ink:#46321F;--card:#FFFDF8;--accent:#C97A2E;--sub:#77614A;--h1:#C97A2E;--h2:#A8891F;--h3:#B35C3B;--soft:#F7EAD6;--shadow:rgba(70,50,31,.22)}
+.v2.winter{--paper:#F1F5FA;--stripe:#E6EDF6;--ink:#2A3650;--card:#FFFFFF;--accent:#5674AE;--sub:#5B6880;--h1:#5674AE;--h2:#7585C2;--h3:#7E6FB5;--soft:#E8EEF8;--shadow:rgba(42,54,80,.22)}
+.v2.korea{--paper:#FAF4EA;--stripe:#F2E9DA;--ink:#30261C;--card:#FFFCF5;--accent:#2F5E9E;--sub:#6B5D4A;--h1:#2F5E9E;--h2:#BE4450;--h3:#2E7D5B;--soft:#EDE4D2;--shadow:rgba(48,38,28,.22)}
+.v2.china{--paper:#FCF2EA;--stripe:#F6E6D8;--ink:#3C241C;--card:#FFFAF3;--accent:#BE4435;--sub:#7A5A48;--h1:#BE4435;--h2:#C2922A;--h3:#357F63;--soft:#F6E3D6;--shadow:rgba(60,36,28,.22)}
+.v2.japan{--paper:#F6F5F0;--stripe:#ECEAE2;--ink:#2B2B30;--card:#FFFEFA;--accent:#2B4C7E;--sub:#5F5F66;--h1:#2B4C7E;--h2:#C25548;--h3:#6E7F49;--soft:#E9E7DC;--shadow:rgba(43,43,48,.22)}
+.h{font-family:'Jua','Pretendard',sans-serif;font-weight:400}
+.tcard{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);border:2px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--card);box-shadow:3px 3px 0 var(--shadow)}
+</style>
+</head>
+<body>
+<div class="v2" style="width: 1440px; min-height: 900px; box-sizing: border-box; font-family: 'Pretendard', system-ui, sans-serif; color: var(--ink); background: var(--paper); background-image: repeating-linear-gradient(45deg, transparent 0 16px, var(--stripe) 16px 32px)">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 36px 48px 64px 48px; display: flex; flex-direction: column; gap: 24px">
+
+    <header style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+      <a href="IntroV2.dc.html" aria-label="Tabiji 홈" style="display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: var(--ink)">
+        <span style="font-family: 'Sora', 'Pretendard', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.02em">Tabiji</span>
+        <span class="h" style="font-size: 13px; color: var(--sub)">여행(旅路) 도우미</span>
+      </a>
+      <span aria-hidden="true" style="width: 2px; height: 26px; background: var(--ink); opacity: .5"></span>
+      <h1 class="h" style="margin: 0; font-size: 26px; flex: 1">내 여행</h1>
+      <button type="button" class="h" style="height: 48px; padding: 0 20px; border: 2px solid var(--ink); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 16px; color: #FFFFFF; background: var(--accent); box-shadow: 0 3px 0 var(--ink); border-radius: 10px; clip-path: path('M12 0 H178 L186 8 V36 A12 12 0 0 1 174 48 H12 A12 12 0 0 1 0 36 V12 A12 12 0 0 1 12 0 Z'); width: 186px; box-sizing: border-box; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>새 여행 만들기
+      </button>
+    </header>
+
+    <div style="display: flex; align-items: center; gap: 8px">
+      <button type="button" aria-pressed="true" class="h" style="height: 36px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--ink); background: var(--accent); color: #FFFFFF; font-size: 14px; cursor: pointer; box-shadow: 0 2px 0 var(--ink)">전체 3</button>
+      <button type="button" aria-pressed="false" class="h" style="height: 36px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--ink); background: var(--card); color: var(--ink); font-size: 14px; cursor: pointer; box-shadow: 0 2px 0 var(--shadow)">예정</button>
+      <button type="button" aria-pressed="false" class="h" style="height: 36px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--ink); background: var(--card); color: var(--ink); font-size: 14px; cursor: pointer; box-shadow: 0 2px 0 var(--shadow)">지난 여행</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 24px">
+
+      <a href="PlannerV2.dc.html" class="tcard">
+        <div class="h" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: var(--h1); color: #FFFFFF; border-bottom: 2px solid var(--ink); font-size: 16px">
+          <span style="font-family: 'Pretendard'; font-size: 11px; font-weight: 700; background: #FFFFFF; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 1px 8px">D-0</span>시즈오카 3박4일
+        </div>
+        <div style="position: relative; height: 160px; overflow: hidden; border-bottom: 2px solid var(--ink)">
+          <img src="../assets/map/map_light.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 40%">
+        </div>
+        <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; font-weight: 600">시즈오카 · 일본</span>
+          <span style="font-size: 12px; color: var(--sub)">2026.09.19 – 09.22 · 4일 · 18곳 · 진행 중</span>
+        </div>
+      </a>
+
+      <a href="PlannerV2.dc.html" class="tcard">
+        <div class="h" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: var(--h2); color: #FFFFFF; border-bottom: 2px solid var(--ink); font-size: 16px">
+          <span style="font-family: 'Pretendard'; font-size: 11px; font-weight: 700; background: #FFFFFF; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 1px 8px">D-166</span>오사카·교토 벚꽃
+        </div>
+        <div style="position: relative; height: 160px; overflow: hidden; border-bottom: 2px solid var(--ink)">
+          <img src="../assets/intro/spring.webp" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%">
+        </div>
+        <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; font-weight: 600">간사이 · 일본</span>
+          <span style="font-size: 12px; color: var(--sub)">2027.03.28 – 04.01 · 5일 · 일정 작성 중</span>
+        </div>
+      </a>
+
+      <a href="PlannerV2.dc.html" class="tcard">
+        <div class="h" style="height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: var(--h3); color: #FFFFFF; border-bottom: 2px solid var(--ink); font-size: 16px">
+          <span style="font-family: 'Pretendard'; font-size: 11px; font-weight: 700; background: #FFFFFF; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 1px 8px">D-172</span>제주 봄 드라이브
+        </div>
+        <div style="position: relative; height: 160px; overflow: hidden; border-bottom: 2px solid var(--ink)">
+          <img src="../assets/intro/autumn.webp" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%">
+        </div>
+        <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; font-weight: 600">제주 · 대한민국</span>
+          <span style="font-size: 12px; color: var(--sub)">2027.04.03 – 04.05 · 3일 · 9곳</span>
+        </div>
+      </a>
+
+      <button type="button" style="min-height: 268px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border-radius: 10px; border: 2px dashed var(--ink); background: transparent; color: var(--sub); font: inherit; cursor: pointer">
+        <span style="width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--card); border: 2px solid var(--ink); box-shadow: 0 3px 0 var(--shadow); color: var(--ink)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span class="h" style="font-size: 16px; color: var(--ink)">새 여행 만들기</span>
+        <span style="font-size: 12px">지역과 날짜만 정하면 시작됩니다</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ▼ 미리보기 전용 테마 셀렉터 — 구현 대상 아님. 앱에서는 설정 화면의 테마 선택이 이 역할을 한다. -->
+<select id="themePreview" aria-label="테마 미리보기"
+ style="position:fixed;right:10px;bottom:10px;z-index:9999;font:600 12px system-ui;padding:4px 6px;
+ border:2px solid #2A3644;border-radius:8px;background:#FFF;box-shadow:0 2px 0 rgba(42,54,68,.3)"
+ onchange="var r=document.querySelector('.v2');r.className='v2'+(this.value==='cloud'?'':' '+this.value)">
+<option value="cloud">cloud (기본)</option><option>spring</option><option>summer</option><option>autumn</option>
+<option>winter</option><option>korea</option><option>china</option><option>japan</option>
+</select>
+<!-- ▲ 미리보기 전용 끝 -->
+</body>
+</html>

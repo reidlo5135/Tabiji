@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 여행 목록 · Desktop</title>
+<!-- 디자인 원본. 수치가 이미지와 다르면 이 파일이 정답. 1px = 1dp -->
+</head>
+<body>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:500;src:url(../assets/fonts/PretendardJP-Medium.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:700;src:url(../assets/fonts/PretendardJP-Bold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:400;src:url(../assets/fonts/Sora-Regular.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:600;src:url(../assets/fonts/Sora-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:700;src:url(../assets/fonts/Sora-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1A78A8}a:hover{color:#2FA8E0}
+.tj{--bg-top:#EAF3FB;--bg-bot:#F7F9FC;--glass:rgba(255,255,255,.72);--card:rgba(255,255,255,.82);--silver-from:#F4F6F9;--silver-to:#C9D1DB;--hl:rgba(255,255,255,.8);--line:#D5DCE4;--text:#1C2633;--text2:#5B6878;--accent:#2FA8E0;--accent-text:#1A78A8;--accent-line:#1A8FC6;--on-accent:#0E1621;--shadow:0 8px 24px rgba(28,38,51,.10)}
+.tj.dark{--bg-top:#0E1621;--bg-bot:#18212D;--glass:rgba(30,39,51,.72);--card:rgba(30,39,51,.82);--silver-from:#2A3441;--silver-to:#3A4655;--hl:rgba(255,255,255,.14);--line:#334051;--text:#E9EEF4;--text2:#9AA7B6;--accent:#5CC3F0;--accent-text:#5CC3F0;--accent-line:#5CC3F0;--on-accent:#0E1621;--shadow:0 8px 24px rgba(0,0,0,.35)}
+</style>
+<div class="tj light" style="position: relative; width: 100%; min-height: 900px; box-sizing: border-box; font-family: 'Pretendard', system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--bg-top), var(--bg-bot))">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 40px 48px 64px 48px; display: flex; flex-direction: column; gap: 32px">
+
+    <header style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap">
+      <a href="intro_desktop_light.html" aria-label="Tabiji 홈" style="display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: var(--text)">
+        <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">Tabiji</span>
+        <span style="font-size: 12px; letter-spacing: 0.2em; color: var(--text2)">旅路</span>
+      </a>
+      <span aria-hidden="true" style="width: 1px; height: 24px; background: var(--line)"></span>
+      <h1 style="margin: 0; font-size: 22px; font-weight: 600; flex: 1">내 여행</h1>
+      <button type="button" style="width: 180px; height: 48px; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 14px; font-weight: 600; color: var(--on-accent); background: var(--accent); box-shadow: inset 0 1px 0 rgba(255,255,255,.55); clip-path: path('M12 0 H172 L180 8 V36 A12 12 0 0 1 168 48 H12 A12 12 0 0 1 0 36 V12 A12 12 0 0 1 12 0 Z')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        <span>새 여행 만들기</span>
+      </button>
+    </header>
+
+    <div style="display: flex; align-items: center; gap: 8px">
+      <button type="button" aria-pressed="true" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--accent-line); background: rgba(47,168,224,.14); color: var(--accent-text); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer">전체 3</button>
+      <button type="button" aria-pressed="false" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">예정</button>
+      <button type="button" aria-pressed="false" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">지난 여행</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 24px">
+
+      <a href="planner_desktop_light.html" style="display: flex; flex-direction: column; text-decoration: none; color: var(--text); border-radius: 12px; overflow: hidden; background: var(--card); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow)">
+        <div style="position: relative; height: 180px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); overflow: hidden">
+          <img src="../assets/map/map_light.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 40%; opacity: 0.9">
+          <span style="position: absolute; left: 12px; top: 12px; height: 24px; padding: 0 10px; border-radius: 999px; display: inline-flex; align-items: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: var(--accent); color: var(--on-accent)">D-0 · 진행 중</span>
+          <span style="position: absolute; right: 12px; bottom: 12px; font-size: 11px; color: #5B6878; background: rgba(255,255,255,.8); padding: 2px 8px; border-radius: 999px">대표 썸네일 자리</span>
+        </div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 16px; font-weight: 600">시즈오카 3박4일</span>
+          <span style="font-size: 14px; color: var(--text2)">시즈오카 · 일본</span>
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 12px; color: var(--text2)">2026.09.19 – 09.22 · 4일 · 18곳</span>
+        </div>
+      </a>
+
+      <a href="planner_desktop_light.html" style="display: flex; flex-direction: column; text-decoration: none; color: var(--text); border-radius: 12px; overflow: hidden; background: var(--card); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow)">
+        <div style="position: relative; height: 180px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); overflow: hidden">
+          <img src="../assets/map/map_light.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 20%; opacity: 0.9">
+          <span style="position: absolute; left: 12px; top: 12px; height: 24px; padding: 0 10px; border-radius: 999px; display: inline-flex; align-items: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); color: var(--text); border: 1px solid var(--line)">D-166</span>
+          <span style="position: absolute; right: 12px; bottom: 12px; font-size: 11px; color: #5B6878; background: rgba(255,255,255,.8); padding: 2px 8px; border-radius: 999px">대표 썸네일 자리</span>
+        </div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 16px; font-weight: 600">오사카·교토 벚꽃</span>
+          <span style="font-size: 14px; color: var(--text2)">간사이 · 일본</span>
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 12px; color: var(--text2)">2027.03.28 – 04.01 · 5일 · 일정 작성 중</span>
+        </div>
+      </a>
+
+      <a href="planner_desktop_light.html" style="display: flex; flex-direction: column; text-decoration: none; color: var(--text); border-radius: 12px; overflow: hidden; background: var(--card); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow)">
+        <div style="position: relative; height: 180px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); overflow: hidden">
+          <img src="../assets/map/map_light.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%; opacity: 0.9">
+          <span style="position: absolute; left: 12px; top: 12px; height: 24px; padding: 0 10px; border-radius: 999px; display: inline-flex; align-items: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); color: var(--text); border: 1px solid var(--line)">D-172</span>
+          <span style="position: absolute; right: 12px; bottom: 12px; font-size: 11px; color: #5B6878; background: rgba(255,255,255,.8); padding: 2px 8px; border-radius: 999px">대표 썸네일 자리</span>
+        </div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 16px; font-weight: 600">제주 봄 드라이브</span>
+          <span style="font-size: 14px; color: var(--text2)">제주 · 대한민국</span>
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 12px; color: var(--text2)">2027.04.03 – 04.05 · 3일 · 9곳</span>
+        </div>
+      </a>
+
+      <button type="button" style="min-height: 288px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border-radius: 12px; border: 1.5px dashed var(--line); background: transparent; color: var(--text2); font: inherit; cursor: pointer">
+        <span style="width: 48px; height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); box-shadow: inset 0 1px 0 var(--hl); border: 1px solid var(--line); color: var(--text)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span style="font-size: 14px; font-weight: 500">새 여행 만들기</span>
+        <span style="font-size: 12px">지역과 날짜만 정하면 시작됩니다</span>
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
