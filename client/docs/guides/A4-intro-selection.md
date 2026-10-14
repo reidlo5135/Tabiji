@@ -101,22 +101,30 @@ var count by remember { mutableStateOf(0) } // count 로 읽고 쓰기 (같은 �
             IntroScreen   ── selected: Season?  (상태는 여기 하나뿐)
                │    ▲
   값이 내려감  │    │  이벤트가 올라옴
-   emphasis    │    │  onClick()
+   selected    │    │  onSelect(season)
                ▼    │
       SeasonQuadrant × 4   (상태 없음: 받은 값대로 그리고, 눌리면 알리기만)
 ```
 
-- **아래로**: 부모가 각 칸에 "너는 밝게 / 어둡게 / 보통으로"를 값으로 넘긴다 (React의 props)
-- **위로**: 칸은 상태를 직접 바꾸지 않고 "나 눌렸어"라는 함수(`onClick`)만 부른다 (React의 콜백 prop)
+- **아래로**: 부모가 네 칸 모두에 같은 값 `selected`(지금 선택된 계절, 없으면 null)를 넘긴다. 칸은 그 값과 자기 계절을 비교해 밝을지 어두울지 스스로 정한다 (React의 props)
+- **위로**: 칸은 상태를 직접 바꾸지 않고 `onSelect(자기 계절)`만 부른다. 부모는 네 칸에 **같은 함수 하나**를 넘긴다 (React의 콜백 prop)
+
+React로 쓰면 이렇다.
+
+```jsx
+const [selected, setSelected] = useState(null)
+const toggle = (s) => setSelected(selected === s ? null : s)
+<SeasonQuadrant season="spring" selected={selected} onSelect={toggle} />
+```
 - 칸은 자기가 왜 밝은지 모른다. 그래서 테스트하기 쉽고, A6에서 이미지로 바뀌어도 이 구조는 그대로다
 
 ### 1-5. 클릭 한 번에 일어나는 일 (순서대로)
 
-1. 사용자가 여름 칸을 클릭한다 → 칸의 `clickable`이 받은 `onClick()`을 부른다
-2. `onClick`은 부모가 넘긴 람다라서, 실제로는 부모 쪽 코드 `selected = Season.Summer`가 실행된다
+1. 사용자가 여름 칸을 클릭한다 → 칸의 `clickable`이 `onSelect(Season.Summer)`를 부른다
+2. `onSelect`는 부모가 넘긴 `toggle` 람다라서, 실제로는 부모 쪽 코드가 `selected`를 `Season.Summer`로 바꾼다
 3. `selected`는 `mutableStateOf` 상자라서, 이걸 **읽은** `IntroScreen`이 "다시 불러야 함"으로 표시된다
 4. 다음 프레임에 `IntroScreen`이 다시 불린다. `remember`는 같은 상자를 돌려주고, 상자 안에는 이제 `Summer`가 있다
-5. 각 칸의 강조 값을 새로 계산해 `SeasonQuadrant`를 다시 부른다. **넘긴 값이 지난번과 같은 칸은 Compose가 건너뛴다(skip).** React보다 더 잘게 다시 그리는 부분이다
+5. 네 칸에 새 `selected`를 넘겨 `SeasonQuadrant`를 다시 부르고, 각 칸이 덮개색을 다시 계산한다. (Compose는 넘긴 값이 지난번과 같은 Composable은 건너뛴다(skip). 이번엔 네 칸 모두 `selected`가 바뀌었으니 넷 다 다시 그린다)
 
 이 다섯 줄이 이번 단계의 전부다. 막히면 여기로 돌아와 몇 번째 고리가 끊겼는지 본다.
 
@@ -128,40 +136,52 @@ var count by remember { mutableStateOf(0) } // count 로 읽고 쓰기 (같은 �
 | --- | --- | --- | --- |
 | `enum class` | `enum class Dir { Up, Down }` | 정해진 값 몇 개만 갖는 타입. `Dir.Up`처럼 쓴다 | `enum Dir { Up, Down }` |
 | nullable 타입 | `val d: Dir? = null` | `?`가 붙으면 null도 담을 수 있다. `Dir`과 `Dir?`는 **다른 타입**이라, `Dir` 자리에 null을 넣으면 컴파일 오류 | `Dir \| null` (strictNullChecks) |
-| `when` (인자 있음) | `when (d) { Dir.Up -> 1; Dir.Down -> -1 }` | 값을 돌려주는 switch. enum의 경우를 하나라도 빠뜨리면 **컴파일 오류** | exhaustive 검사가 붙은 `switch` |
+| `when` (인자 있음) | `when (d) { Dir.Up -> 1; Dir.Down -> -1 }` | 값을 돌려주는 switch. enum의 경우를 하나라도 빠뜨리면 **컴파일 오류**. 가지 조건에 상수뿐 아니라 **변수**도 올 수 있다(`==` 비교) | exhaustive 검사가 붙은 `switch` |
 | `when` (인자 없음) | `when { x < 0 -> "음수"; x == 0 -> "영"; else -> "양수" }` | 위에서부터 처음 참인 조건의 값. `if-else if` 사슬을 식으로 쓴 것 | 삼항 연산자 사슬 |
-| `copy` | `Color.White.copy(alpha = 0.5f)` | 일부 속성만 바꾼 복사본 | `{ ...white, alpha: 0.5 }` |
-| 함수 타입 | `onClick: () -> Unit` | 인자 없고 반환값 없는 함수를 받는 파라미터 | `onClick: () => void` |
+| `copy` | `Color.White.copy(alpha = 0.5f)` | 일부 속성만 바꾼 복사본. `Color`는 RGB와 함께 **알파(불투명도)도** 담는다 | `rgba(255,255,255,0.5)` |
+| 함수 타입 | `onSelect: (Season) -> Unit` | `Season` 하나를 받고 반환값 없는 함수를 받는 파라미터 | `onSelect: (s: Season) => void` |
+| 함수를 값으로 | `val toggle: (Season) -> Unit = { s -> … }` | 람다를 변수에 담아 여러 곳에 넘긴다. 인자가 하나면 `s ->` 대신 `it`으로 쓸 수 있다 | `const toggle = (s) => …` |
 | trailing lambda | `Button(…) { doIt() }` | 마지막 파라미터가 함수면 괄호 밖 `{ }`로 넘길 수 있다 | — |
 
 ---
 
-## 3. 설계 선택 두 가지
+## 3. 설계: 칸에 무엇을 넘기고, 밝기를 어떻게 바꾸나
 
-### 3-1. 칸에 무엇을 넘길까
+### 3-1. 칸에 넘기는 것: 계절 · 공통 선택값 · 선택 함수
 
-칸이 그려질 모습은 "보통 / 선택됨 / 어두움" 셋 중 하나다.
+```kotlin
+@Composable
+private fun SeasonQuadrant(
+    season: Season,                 // 이 칸이 어느 계절인가 (데이터)
+    selected: Season?,              // 지금 선택된 계절 — 네 칸 모두 같은 값 (부모의 상태)
+    modifier: Modifier = Modifier,  // 배치 (부모가 정함)
+    onSelect: (Season) -> Unit,     // 눌리면 자기 계절을 넣어 부름 (이벤트, 위로)
+)
+```
 
-| | 방법 | 장단점 |
-| --- | --- | --- |
-| A | `selected: Boolean, dimmed: Boolean` | 익숙하고 쉽다. 하지만 `true, true` 같은 **말이 안 되는 조합**도 타입상 넘길 수 있다 |
-| **B (추천)** | `Emphasis` enum 하나: `Normal`, `Selected`, `Dimmed` | 가능한 세 경우만 표현된다. `when`이 빠짐없이 검사해 준다 |
+순서는 컨벤션(필수 데이터 → `modifier` → 콜백)을 따른다. 부르는 쪽에서는 계절이 **한 번만** 나온다.
 
-TypeScript에서 boolean 두 개 대신 `'normal' | 'selected' | 'dimmed'` 유니언을 쓰는 것과 같은 이유다. "불가능한 상태를 타입으로 막는다." A로 해도 되고, 리뷰에서 같이 본다.
+```kotlin
+SeasonQuadrant(Season.Spring, selected, Modifier.weight(1f), onSelect = toggle)
+```
 
-### 3-2. 밝기를 어떻게 바꿀까
+> 다른 설계도 있다. 부모가 칸마다 "밝게/어둡게"를 계산해서 넘기는 방식이다. 그러면 칸이 "선택"이라는 개념을 몰라도 되는 대신, 호출부마다 계절을 여러 번 써야 한다. 네 칸짜리 화면에서는 위 방식이 더 간단하다. 칸은 여전히 **상태가 없다.** 받은 값을 읽기만 하고 바꾸지 않는다.
 
-핸드오프의 "밝기 +8% / −6%"는 **반투명 덮개**로 근사한다.
+### 3-2. 밝기: 반투명 덮개를 한 겹 더 칠한다
 
-| Emphasis | 덮개 |
-| --- | --- |
-| `Selected` | 흰색, 불투명도 8% |
-| `Dimmed` | 검정, 불투명도 6% |
-| `Normal` | 투명 (`Color.Transparent`) |
+핸드오프의 "밝기 +8% / −6%"는 계절색 위에 반투명 색을 덮어서 근사한다. 덮개색은 칸 안에서 `selected`와 자기 `season`을 비교해 정한다.
 
-칠하는 방법은 `background`를 **두 번** 거는 것이다: 계절색 다음에 덮개색. A3에서 본 규칙대로 체인의 뒤쪽이 안쪽이고 위층이라, 두 번째 색이 첫 번째 위에 덮인다. CSS로 치면 `background: linear-gradient(덮개, 덮개), 계절색`처럼 겹쳐 칠하는 것이다.
+```kotlin
+val overlay = when (selected) {
+    null   -> Color.Transparent                  // 아무것도 선택 안 됨
+    season -> Color.White.copy(alpha = 0.08f)    // 내가 선택됨 → 밝게
+    else   -> Color.Black.copy(alpha = 0.06f)    // 다른 칸이 선택됨 → 어둡게
+}
+```
 
-`clickable`은 기본으로 누를 때 회색 덮개 효과(indication)를 보여 준다. 그러면 우리 덮개와 섞이니 끈다. v2 원칙상 인트로 사분면의 반응은 밝기 변화 하나뿐이다.
+- 불투명도는 `Color`의 알파로 넣는다. `copy(alpha = …)`는 CSS의 `rgba(…, 0.08)`다
+- 칠하는 순서는 `modifier → background(계절색) → background(overlay)`다. A3에서 본 규칙대로 체인의 뒤쪽이 위층이라, 덮개가 계절색 위에 겹친다
+- `clickable`은 기본으로 누를 때 회색 효과(indication)를 보여 준다. 우리 덮개와 섞이니 `indication = null`로 끈다. v2 원칙상 인트로 사분면의 반응은 밝기 변화 하나뿐이다
 
 ---
 
@@ -171,23 +191,22 @@ TypeScript에서 boolean 두 개 대신 `'normal' | 'selected' | 'dimmed'` 유�
 
 | 경로 | 들어갈 것 |
 | --- | --- |
-| `shared/src/commonMain/kotlin/com/yamada/studio/tabiji/feature/intro/Season.kt` (새 파일) | `enum class Season` (봄·여름·가을·겨울). 공개. A6에서 이미지·초점 정보가 여기에 붙는다 |
-| `…/feature/intro/IntroScreen.kt` (수정) | `Emphasis` enum(`private`), `seasonColor()`(`private`), `IntroScreen`(상태와 연결), `SeasonQuadrant`(새 시그니처) |
-
-`Emphasis`는 인트로 화면 안에서만 쓰는 표현 방식이라 `IntroScreen.kt` 안에 `private`으로 둔다. `Season`은 다른 곳(A6 이미지, 나중의 테마)에서도 쓰니 자기 파일로 뺀다.
+| `shared/src/commonMain/kotlin/com/yamada/studio/tabiji/feature/intro/Season.kt` (새 파일) | `enum class Season` (봄·여름·가을·겨울) 하나만. A6에서 이미지·초점 정보가 여기에 붙는다 |
+| `…/feature/intro/IntroScreen.kt` (수정) | `seasonColor()`(`private`), `IntroScreen`(상태 + `toggle`), `SeasonQuadrant`(새 시그니처) |
 
 ### `IntroScreen.kt` 안의 구조
 
 ```
 IntroScreen(modifier)
-├── selected 상태 (remember + mutableStateOf, null = 선택 없음)
-├── emphasisOf(season)        ← selected를 보고 Normal/Selected/Dimmed 계산 (지역 함수 또는 when 식)
-└── Box ─ Column ─ Row ─ SeasonQuadrant(Season.Spring, emphasisOf(Spring), Modifier.weight(1f)) { 클릭 처리 }
+├── var selected by remember { mutableStateOf<Season?>(null) }   ← 상태는 여기 한 줄
+├── val toggle: (Season) -> Unit = { … }                         ← 같은 칸이면 null, 아니면 그 칸
+└── Box ─ Column ─ Row ─ SeasonQuadrant(Season.Spring, selected, Modifier.weight(1f), onSelect = toggle)
                          … × 4
      └── Text "Tabiji"
 
-SeasonQuadrant(season, emphasis, modifier, onClick)     ← 상태 없음
-└── Box: modifier → 계절색 → 덮개색 → clickable
+SeasonQuadrant(season, selected, modifier, onSelect)     ← 상태 없음
+├── overlay = when (selected) { … }                     ← 3-2
+└── Box: modifier → background(seasonColor(season)) → background(overlay) → clickable { onSelect(season) }
 
 seasonColor(season): Color = when (season) { … }        ← 색 리터럴 4개는 여기 한 곳에, TODO(A6)
 ```
@@ -210,37 +229,36 @@ scripts/linux/run-desktop.sh --hot
 
 ✅ 확인: 화면이 A3과 **똑같다.** 구조만 바꿨기 때문이다. 일부러 `when`에서 한 계절을 지워 보면 컴파일 오류가 나는 것도 확인할 수 있다(확인 뒤 되돌린다).
 
-### 5-2. `Emphasis`와 덮개 — 아직 상태 없이
+### 5-2. 덮개 — 아직 상태 없이
 
-- `IntroScreen.kt`에 `private enum class Emphasis { Normal, Selected, Dimmed }` (3-1에서 A안을 골랐다면 boolean 두 개)
-- `SeasonQuadrant`에 `emphasis: Emphasis` 파라미터를 추가한다. 순서는 컨벤션대로 `season`, `emphasis`, `modifier`
-- 칸 안에서 `when (emphasis)`로 덮개색을 정하고, 체인을 `modifier → background(계절색) → background(덮개색)`로 만든다
-- 호출부는 임시로 **손으로 값을 넣는다**: 봄 `Emphasis.Selected`, 나머지 셋 `Emphasis.Dimmed`
+- `SeasonQuadrant`에 `selected: Season?` 파라미터를 추가한다 (`season` 다음, `modifier` 앞)
+- 칸 안에서 3-2의 `when`으로 `overlay`를 정하고, 체인을 `modifier → background(계절색) → background(overlay)`로 만든다
+- 호출부 네 곳에는 임시로 **손으로 값을 넣는다**: 모두 `Season.Spring`
 
-✅ 확인: 봄만 밝고 나머지가 어둡게 고정돼 보인다. 8%·6%는 미세하니 **잠깐 30%로 키워서** 눈으로 확인하고 다시 8%·6%로 돌린다.
+✅ 확인: 봄만 밝고 나머지 셋이 어둡게 고정돼 보인다. 8%·6%는 미세하니 **잠깐 30%로 키워서** 눈으로 확인하고 다시 돌린다. `null`을 넣으면 네 칸 모두 원래 색인 것도 확인한다.
 
 이 시점의 `SeasonQuadrant`는 "값을 받아 그리기만 하는" 완성된 상태 없는 Composable이다. 상태를 붙이기 전에 그리기부터 검증해 두면, 다음 단계에서 문제가 생겼을 때 원인을 상태 쪽으로 좁힐 수 있다.
 
 ### 5-3. 클릭을 위로 알리기
 
-- `SeasonQuadrant`의 **마지막** 파라미터로 `onClick: () -> Unit`을 추가한다 (`modifier` 뒤 — 컨벤션의 "콜백" 자리)
-- 칸의 체인 끝에 `clickable(interactionSource = null, indication = null) { onClick() }`를 붙인다. import는 `androidx.compose.foundation.clickable`
-- 호출부는 마지막 인자가 함수라서 trailing lambda로 넘길 수 있다. 임시로 `{ println("봄 클릭") }`처럼 넣어 둔다. 이 `println`은 동작 확인용이라 5-4에서 바로 지운다
+- `SeasonQuadrant`의 **마지막** 파라미터로 `onSelect: (Season) -> Unit`을 추가한다 (`modifier` 뒤, 컨벤션의 "콜백" 자리)
+- 칸의 체인 끝에 `clickable(interactionSource = null, indication = null) { onSelect(season) }`를 붙인다. import는 `androidx.compose.foundation.clickable`
+- 호출부 네 곳에는 임시로 같은 람다를 넘긴다: `onSelect = { println("$it 클릭") }`. `it`은 인자가 하나인 람다에서 그 인자의 기본 이름이다. 이 `println`은 동작 확인용이라 5-4에서 바로 지운다
 
-✅ 확인: 칸을 클릭하면 `run-desktop.sh`를 띄운 터미널에 글자가 찍힌다. 화면은 아직 안 바뀐다. 상태가 없으니 당연하다.
+✅ 확인: 칸을 클릭하면 `run-desktop.sh`를 띄운 터미널에 `Summer 클릭`처럼 찍힌다. 화면은 아직 안 바뀐다. 상태가 없으니 당연하다.
 
 ### 5-4. 상태를 부모에 두고 연결하기
 
-`IntroScreen` 맨 위에 상태 한 줄을 둔다 (1-2의 패턴을 `Season?`에 적용).
+`IntroScreen` 맨 위에 두 줄을 둔다.
 
 ```kotlin
 var selected by remember { mutableStateOf<Season?>(null) }   // null = 아무것도 선택 안 됨
+val toggle: (Season) -> Unit = { /* 이미 선택된 칸이면 null, 아니면 그 계절로 */ }
 ```
 
 - `mutableStateOf<Season?>(null)`의 `<Season?>`을 빼면 안 된다. `null`만 보고는 무슨 타입의 상자인지 알 수 없어서 "항상 null만 담는 상자"로 추론된다
-- **내려보내기**: 5-2에서 손으로 넣은 `Emphasis` 값을 `selected`로부터 계산한 값으로 바꾼다. 규칙은 이렇다: 선택 없음이면 `Normal`, 이 칸이 선택됐으면 `Selected`, 그 밖은 `Dimmed`. 인자 없는 `when`이 잘 맞는다. 칸 네 개에 같은 계산을 반복하지 않게 `IntroScreen` 안에 작은 지역 함수로 만들어도 된다 (Kotlin은 함수 안에 함수를 둘 수 있다)
-- **올려 받기**: 각 칸의 클릭 람다에서 `selected`를 바꾼다. 이미 선택된 칸이면 `null`(해제), 아니면 그 칸
-- 5-3의 `println`을 지운다
+- `toggle`의 본문은 `if` 식 한 줄로 쓸 수 있다. Kotlin의 `if`는 값을 돌려준다(`selected = if (…) … else …`)
+- 호출부 네 곳: 5-2의 임시 `Season.Spring`을 `selected`로, 5-3의 `println` 람다를 `toggle`로 바꾼다
 
 ✅ 확인: 이제 클릭에 따라 화면이 바뀐다.
 
@@ -297,13 +315,14 @@ import androidx.compose.runtime.setValue
 | 증상 | 원인 | 1-5의 몇 번 고리 |
 | --- | --- | --- |
 | `Property delegate must have a 'getValue(...)' method` | `getValue`·`setValue` import 누락 | 컴파일 단계 |
-| `'when' expression must be exhaustive` | `when (season)`이나 `when (emphasis)`에서 경우 하나를 빠뜨림 | 컴파일 단계 |
+| `'when' expression must be exhaustive` | `seasonColor`의 `when (season)`에서 계절 하나를 빠뜨림 (덮개의 `when (selected)`는 `else`가 있어서 해당 없음) | 컴파일 단계 |
 | `... actual type is 'Season', but 'Nothing?' was expected` (문구는 버전마다 조금 다름) | `mutableStateOf(null)`처럼 타입 없이 씀 → `mutableStateOf<Season?>(null)` | 컴파일 단계 |
-| `No value passed for parameter 'onClick'` | 호출부 중 한 곳에 클릭 람다를 안 넘김 | 컴파일 단계 |
-| 클릭해도 터미널에 아무것도 안 찍힘 (5-3) | `clickable`을 안 붙였거나, 칸 안에서 `onClick()`을 부르지 않음 | 1번 |
-| 찍히는데 화면이 안 바뀜 (5-4) | `remember` 또는 `mutableStateOf` 누락, 또는 클릭 람다가 `selected`를 안 바꿈 | 2~4번 |
-| 바뀌는데 엉뚱한 칸이 밝아짐 | 호출부에서 `Season` 값과 `emphasis` 계산에 넘긴 계절이 서로 다름 | 5번 |
+| `No value passed for parameter 'onSelect'` | 호출부 중 한 곳에 `toggle`을 안 넘김 | 컴파일 단계 |
+| 클릭해도 터미널에 아무것도 안 찍힘 (5-3) | `clickable`을 안 붙였거나, 칸 안에서 `onSelect(season)`을 부르지 않음 | 1번 |
+| 찍히는데 화면이 안 바뀜 (5-4) | `remember` 또는 `mutableStateOf` 누락, 또는 `toggle`이 `selected`를 안 바꿈 | 2~4번 |
+| 바뀌는데 엉뚱한 칸이 밝아짐 | 호출부에 넘긴 `Season` 값이 자리와 다름(예: 우상단에 `Autumn`), 또는 칸 안에서 `onSelect`에 자기 `season`이 아닌 값을 넣음 | 5번 |
 | 클릭하면 회색 덮개가 잠깐 뜸 | `clickable`의 기본 indication → `indication = null` 버전 | — |
+| 처음부터 세 칸이 어둡다 | `when (selected)`에서 `null` 가지가 빠졌거나 순서가 뒤에 있음 | 5번 |
 | 두 칸이 동시에 선택됨 | 칸마다 각자 상태를 가짐 → 상태는 부모 한 곳에 | 설계 |
 
 ## 완료 조건 (모두 눈으로)
@@ -312,7 +331,7 @@ import androidx.compose.runtime.setValue
 - [ ] 같은 칸 다시 클릭 → 해제, 다른 칸 클릭 → 선택 이동
 - [ ] 선택한 채 창 크기를 바꿔도 선택 유지
 - [ ] 실험 6-1·6-2의 결과와 "몇 번 고리가 끊겼나" 설명
-- [ ] 코드 리뷰: `remember`/`mutableStateOf`는 `IntroScreen`의 한 줄뿐 · `SeasonQuadrant`는 상태 없음 · 파라미터 순서 `season, emphasis, modifier, onClick` · 색 리터럴은 `seasonColor` 한 곳
+- [ ] 코드 리뷰: `remember`/`mutableStateOf`는 `IntroScreen`의 한 줄뿐 · `SeasonQuadrant`는 상태 없음 · 파라미터 순서 `season, selected, modifier, onSelect` · 색 리터럴은 `seasonColor` 한 곳
 - [ ] `build.sh` 초록
 
 ## 끝나면 붙여넣어 줄 것
