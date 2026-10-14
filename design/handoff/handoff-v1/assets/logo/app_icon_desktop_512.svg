@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="icbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF3FB"/><stop offset="1" stop-color="#C9D1DB"/></linearGradient>
+    <linearGradient id="icfg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F6F9"/><stop offset="1" stop-color="#C9D1DB"/></linearGradient>
+  </defs>
+  <path d="M80 0 H432 L512 80 V432 A80 80 0 0 1 432 512 H80 A80 80 0 0 1 0 432 V80 A80 80 0 0 1 80 0 Z" fill="url(#icbg)"/>
+  <path d="M80 2 H431" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="3"/>
+  <g transform="translate(40 40) scale(4)">
+    <path d="M30 78 C30 60, 48 62, 50 50 C52 40, 60 38, 66 36" fill="none" stroke="#2FA8E0" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 9"/>
+    <circle cx="30" cy="78" r="5" fill="#2FA8E0"/>
+    <path d="M70 24 C62 24 56 30 56 38 C56 48 70 60 70 60 C70 60 84 48 84 38 C84 30 78 24 70 24 Z" fill="url(#icfg)" stroke="#8A98A8" stroke-width="1.5"/>
+    <circle cx="70" cy="38" r="6" fill="#FFFFFF" stroke="#2FA8E0" stroke-width="2.5"/>
+  </g>
+</svg>

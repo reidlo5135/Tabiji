@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 인트로 스토리보드</title>
+<!-- 디자인 원본. 수치가 이미지와 다르면 이 파일이 정답. 1px = 1dp -->
+</head>
+<body>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:600;src:url(../assets/fonts/Sora-SemiBold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1A78A8}a:hover{color:#2FA8E0}
+</style>
+<div style="width: 1440px; height: 760px; box-sizing: border-box; padding: 40px 48px; display: flex; flex-direction: column; gap: 24px; font-family: 'Pretendard', system-ui, sans-serif; color: #1C2633; background: linear-gradient(180deg, #EAF3FB, #F7F9FC)">
+  <div style="display: flex; align-items: baseline; gap: 16px">
+    <h1 style="margin: 0; font-family: 'Sora', system-ui, sans-serif; font-size: 22px; font-weight: 600">인트로 시퀀스 · 키 프레임</h1>
+    <span style="font-size: 14px; color: #5B6878">총 1.2초 진입 후 루프 · 감속 이징 cubic-bezier(0.2, 0, 0, 1) · 바운스 없음 · 동작 줄이기 시 F5로 바로 정지</span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+
+    <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+      <div style="position: relative; height: 240px; border-radius: 12px; overflow: hidden; border: 1px solid #D5DCE4; background: #EAF3FB; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr))">
+        <div style="background: #DCEFE2; opacity: 0.2"></div><div style="background: #BFE3FA; opacity: 0"></div><div style="background: #F3DFC6; opacity: 0"></div><div style="background: #D5E4F2; opacity: 0"></div>
+      </div>
+      <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">F0 · 0 ms</span><span style="font-size: 12px; color: #5B6878">하늘 배경(bg.sky)만. 봄 사분면 페이드인 시작 (0 → 1, 300ms 감속)</span></figcaption>
+    </figure>
+
+    <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+      <div style="position: relative; height: 240px; border-radius: 12px; overflow: hidden; border: 1px solid #D5DCE4; background: #EAF3FB; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr))">
+        <div style="background: #DCEFE2"></div><div style="background: #BFE3FA; opacity: 0.8"></div><div style="background: #F3DFC6; opacity: 0.45"></div><div style="background: #D5E4F2; opacity: 0.1"></div>
+        <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 50%; height: 48px; transform: translateY(-50%); background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0))"></div>
+        <div aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: 50%; width: 48px; transform: translateX(-50%); background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0))"></div>
+      </div>
+      <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">F1 · 150 → 600 ms</span><span style="font-size: 12px; color: #5B6878">봄 → 여름 → 가을 → 겨울 순차 페이드인, 150ms 간격. 경계 하이즈(seam) 동시 등장</span></figcaption>
+    </figure>
+
+    <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+      <div style="position: relative; height: 240px; border-radius: 12px; overflow: hidden; border: 1px solid #D5DCE4; background: #EAF3FB; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr))">
+        <div style="background: #DCEFE2"></div><div style="background: #BFE3FA"></div><div style="background: #F3DFC6"></div><div style="background: #D5E4F2"></div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 140px; height: 96px; transform: translate(-50%, -44%); background: rgba(255,255,255,.72); border: 1px solid #D5DCE4; box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 8px 24px rgba(28,38,51,.12); clip-path: path('M8 0 H134 L140 6 V88 A8 8 0 0 1 132 96 H8 A8 8 0 0 1 0 88 V8 A8 8 0 0 1 8 0 Z'); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0.8">
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 16px; font-weight: 600">Tabiji</span>
+          <span aria-hidden="true" style="position: absolute; top: 0; left: 30%; width: 40%; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0), #FFFFFF, rgba(255,255,255,0))"></span>
+        </div>
+      </div>
+      <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">F2 · 600 → 1200 ms</span><span style="font-size: 12px; color: #5B6878">로고·메뉴 스택(박스 없음) 12dp 상승 + 불투명도 0→1 (600ms 감속). 워드마크 → 부제 → 버튼 순 80ms 스태거</span></figcaption>
+    </figure>
+
+    <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+      <div style="position: relative; height: 240px; border-radius: 12px; overflow: hidden; border: 1px solid #D5DCE4; background: #EAF3FB; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr))">
+        <div style="background: #DCEFE2"></div><div style="background: #BFE3FA"></div><div style="background: #F3DFC6"></div><div style="background: #D5E4F2"></div>
+        <span aria-hidden="true" style="position: absolute; left: 10%; top: 20%; width: 8px; height: 6px; border-radius: 50% 50% 50% 0; background: #F5BCCF"></span>
+        <span aria-hidden="true" style="position: absolute; left: 30%; top: 36%; width: 8px; height: 6px; border-radius: 50% 50% 50% 0; background: #F5BCCF"></span>
+        <span aria-hidden="true" style="position: absolute; left: 62%; top: 12%; width: 60px; height: 18px; border-radius: 999px; background: rgba(255,255,255,.9)"></span>
+        <span aria-hidden="true" style="position: absolute; left: 18%; top: 64%; width: 9px; height: 5px; border-radius: 50% 0; background: #E0792E"></span>
+        <span aria-hidden="true" style="position: absolute; left: 70%; top: 60%; width: 5px; height: 5px; border-radius: 999px; background: #FFFFFF"></span>
+        <span aria-hidden="true" style="position: absolute; left: 86%; top: 80%; width: 5px; height: 5px; border-radius: 999px; background: #FFFFFF"></span>
+        <div style="position: absolute; left: 50%; top: 50%; width: 140px; height: 96px; transform: translate(-50%, -50%); background: rgba(255,255,255,.72); border: 1px solid #D5DCE4; box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 8px 24px rgba(28,38,51,.12); clip-path: path('M8 0 H134 L140 6 V88 A8 8 0 0 1 132 96 H8 A8 8 0 0 1 0 88 V8 A8 8 0 0 1 8 0 Z'); display: flex; align-items: center; justify-content: center">
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 16px; font-weight: 600">Tabiji</span>
+        </div>
+      </div>
+      <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">F3 · 루프 (1200 ms ~)</span><span style="font-size: 12px; color: #5B6878">파티클: 벚꽃 8 · 반사광 6 + 구름 2 · 낙엽 8 · 눈송이 12 (사분면당). 낙하 9–12초, 구름 14–18초 왕복. 중경 ±4dp 패럴랙스(포인터/기울기)</span></figcaption>
+    </figure>
+
+    <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+      <div style="position: relative; height: 240px; border-radius: 12px; overflow: hidden; border: 1px solid #D5DCE4; background: #EAF3FB; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr))">
+        <div style="background: #DCEFE2; opacity: 0.85"></div><div style="background: #CFEBFD; box-shadow: inset 0 0 0 2px #2FA8E0"></div><div style="background: #F3DFC6; opacity: 0.85"></div><div style="background: #D5E4F2; opacity: 0.85"></div>
+        <span aria-hidden="true" style="position: absolute; left: 72%; top: 22%; width: 22px; height: 30px; border-radius: 11px 11px 8px 8px; background: #F6D9C3; transform: translateY(-6px)"></span>
+        <div style="position: absolute; left: 50%; top: 50%; width: 140px; height: 96px; transform: translate(-50%, -50%); background: rgba(255,255,255,.72); border: 1px solid #D5DCE4; clip-path: path('M8 0 H134 L140 6 V88 A8 8 0 0 1 132 96 H8 A8 8 0 0 1 0 88 V8 A8 8 0 0 1 8 0 Z'); display: flex; align-items: center; justify-content: center">
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 16px; font-weight: 600">Tabiji</span>
+        </div>
+      </div>
+      <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">F4 · 호버 / 터치</span><span style="font-size: 12px; color: #5B6878">해당 사분면 밝기 +8%, 나머지 −6% (120ms). 아바타 6dp 점프 1회 (240ms 감속, 바운스 없음). 떼면 원복 240ms</span></figcaption>
+    </figure>
+
+    <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+      <div style="position: relative; height: 240px; border-radius: 12px; overflow: hidden; border: 1px solid #D5DCE4; background: #EAF3FB; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr))">
+        <div style="background: #DCEFE2"></div><div style="background: #BFE3FA"></div><div style="background: #F3DFC6"></div><div style="background: #D5E4F2"></div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 140px; height: 96px; transform: translate(-50%, -50%); background: rgba(255,255,255,.92); border: 1px solid #D5DCE4; clip-path: path('M8 0 H134 L140 6 V88 A8 8 0 0 1 132 96 H8 A8 8 0 0 1 0 88 V8 A8 8 0 0 1 8 0 Z'); display: flex; align-items: center; justify-content: center">
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 16px; font-weight: 600">Tabiji</span>
+        </div>
+        <span style="position: absolute; right: 10px; bottom: 10px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: #1C2633; color: #FFFFFF">정지 프레임</span>
+      </div>
+      <figcaption style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">F5 · 동작 줄이기 / 블러 불가</span><span style="font-size: 12px; color: #5B6878">전환 없이 F3의 정지 상태로 시작. 파티클·패럴랙스 끔. 블러 미지원 플랫폼은 메뉴 버튼을 불투명도 92% 표면으로 대체</span></figcaption>
+    </figure>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div style="position: relative; height: 10px; border-radius: 5px; background: #D5DCE4; overflow: hidden">
+      <div style="position: absolute; left: 0; width: 12.5%; height: 100%; background: #AFD9BC"></div>
+      <div style="position: absolute; left: 12.5%; width: 12.5%; height: 100%; background: #8FD0EE"></div>
+      <div style="position: absolute; left: 25%; width: 12.5%; height: 100%; background: #E8A354"></div>
+      <div style="position: absolute; left: 37.5%; width: 12.5%; height: 100%; background: #B9CBDC"></div>
+      <div style="position: absolute; left: 50%; width: 50%; height: 100%; background: #2FA8E0"></div>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; color: #5B6878">
+      <span>0</span><span>150</span><span>300</span><span>450</span><span>600 ms · 로고 패널 시작</span><span>800 · 하이라이트 스윕</span><span>1200 ms · 루프 진입</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

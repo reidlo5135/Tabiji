@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji 공통 상태 · Desktop</title>
+<!-- 디자인 원본. 수치가 이미지와 다르면 이 파일이 정답. 1px = 1dp -->
+</head>
+<body>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:500;src:url(../assets/fonts/PretendardJP-Medium.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:600;src:url(../assets/fonts/Sora-SemiBold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1A78A8}a:hover{color:#2FA8E0}
+.tj{--bg-top:#EAF3FB;--bg-bot:#F7F9FC;--glass:rgba(255,255,255,.72);--card:rgba(255,255,255,.82);--chip:rgba(255,255,255,.9);--silver-from:#F4F6F9;--silver-to:#C9D1DB;--hl:rgba(255,255,255,.8);--line:#D5DCE4;--text:#1C2633;--text2:#5B6878;--accent:#2FA8E0;--accent-text:#1A78A8;--on-accent:#0E1621;--est:#E3A23B;--err:#D9534F;--err-soft:rgba(217,83,79,.12);--skeleton:#E6EBF1;--skeleton-hi:#F3F6F9;--shadow:0 8px 24px rgba(28,38,51,.10)}
+.tj.dark{--bg-top:#0E1621;--bg-bot:#18212D;--glass:rgba(30,39,51,.72);--card:rgba(30,39,51,.82);--chip:rgba(36,46,60,.9);--silver-from:#2A3441;--silver-to:#3A4655;--hl:rgba(255,255,255,.14);--line:#334051;--text:#E9EEF4;--text2:#9AA7B6;--accent:#5CC3F0;--accent-text:#5CC3F0;--on-accent:#0E1621;--est:#F0B862;--err:#F07A76;--err-soft:rgba(240,122,118,.16);--skeleton:#2A3441;--skeleton-hi:#354253;--shadow:0 8px 24px rgba(0,0,0,.35)}
+@keyframes tj-shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+@media (prefers-reduced-motion: reduce){.tj *{animation:none !important}}
+</style>
+<div class="tj dark" style="position: relative; width: 100%; min-height: 900px; box-sizing: border-box; padding: 40px 48px; font-family: 'Pretendard', system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--bg-top), var(--bg-bot))">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(560px, 100%), 1fr)); gap: 24px">
+
+    <section aria-labelledby="s-load" style="display: flex; flex-direction: column; gap: 12px">
+      <h2 id="s-load" style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text2)">로딩 · 스켈레톤 (패널 구조 유지, 1.2초 시머)</h2>
+      <div aria-busy="true" style="height: 360px; box-sizing: border-box; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); display: flex; flex-direction: column; overflow: hidden">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 16px; border-bottom: 1px solid var(--line)">
+          <span style="width: 72px; height: 22px; border-radius: 6px; background: linear-gradient(90deg, var(--skeleton) 0%, var(--skeleton-hi) 50%, var(--skeleton) 100%); background-size: 400px 100%; animation: tj-shimmer 1.2s linear infinite"></span>
+          <span style="width: 140px; height: 14px; border-radius: 6px; background: var(--skeleton)"></span>
+          <span style="flex: 1"></span>
+          <span style="width: 36px; height: 36px; border-radius: 999px; background: var(--skeleton)"></span>
+        </div>
+        <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card)"><span style="width: 28px; height: 28px; border-radius: 999px; background: var(--skeleton)"></span><div style="display: flex; flex-direction: column; gap: 8px; flex: 1"><span style="width: 45%; height: 14px; border-radius: 6px; background: linear-gradient(90deg, var(--skeleton) 0%, var(--skeleton-hi) 50%, var(--skeleton) 100%); background-size: 400px 100%; animation: tj-shimmer 1.2s linear infinite"></span><span style="width: 30%; height: 12px; border-radius: 6px; background: var(--skeleton)"></span></div></div>
+          <div style="display: flex; align-items: center; gap: 8px; padding-left: 14px; height: 32px"><span style="width: 2px; height: 32px; background: var(--line)"></span><span style="width: 120px; height: 28px; border-radius: 999px; background: var(--skeleton)"></span></div>
+          <div style="display: flex; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card)"><span style="width: 28px; height: 28px; border-radius: 999px; background: var(--skeleton)"></span><div style="display: flex; flex-direction: column; gap: 8px; flex: 1"><span style="width: 55%; height: 14px; border-radius: 6px; background: var(--skeleton)"></span><span style="width: 36%; height: 12px; border-radius: 6px; background: var(--skeleton)"></span></div></div>
+          <div style="display: flex; align-items: center; gap: 8px; padding-left: 14px; height: 32px"><span style="width: 2px; height: 32px; background: var(--line)"></span><span style="width: 100px; height: 28px; border-radius: 999px; background: var(--skeleton)"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-err" style="display: flex; flex-direction: column; gap: 12px">
+      <h2 id="s-err" style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text2)">오류 배너 · 콘텐츠는 그대로, 배너만 상단에 (닫기 전까지 유지)</h2>
+      <div style="height: 360px; box-sizing: border-box; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); display: flex; flex-direction: column; overflow: hidden">
+        <div role="alert" style="display: flex; align-items: center; gap: 10px; margin: 12px 12px 0 12px; padding: 10px 12px; border-radius: 12px; background: var(--err-soft); border: 1px solid var(--err); color: var(--text)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--err); flex: 0 0 auto"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v5M12 16h.01"/></svg>
+          <span style="font-size: 13px; flex: 1">이동시간을 불러오지 못했어요. 마지막 계산값을 표시합니다.</span>
+          <button type="button" style="height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer">다시 시도</button>
+          <button type="button" aria-label="닫기" style="width: 32px; height: 32px; border-radius: 999px; border: 0; background: transparent; color: var(--text2); display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line)">
+          <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 22px; font-weight: 600">Day 2</span><span style="font-size: 14px; color: var(--text2)">9월 20일 (토)</span>
+        </div>
+        <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card)"><span style="width: 28px; height: 28px; border-radius: 999px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 12px; font-weight: 600">1</span><div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px; font-weight: 600">슨푸성 공원</span><span style="font-size: 12px; color: var(--text2)">09:30 – 10:40</span></div></div>
+          <div style="display: flex; align-items: center; gap: 8px; padding-left: 14px; height: 32px"><span style="width: 2px; height: 32px; background: var(--line)"></span><span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--chip); border: 1px dashed var(--text2); font-size: 12px; color: var(--text2)">도보 14분 · 1.1km <span style="font-weight: 600">재계산 필요</span></span></div>
+          <div style="display: flex; gap: 12px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card)"><span style="width: 28px; height: 28px; border-radius: 999px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 12px; font-weight: 600">2</span><div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px; font-weight: 600">시즈오카 센겐 신사</span><span style="font-size: 12px; color: var(--text2)">10:55 – 11:40</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-off" style="display: flex; flex-direction: column; gap: 12px">
+      <h2 id="s-off" style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text2)">오프라인 · 상단 필 + 모든 구간 칩 "추정" 배지로 강등</h2>
+      <div style="position: relative; height: 360px; box-sizing: border-box; border-radius: 16px; border: 1px solid var(--line); overflow: hidden; background: var(--bg-bot)">
+        <img src="../assets/map/map_light.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9; filter: saturate(0.6)">
+        <div role="status" style="position: absolute; left: 50%; top: 16px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); font-size: 12px; font-weight: 600; color: var(--text)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--text2)"><path d="M3 3l18 18"/><path d="M8.5 19H17a4 4 0 0 0 .9-7.9A6 6 0 0 0 7.6 8.6"/><path d="M5.3 9.6A4.5 4.5 0 0 0 7.5 19h1"/></svg>
+          <span>오프라인 · 저장된 일정 표시 중</span>
+        </div>
+        <div style="position: absolute; right: 16px; top: 16px; bottom: 16px; width: 280px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; gap: 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--card)"><span style="width: 24px; height: 24px; border-radius: 999px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600">1</span><span style="font-size: 13px; font-weight: 600">슨푸성 공원</span></div>
+          <div style="display: flex; align-items: center; gap: 8px; padding-left: 12px; height: 32px"><span style="width: 2px; height: 32px; background: var(--line)"></span><span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--chip); border: 1px solid var(--line); font-size: 12px">도보 14분 <span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--est); color: #1C2633; font-size: 11px; font-weight: 600">추정</span></span></div>
+          <div style="display: flex; gap: 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--card)"><span style="width: 24px; height: 24px; border-radius: 999px; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600">2</span><span style="font-size: 13px; font-weight: 600">시즈오카 센겐 신사</span></div>
+          <div style="display: flex; align-items: center; gap: 8px; padding-left: 12px; height: 32px"><span style="width: 2px; height: 32px; background: var(--line)"></span><span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--chip); border: 1px solid var(--line); font-size: 12px">대중교통 23분 <span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--est); color: #1C2633; font-size: 11px; font-weight: 600">추정</span></span></div>
+          <span style="flex: 1"></span>
+          <button type="button" disabled style="width: 256px; height: 48px; border: 0; display: flex; align-items: center; justify-content: center; font: inherit; font-size: 14px; font-weight: 600; color: var(--text2); background: var(--line); clip-path: path('M12 0 H248 L256 8 V36 A12 12 0 0 1 244 48 H12 A12 12 0 0 1 0 36 V12 A12 12 0 0 1 12 0 Z')">AI 동선 최적화 · 온라인 필요</button>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-empty" style="display: flex; flex-direction: column; gap: 12px">
+      <h2 id="s-empty" style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text2)">빈 상태 · 여행 목록 / 일차에 방문지 없음</h2>
+      <div style="height: 360px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+        <div style="box-sizing: border-box; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="emk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F6F9"/><stop offset="1" stop-color="#C9D1DB"/></linearGradient></defs><path d="M32 6 C19 6 10 15.5 10 28 C10 44 32 60 32 60 C32 60 54 44 54 28 C54 15.5 45 6 32 6 Z" fill="url(#emk)" stroke="#AEB8C4" stroke-width="1.5"/><circle cx="32" cy="28" r="9" fill="#FFFFFF"/><path d="M32 24v8M28 28h8" stroke="#2FA8E0" stroke-width="2" stroke-linecap="round"/></svg>
+          <span style="font-size: 16px; font-weight: 600">아직 여행이 없어요</span>
+          <span style="font-size: 13px; color: var(--text2); line-height: 18px">지역과 날짜만 정하면<br>지도 위에서 바로 일정을 만들 수 있어요</span>
+          <button type="button" style="width: 180px; height: 48px; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font: inherit; font-size: 14px; font-weight: 600; color: var(--on-accent); background: var(--accent); box-shadow: inset 0 1px 0 rgba(255,255,255,.55); clip-path: path('M12 0 H172 L180 8 V36 A12 12 0 0 1 168 48 H12 A12 12 0 0 1 0 36 V12 A12 12 0 0 1 12 0 Z')">첫 여행 만들기</button>
+        </div>
+        <div style="box-sizing: border-box; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl), var(--shadow); display: flex; flex-direction: column; overflow: hidden">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line)"><span style="font-family: 'Sora', system-ui, sans-serif; font-size: 22px; font-weight: 600">Day 3</span><span style="font-size: 14px; color: var(--text2)">9월 21일 (일)</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center">
+            <span style="width: 48px; height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--hl); color: var(--text)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>
+            <span style="font-size: 14px; font-weight: 600">이 날은 아직 비어 있어요</span>
+            <span style="font-size: 12px; color: var(--text2)">지도에서 장소를 검색해 추가하거나, 다른 날의 장소를 끌어오세요</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+</body>
+</html>

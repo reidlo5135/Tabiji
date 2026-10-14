@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Tabiji AI 제안 시트 · Phone</title>
+<!-- 디자인 원본. 수치가 이미지와 다르면 이 파일이 정답. 1px = 1dp -->
+</head>
+<body>
+<style>
+@font-face{font-family:"Pretendard";font-weight:400;src:url(../assets/fonts/PretendardJP-Regular.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:500;src:url(../assets/fonts/PretendardJP-Medium.ttf) format("truetype")}
+@font-face{font-family:"Pretendard";font-weight:600;src:url(../assets/fonts/PretendardJP-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:600;src:url(../assets/fonts/Sora-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Sora";font-weight:700;src:url(../assets/fonts/Sora-Bold.ttf) format("truetype")}
+body{margin:0;font-family:"Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1A78A8}a:hover{color:#2FA8E0}
+.tj{--glass:rgba(255,255,255,.72);--sheet:rgba(255,255,255,.88);--card:rgba(255,255,255,.82);--silver-from:#F4F6F9;--silver-to:#C9D1DB;--hl:rgba(255,255,255,.8);--line:#D5DCE4;--text:#1C2633;--text2:#5B6878;--accent:#2FA8E0;--accent-text:#1A78A8;--accent-soft:rgba(47,168,224,.14);--accent-line:#1A8FC6;--on-accent:#0E1621;--drive:#3A9A74;--scrim:rgba(28,38,51,.32)}
+.tj.dark{--glass:rgba(30,39,51,.72);--sheet:rgba(30,39,51,.92);--card:rgba(30,39,51,.82);--silver-from:#2A3441;--silver-to:#3A4655;--hl:rgba(255,255,255,.14);--line:#334051;--text:#E9EEF4;--text2:#9AA7B6;--accent:#5CC3F0;--accent-text:#5CC3F0;--accent-soft:rgba(92,195,240,.18);--accent-line:#5CC3F0;--on-accent:#0E1621;--drive:#6FC9A6;--scrim:rgba(0,0,0,.5)}
+</style>
+<div class="tj light" style="position: relative; width: 390px; height: 844px; overflow: hidden; font-family: 'Pretendard', system-ui, sans-serif; color: var(--text); background: #F7F9FC">
+  
+    <img src="../assets/map/map_light.svg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 40%">
+      <div aria-hidden="true" style="position: absolute; inset: 0; background: var(--scrim)"></div>
+
+  <section role="dialog" aria-labelledby="ai-title-p" style="position: absolute; left: 0; right: 0; bottom: 0; height: 740px; display: flex; flex-direction: column; box-sizing: border-box; border-radius: 20px 20px 0 0; background: var(--sheet); border: 1px solid var(--line); border-bottom: 0; box-shadow: inset 0 1px 0 var(--hl), 0 -8px 24px rgba(28,38,51,.16); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); overflow: hidden">
+    <div style="display: flex; justify-content: center; padding: 8px 0 4px 0">
+      <span aria-hidden="true" style="width: 36px; height: 4px; border-radius: 2px; background: var(--line)"></span>
+    </div>
+
+    <header style="display: flex; align-items: center; gap: 10px; padding: 8px 16px 12px 16px; border-bottom: 1px solid var(--line)">
+      <span style="width: 36px; height: 36px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent-text); flex: 0 0 auto">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg>
+      </span>
+      <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+        <h2 id="ai-title-p" style="margin: 0; font-size: 16px; font-weight: 600">AI 동선 제안 · Day 2</h2>
+        <span style="font-size: 12px; color: var(--text2)">고정 시간 1건 유지</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end">
+        <span style="font-family: 'Sora', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: var(--accent-text); line-height: 26px">−24분</span>
+        <span style="font-size: 11px; color: var(--text2)">1시간 12분 → 48분</span>
+      </div>
+    </header>
+
+    <div role="tablist" aria-label="비교" style="display: flex; gap: 4px; margin: 12px 16px 0 16px; padding: 4px; border-radius: 999px; background: var(--card); border: 1px solid var(--line)">
+      <button type="button" role="tab" aria-selected="false" style="flex: 1; height: 36px; border-radius: 999px; border: 0; background: transparent; color: var(--text2); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">변경 전</button>
+      <button type="button" role="tab" aria-selected="true" style="flex: 1; height: 36px; border-radius: 999px; border: 1px solid var(--line); background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); box-shadow: inset 0 1px 0 var(--hl); color: var(--text); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer">변경 후 · 2건</button>
+    </div>
+
+    <ol style="list-style: none; margin: 0; padding: 12px 16px; flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 6px">
+      <li style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; border-radius: 10px; background: var(--card); border: 1px solid var(--line)"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line)">1</span><span style="font-size: 14px; flex: 1">슨푸성 공원</span><span style="font-size: 12px; color: var(--text2)">09:30</span></li>
+
+      <li style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--card); border: 1px solid var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft)">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
+          <input type="checkbox" checked style="width: 18px; height: 18px; margin: 0; accent-color: #2FA8E0">
+          <span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: var(--accent); color: var(--on-accent)">2</span>
+          <span style="font-size: 14px; flex: 1">시즈오카 센겐 신사</span>
+          <span style="font-size: 12px; color: var(--text2)"><s style="opacity: .6">10:55</s> 10:45</span>
+        </label>
+        <span style="display: flex; align-items: flex-start; gap: 6px; font-size: 12px; color: var(--text2); padding-left: 28px; line-height: 16px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--drive); flex: 0 0 auto; margin-top: 1px"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>출발을 10분 당기면 11:02 버스에 맞춰 환승 대기 6분이 사라져요</span>
+        </span>
+      </li>
+
+      <li style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 10px; background: var(--card); border: 1px solid var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft)">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
+          <input type="checkbox" checked style="width: 18px; height: 18px; margin: 0; accent-color: #2FA8E0">
+          <span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: var(--accent); color: var(--on-accent)">3</span>
+          <span style="font-size: 14px; flex: 1">미호노마쓰바라 <span style="font-size: 11px; color: var(--text2)">(4 → 3)</span></span>
+          <span style="font-size: 12px">14:00 고정</span>
+        </label>
+        <span style="display: flex; align-items: flex-start; gap: 6px; font-size: 12px; color: var(--text2); padding-left: 28px; line-height: 16px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--drive); flex: 0 0 auto; margin-top: 1px"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>니혼다이라와 순서를 바꾸면 되돌아가는 9.2km 구간이 사라져요 (−18분)</span>
+        </span>
+      </li>
+
+      <li style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; border-radius: 10px; background: var(--card); border: 1px solid var(--line)"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line)">4</span><span style="font-size: 14px; flex: 1">니혼다이라 전망대 <span style="font-size: 11px; color: var(--text2)">(3 → 4)</span></span><span style="font-size: 12px; color: var(--text2)">15:20</span></li>
+      <li style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; border-radius: 10px; background: var(--card); border: 1px solid var(--line)"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: 'Sora', system-ui, sans-serif; font-size: 11px; font-weight: 600; background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); border: 1px solid var(--line)">5</span><span style="font-size: 14px; flex: 1">숙소 · 시미즈 역 앞</span><span style="font-size: 12px; color: var(--text2)">16:06</span></li>
+    </ol>
+
+    <footer style="display: flex; flex-direction: column; gap: 8px; padding: 12px 16px 28px 16px; border-top: 1px solid var(--line)">
+      <button type="button" style="width: 358px; height: 48px; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font: inherit; font-size: 14px; font-weight: 600; color: var(--on-accent); background: var(--accent); box-shadow: inset 0 1px 0 rgba(255,255,255,.55); clip-path: path('M12 0 H350 L358 8 V36 A12 12 0 0 1 346 48 H12 A12 12 0 0 1 0 36 V12 A12 12 0 0 1 12 0 Z')">수락</button>
+      <div style="display: flex; gap: 8px">
+        <button type="button" style="flex: 1; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer">거절</button>
+        <button type="button" style="flex: 1; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: linear-gradient(180deg, var(--silver-from), var(--silver-to)); box-shadow: inset 0 1px 0 var(--hl); color: var(--text); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer">일부 수락</button>
+      </div>
+    </footer>
+  </section>
+</div>
+</body>
+</html>
