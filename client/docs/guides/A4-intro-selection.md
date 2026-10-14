@@ -292,9 +292,7 @@ React로 치면 6-2는 컴포넌트 안에 `let selected = null`을 쓴 경우�
 
 ## 7. 빌드 확인
 
-```bash
-scripts/linux/build.sh
-```
+PR의 `client-ci`가 Android 빌드·Desktop 컴파일·테스트를 돌리므로 로컬 실행은 선택이다. Android 쪽 컴파일을 미리 보고 싶을 때만 `scripts/linux/build.sh`를 돌린다.
 
 ## import 목록
 
@@ -332,14 +330,13 @@ import androidx.compose.runtime.setValue
 - [ ] 선택한 채 창 크기를 바꿔도 선택 유지
 - [ ] 실험 6-1·6-2의 결과와 "몇 번 고리가 끊겼나" 설명
 - [ ] 코드 리뷰: `remember`/`mutableStateOf`는 `IntroScreen`의 한 줄뿐 · `SeasonQuadrant`는 상태 없음 · 파라미터 순서 `season, selected, modifier, onSelect` · 색 리터럴은 `seasonColor` 한 곳
-- [ ] `build.sh` 초록
+- [ ] PR의 `client-ci` 초록 (Android 빌드·테스트 포함. 로컬 `build.sh`는 Gradle 설정을 바꿨거나 CI가 실패했을 때만)
 
 ## 끝나면 붙여넣어 줄 것
 
 1. `Season.kt`, `IntroScreen.kt` 내용
 2. 스크린샷: 한 칸 선택 상태 (30%로 키운 확인용이 있으면 함께)
 3. 실험 6-1·6-2 결과와 설명
-4. `build.sh` 마지막 10줄
 
 중간에 막히면 그 단계 번호(예: "5-3에서 안 찍힘")와 코드·출력을 붙여넣으면 된다.
 

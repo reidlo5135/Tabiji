@@ -13,7 +13,7 @@
 | `./gradlew --version` | ✅ 9.7.1 | 2026-10-13 | 래퍼 커밋 완료 (PR #1) |
 | 에뮬레이터 | ⬜ 부팅 시도 | 2026-10-14 | `default_boot` 스냅샷 로드 실패 → 콜드 부트로 넘어감(정상 동작). `adb devices` 미확인. Phase M까지 보류 |
 | Desktop 실행 | ✅ 인트로 2×2 + 3dp ink 경계 | 2026-10-14 | A3. 기본 크기·넓은 창 스크린샷 확인, Hot Reload로 Modifier 순서 실험 |
-| `build.sh` | ✅ BUILD SUCCESSFUL | 2026-10-14 | A3. Android 디버그 APK + jvmTest 포함 |
+| `build.sh` | ✅ BUILD SUCCESSFUL | 2026-10-14 | A3. 이후로는 PR의 `client-ci`로 갈음 (사용자 요청: 매번 붙여넣기 안 함) |
 | Android 설치 | ⬜ Phase M | — | `<activity>` 없음 (정상). 데스크톱 우선 결정 |
 | `client-ci` | ✅ 초록 (3m) | 2026-10-14 | PR #6: `.ci-enabled` 후 **첫 실제 빌드·테스트** 통과 |
 | `client-release` | ⬜ 미실행 | — | A9에서 첫 실행 |
@@ -22,7 +22,8 @@
 ## 진행 중
 
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
-- **A4 — 사분면 선택** ([guides/A4-intro-selection.md](guides/A4-intro-selection.md), 브랜치 `client/feat-a4-intro-selection`, #8 위에 쌓음). 가이드 작성 완료(첫 React 비유 가이드). **다음 행동: 사용자가 `Season.kt` + `IntroScreen.kt` 수정 → 스크린샷·`remember` 실험 → 진단 → 커밋. PR은 #8 머지 후 `main` merge하고 열기**
+- **A4 — 사분면 선택**: 완료 → 구현 커밋 + PR (브랜치 `client/feat-a4-intro-selection`). **남은 것: CI 확인 → 사용자 squash merge (#3 이후라 관리자 bypass 필요)**
+- **A5 — TabijiTheme** ([guides/A5-tabiji-theme.md](guides/A5-tabiji-theme.md), 브랜치 `client/feat-a5-tabiji-theme`, A4 위에 쌓음). 가이드 작성 완료
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -64,6 +65,14 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 (오후) — A4 완료
+
+- A4 가이드 1차가 "부실·두서없음" 지적을 받음 → 개념(1장: recomposition, `mutableStateOf`와 `remember`의 역할 분리, hoisting 흐름도, 클릭 한 번의 5고리) 먼저, 단계별 확인 지점이 있는 형태로 재작성
+- 2차 설계(부모가 칸마다 emphasis 계산)는 호출부에 계절을 반복하게 만들어 사용자가 이상하다고 지적 → 칸에 공통 `selected` + `onSelect: (Season) -> Unit` 하나를 넘기는 탭 패턴(`id` + `activeId`)으로 바꿈. "비교에는 두 값이 다 필요해서 어디서 비교할지만 고를 수 있다"고 설명
+- 사용자가 막힌 곳: 덮개 `when`을 부모에 둠(`season` 미정의), `null -> null`, 어둡게를 흰색으로, `toggle` 해제 누락, `getValue`/`setValue` import 누락
+- 실험 6-1을 `useEffect`(감시 후 람다 실행)로 이해 → `remember` 람다는 초기화 코드이고, 6-1은 다시 그려지지만 리셋(4번 고리), 6-2는 다시 그려지지 않음(3번 고리)으로 정정
+- **사용자 요청: `build.sh` 결과 붙여넣기는 그만** → CI가 같은 빌드를 돌리므로 완료 조건을 "PR의 `client-ci` 초록"으로
 
 ### 2026-10-14 (낮) — A3 완료
 
