@@ -62,7 +62,11 @@ React로 치면 이렇다.
 import tabiji.shared.generated.resources.Res
 import tabiji.shared.generated.resources.intro_spring     // 쓰는 리소스마다 한 줄
 import tabiji.shared.generated.resources.intro_subtitle
+// 또는 한 줄로 전부:
+import tabiji.shared.generated.resources.*
 ```
+
+리소스를 쓰는 파일마다 와일드카드 한 줄(`.*`)을 두는 게 가장 편하다.
 
 **파일 이름 규칙**: 소문자·숫자·밑줄만 쓴다 (`intro_spring.webp`, `jua_regular.ttf`). 파일 이름이 그대로 Kotlin 이름(`Res.font.jua_regular`)이 되기 때문이다. 하이픈(`-`)이나 대문자가 섞이면 이름이 바뀌어 생성되거나 빌드가 실패할 수 있다. 핸드오프의 `Jua-Regular.ttf`는 복사하면서 이름을 바꾼다.
 
@@ -107,9 +111,10 @@ A4의 밝기 덮개는 지금 `background(계절색).background(덮개)`다. 이
 A3에서 본 `Box`의 겹쳐 쌓기로 푼다. 칸을 `Box`로 두고, 자식을 **이미지 → 덮개** 순서로 넣는다. 나중에 선언한 덮개가 위층이다.
 
 ```
-SeasonQuadrant의 Box (modifier · clickable)
-├── Image            칸 가득, Crop, BiasAlignment     ← 아래층
-└── Box (덮개)        Modifier.matchParentSize().background(overlay)   ← 위층
+SeasonQuadrant(season, selected, modifier, onSelect)        ← A4 시그니처 그대로
+└── Box (modifier · clickable)
+    ├── Image            칸 가득, Crop, BiasAlignment     ← 아래층
+    └── Box (덮개)        Modifier.matchParentSize().background(overlay)   ← 위층
 ```
 
 `matchParentSize()`는 **`Box` 안에서만** 쓸 수 있는 크기 지정이다 (A3의 `weight`처럼 스코프 전용). "부모 `Box`와 같은 크기로"라는 뜻이다. `fillMaxSize()`와 달리 부모의 크기 결정에 끼어들지 않는다. CSS의 `position: absolute; inset: 0`과 같다.
@@ -198,7 +203,17 @@ cp $H/logo/icon/desktop-window-512.png $R/drawable/app_icon.png
 ```
 
 - `app_name`(창 제목)과 `intro_wordmark`(화면 로고)는 지금은 같은 글자지만 **용도가 달라서** 따로 둔다. 나중에 창 제목이 "Tabiji — 내 여행"처럼 바뀌어도 로고는 그대로여야 한다
-- `IntroScreen`의 `Text(text = "Tabiji", …)`를 `stringResource(Res.string.intro_wordmark)`로 바꾼다. import는 `org.jetbrains.compose.resources.stringResource`와 1-1의 `Res`·`intro_wordmark`
+- `IntroScreen`의 워드마크 `Text`에서 `text` 값만 바꾼다
+
+  ```kotlin
+  Text(
+      modifier = Modifier.align(Alignment.Center),
+      text = stringResource(Res.string.intro_wordmark),   // 전: "Tabiji"
+      color = Color.White,
+  )
+  ```
+
+  `stringResource(키)`는 `strings.xml`에서 그 키의 값을 읽어 `String`으로 돌려준다 (React i18n의 `t('intro_wordmark')`). import는 `org.jetbrains.compose.resources.stringResource`와 `tabiji.shared.generated.resources.*`
 
 ✅ 확인: 앱을 다시 띄워도 **화면이 그대로**다. 일부러 `strings.xml`의 `Tabiji`를 바꿔 보면 화면 글자가 따라 바뀐다 (확인 뒤 되돌림).
 
@@ -217,10 +232,23 @@ enum class Season(
 }
 ```
 
-**`IntroScreen.kt`의 `SeasonQuadrant`**: 1-4의 트리대로 바꾼다.
+**`IntroScreen.kt`의 `SeasonQuadrant`**: **시그니처(`season, selected, modifier, onSelect`)와 호출부 네 곳은 A4 그대로 둔다.** 바뀌는 건 칸 **안쪽**뿐이다. 계절색 `background`가 `Image`로 바뀌고, 덮개 `background`가 자식 `Box`로 옮겨 간다.
 
-- 바깥 `Box`: 받은 `modifier`에 `clickable`. `background` 두 개는 지운다 (계절색 → 이미지, 덮개 → 자식 `Box`)
-- 자식 1 `Image`: 핸드오프 `10_intro.md`의 코드 그대로다
+```
+전 (A4~A5)                                    후 (A6)
+Box(                                          Box(
+  modifier                                      modifier
+    .background(seasonColor(season))  ──┐         .clickable(…) { onSelect(season) }
+    .background(overlay)              ─┐│     ) {
+    .clickable(…) { onSelect(season) } ││       Image(…)                                   ← 계절색 자리
+)                                      │└──→    Box(Modifier.matchParentSize()
+                                       └───→        .background(overlay))                ← 덮개 자리
+                                              }
+```
+
+- 덮개를 `background`로 두면 안 되는 이유: `background`는 자식(`Image`) **밑에** 칠해져서 이미지에 가려진다 (1-4)
+- `overlay`를 정하는 `when (selected)`는 A4 코드 그대로
+- `Image`는 핸드오프 `10_intro.md`의 코드 그대로다
 
   ```kotlin
   Image(
@@ -232,16 +260,18 @@ enum class Season(
   )
   ```
 
-- 자식 2 덮개: `Box(Modifier.matchParentSize().background(overlay))`
-- A4~A5의 `seasonColor()` 함수는 이제 쓰이지 않으니 지운다. `TODO(A6)`도 함께 사라진다
+- A4~A5의 `seasonColor()` 함수는 이제 쓰이지 않으니 지운다 (`TabijiPalette` import도)
 
-import: `androidx.compose.foundation.Image`, `androidx.compose.ui.layout.ContentScale`, `androidx.compose.ui.BiasAlignment`, `org.jetbrains.compose.resources.painterResource`, 그리고 리소스 import 4+4줄 (`intro_spring` …, `season_spring` …). `Season.kt`에는 `DrawableResource`·`StringResource`와 리소스 import가 필요하다
+import: `androidx.compose.foundation.Image`, `androidx.compose.ui.layout.ContentScale`, `androidx.compose.ui.BiasAlignment`, `org.jetbrains.compose.resources.painterResource`, `tabiji.shared.generated.resources.*`. `Season.kt`에는 `DrawableResource`·`StringResource`와 `tabiji.shared.generated.resources.*`가 필요하다
+
+`Season.kt`의 `focusY`는 1-3 표대로 **봄·여름 `0f`, 가을·겨울 `0.1f`** 다.
 
 ✅ 확인 (앱 다시 띄우기):
 - 네 칸에 플레이스홀더가 보인다. 찌그러짐(격자가 직사각형으로 늘어남)이 없다
 - 창을 **아주 넓게** 만들면 위아래가 잘리고, **아주 길쭉하게** 만들면 좌우가 잘린다. 어느 쪽이든 **십자선은 칸 안에 남는다**
 - 가을·겨울은 십자선이 칸 가운데보다 살짝 아래에 있다 (초점 55%)
 - A4의 클릭 선택(밝게/어둡게)이 이미지 위에서도 그대로 동작한다
+- 한 줄에 두 칸이 반씩 보인다. 한 칸이 줄을 다 차지하면 호출부의 `Modifier.weight(1f)`가 빠진 것이다
 
 ### 4-3. 실제 일러스트로 로컬 확인 (커밋 금지)
 
