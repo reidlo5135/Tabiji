@@ -12,7 +12,8 @@
 | `check-env.sh` | ✅ 모두 OK | 2026-10-13 | JDK 21 · SDK `~/Android/Sdk` · adb · gh 2.102 |
 | `./gradlew --version` | ✅ 9.7.1 | 2026-10-13 | 래퍼 커밋 완료 (PR #1) |
 | 에뮬레이터 | ⬜ 부팅 시도 | 2026-10-14 | `default_boot` 스냅샷 로드 실패 → 콜드 부트로 넘어감(정상 동작). `adb devices` 미확인. Phase M까지 보류 |
-| Desktop 실행 | ✅ 하늘색 창 + Hot Reload | 2026-10-14 | 사용자 보고("A1 마저 완성"). 출력 로그는 받지 않음 |
+| Desktop 실행 | ✅ 인트로 2×2 + 3dp ink 경계 | 2026-10-14 | A3. 기본 크기·넓은 창 스크린샷 확인, Hot Reload로 Modifier 순서 실험 |
+| `build.sh` | ✅ BUILD SUCCESSFUL | 2026-10-14 | A3. Android 디버그 APK + jvmTest 포함 |
 | Android 설치 | ⬜ Phase M | — | `<activity>` 없음 (정상). 데스크톱 우선 결정 |
 | `client-ci` | ✅ 초록 (3m) | 2026-10-14 | PR #6: `.ci-enabled` 후 **첫 실제 빌드·테스트** 통과 |
 | `client-release` | ⬜ 미실행 | — | A9에서 첫 실행 |
@@ -20,11 +21,9 @@
 
 ## 진행 중
 
-- **A3 — 인트로 사분면 + 잉크 경계** ([guides/A3-intro-quadrants.md](guides/A3-intro-quadrants.md), 브랜치 `client/feat-a3-intro-quadrants`, A1 브랜치 위에 쌓음, PR 아직 없음)
-  - 가이드 작성 완료. **다음 행동: 사용자가 `feature/intro/IntroScreen.kt` 작성 + `App.kt` 정리 → `run-desktop.sh --hot` 스크린샷 + Modifier 순서 실험 → 진단 → 통과 시 Claude가 커밋·push·PR (#6 머지 후 `main` 기준으로 rebase해서 열기)**
-- **데스크톱 우선 전환 (2026-10-14 사용자 결정)**: IntelliJ 동기화 실패(AGP 9.3.3 미지원)를 계기로 Android·iOS를 Phase M으로 미룸. A2 → M1(가이드는 `guides/M1-android-entry.md`로 보존), F2 → M3. 시점은 사용자가 정함(기본 제안: Phase B 이후)
-  - `client/feat-a2-android-entry` 원격 브랜치는 A3 브랜치에 커밋이 전부 포함돼 쓸모없음 → 삭제 여부 사용자 확인 대기
-- **A1** (PR #6): 완료, CI 초록. **사용자 squash merge 대기**
+- **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
+- **다음: A4 — 사분면 선택(`remember`, state hoisting)**. 가이드는 A4 시작 때 작성
+- **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 - **디자인 핸드오프 v2** (PR #7): #5 다음에 머지
 
 ### PR 현황 (2026-10-14 기준 · 최신은 `gh pr list`)
@@ -33,7 +32,7 @@
 | --- | --- | --- | --- |
 | #3 CODEOWNERS 클라이언트 담당 | `repo/chore-assign-client-owner` | 열림 | 사용자가 머지. 머지 후 `.github/`·`client/` PR은 관리자 우회("bypass rules") 필요해짐 |
 | #5 디자인 핸드오프 v1 + 旅 아이콘 세트 | `design/feat-handoff-v1` | 열림 | 사용자가 머지. v2가 대체하지만 스냅샷 보존 원칙(`design/README.md`)대로 머지 권장 |
-| #6 A1 단계 | `client/feat-a1-intro-window` | 열림 | 구현 완료, CI 초록. 사용자 squash merge 대기 |
+| #6 A1 단계 | `client/feat-a1-intro-window` | ✅ 머지 | `08c1383` |
 | #7 디자인 핸드오프 v2 | `design/feat-handoff-v2` | 열림 | **#5 다음에 머지** (base를 `main`으로 바꾼 뒤). 루트 `.gitignore`의 인트로 webp 규칙을 `design/handoff/*/assets/intro/*.webp`로 넓힘 |
 
 ### 세션 간 로컬 메모 (레포 밖 상태 — 다른 머신에는 없음)
@@ -70,6 +69,14 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 (낮) — A3 완료
+
+- 사용자가 `IntroScreen.kt`를 처음 `desktopApp`에 만듦 → `shared/commonMain`으로 이동 (의존 방향 `desktopApp → shared`). Material 2 `Text` import도 `material3`로
+- 막혔던 지점과 원인: 둘째 `Row`가 안 보임(`Column` 자식에 `weight` 없음 → 첫째가 남은 높이 전부 차지), 글자가 좌상단(Box가 Text 크기만 함 + Column과 형제), 덮개 Box가 사분면을 가림(불투명 배경 형제). 모두 사용자가 직접 수정
+- Modifier 순서 실험: ①은 정확히 설명. ②는 "칸이 넓어진다"고 봐서 → 크기는 부모가 정하고 padding은 자식 자리만 줄인다(자식 없음 → 변화 없음)로 정정
+- **사용자 정정: Qt·QML은 잘 모르고 React는 안다** → `client/CLAUDE.md` 소통 규칙을 React 비유로 변경. A1~A3 가이드의 Qt 비유는 그대로 두고 새 가이드부터 React
+- `build.sh` 성공, 넓은 창에서 4등분 유지 확인 → A3 완료
 
 ### 2026-10-14 (오전) — 데스크톱 우선 전환, A3 시작
 
