@@ -9,15 +9,22 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 val LocalTabijiColors = staticCompositionLocalOf { TabijiPalette.CLOUD.colors }
+val LocalTabijiTypography = staticCompositionLocalOf<TabijiTypography> { error("TabijiTheme 밖에서 typography를 읽었어요") }
 
 @Composable
 fun TabijiTheme(palette: TabijiPalette, content: @Composable () -> Unit) {
-    CompositionLocalProvider(LocalTabijiColors provides palette.colors.animated(), content = content)
+    CompositionLocalProvider(
+        LocalTabijiColors provides palette.colors.animated(),
+        LocalTabijiTypography provides tabijiTypography(),
+        content = content)
 }
 
 object TabijiTheme {
     val colors: TabijiColors
         @Composable get() = LocalTabijiColors.current
+
+    val typography: TabijiTypography
+        @Composable get() = LocalTabijiTypography.current
 }
 
 private val ThemeSwitchSpec = tween<Color>(durationMillis = 240, easing = CubicBezierEasing(0.2f, 0f, 0f, 1f))

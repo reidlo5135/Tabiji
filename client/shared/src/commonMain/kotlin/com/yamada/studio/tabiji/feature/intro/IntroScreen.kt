@@ -1,16 +1,25 @@
 package com.yamada.studio.tabiji.feature.intro
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.yamada.studio.tabiji.core.ui.theme.TabijiPalette
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import tabiji.shared.generated.resources.Res
+import tabiji.shared.generated.resources.intro_subtitle
+import tabiji.shared.generated.resources.intro_wordmark
 
 
 @Composable
@@ -64,11 +73,22 @@ fun IntroScreen(modifier: Modifier = Modifier) {
             }
         }
 
-        Text(
+        Column(
             modifier = Modifier.align(Alignment.Center),
-            text = "Tabiji",
-            color = Color.White
-        )
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = stringResource(Res.string.intro_wordmark),
+                style = TabijiTheme.typography.wordmark,
+                color = Color.White
+            )
+
+            Text(
+                text = stringResource(Res.string.intro_subtitle),
+                style = TabijiTheme.typography.displayM.copy(fontSize = 17.sp, letterSpacing = 0.1.em),
+                color = Color.White
+            )
+        }
     }
 }
 
@@ -79,28 +99,27 @@ private fun SeasonQuadrant(
     modifier: Modifier = Modifier,
     onSelect: (Season) -> Unit
 ) {
-    val overlay: Color = when(selected) {
-        null -> Color.Transparent
-        season -> Color.White.copy(alpha = 0.08f)
-        else -> Color.Black.copy(alpha = 0.06f)
-    }
-
     Box(
-        modifier = modifier
-            .background(seasonColor(season))
-            .background(overlay)
-            .clickable(interactionSource = null, indication = null) {
-                onSelect(season)
-            }
-    )
-}
+        modifier = modifier.clickable(interactionSource = null, indication = null) {
+            onSelect(season)
+        }
+    ) {
+        Image(
+            painter = painterResource(season.image),
+            contentDescription = stringResource(season.label),
+            contentScale = ContentScale.Crop,
+            alignment = BiasAlignment(0f, season.focusY),
+            modifier = Modifier.fillMaxSize(),
+        )
 
-private fun seasonColor(season: Season): Color {
-    return when (season) {
-        Season.SPRING -> TabijiPalette.SPRING.colors.accent
-        Season.SUMMER -> TabijiPalette.SUMMER.colors.accent
-        Season.AUTUMN -> TabijiPalette.AUTUMN.colors.accent
-        Season.WINTER -> TabijiPalette.WINTER.colors.accent
+        val overlay: Color = when(selected) {
+            null -> Color.Transparent
+            season -> Color.White.copy(alpha = 0.08f)
+            else -> Color.Black.copy(alpha = 0.06f)
+        }
+
+        Box(
+            modifier = Modifier.matchParentSize().background(overlay)
+        )
     }
 }
-

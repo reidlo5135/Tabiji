@@ -22,9 +22,10 @@
 ## 진행 중
 
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
-- **A4 — 사분면 선택**: 완료 → 구현 커밋 + PR (브랜치 `client/feat-a4-intro-selection`). **남은 것: CI 확인 → 사용자 squash merge (#3 이후라 관리자 bypass 필요)**
-- **A5 — TabijiTheme**: 완료 → 구현 커밋 (브랜치 `client/feat-a5-tabiji-theme`, #9 위). **PR은 #9 머지 후 `main` merge하고 연다**
-- **다음: A6 — Compose Resources (계절 이미지·폰트·문자열·Desktop 창 아이콘)**. 가이드는 A6 시작 때
+- **A4**: PR #9 머지 완료
+- **A5**: PR #10 머지 완료
+- **A6 — Compose Resources**: 완료 → 구현 커밋 + PR. 실제 일러스트 4-3 로컬 확인 후 되돌림, 커밋된 `intro_*.webp`는 플레이스홀더임을 확인함. **남은 것: CI → 사용자 squash merge (bypass)**
+- **A7 — 반응형** (가이드 작성, 브랜치 `client/feat-a7-responsive-intro`, A6 위)
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -50,6 +51,7 @@
 - [ ] Dependabot이 AGP 9.4 / Gradle 9.8을 제안하면 Kotlin 호환성 가이드 갱신 여부 확인 후 머지 (1차: #2·#4 닫음)
 - [ ] **인트로 일러스트 4장 권리 처리 또는 교체** (제3자 캐릭터 포함, 팀 판단 — handoff-v1 PROMPT §9-8, v2 README 라이선스 절). 그 전까지 레포 커밋 금지(.gitignore), 앱 리소스는 A6에서 IP 없는 플레이스홀더로
 - [ ] `design/requests/0001-handoff-v1.md` — handoff README가 참조하는 요청 프롬프트 사본이 레포에 없음. 디자인 담당에게 사본 요청
+- [ ] Compose `FontFamily(Jua, PretendardJP)` 목록이 글자 단위 폴백으로 동작하는지 플랫폼별 미확인 (A6 1-6). **2026-10-14 Desktop 관찰: display 줄의 駿府城·旅路가 주변 Jua보다 가늘게 렌더 → 체인의 Pretendard SemiBold가 아니라 OS 시스템 폰트(Noto CJK)로 대체된 것으로 추정.** 즉 Desktop에서도 체인 폴백은 안 되는 듯. Linux는 시스템 Noto CJK가 있어 두부는 안 나옴. Android는 M2에서 확인, 필요하면 `AnnotatedString`으로 한자 구간만 Pretendard 지정
 - [ ] handoff PROMPT "열린 질문" 중 개발 몫: 폰트 서브셋(v1 §9-1 — v2는 PretendardJP 4벌 22MB + Jua 2.8MB라 더 시급, A6에서), MapLibre Desktop 경로(v1 §9-3, C1에서) — 해당 단계에서 ADR로 답. v1 §9-2 Desktop 블러는 v2에서 블러 자체가 없어져 해소
 - [ ] handoff-v2 PROMPT §8 팀 결정: 테마별 다크 변형 방식, v2 컴포넌트 보드 추가 제작 여부, **테마 선택 UI 디자인(B6 전에 디자인 요청 필요)**, 인트로와 테마 결합 여부
 - [ ] Android API 24·25용 런처 아이콘 폴백 PNG (adaptive icon은 26+). A9 패키징 전 점검
@@ -66,6 +68,18 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-14 (저녁) — A6 완료
+
+- 막힌 곳: `SeasonQuadrant`를 이미지로 바꾸며 A4 시그니처·덮개를 지움(가이드가 "시그니처 유지"를 안 적음 → 전/후 그림으로 보강), `stringResource(키, 스타일)`로 스타일을 format 인자에 넣음(오류 없이 무시됨), 4-5 문장 "Box 안에서"를 새 Box로 읽음 → 트리로 교체, import 혼동(skia `TextStyle`, androidx `Font`, `FontStyle.SemiBold`) → 단계별 import 블록 + 겹치는 이름 표
+- **사용자 요청(규칙화)**: 가이드에 단계·파일별 import 블록, 단계별 Composable 트리 그림 (`client/CLAUDE.md` 반영)
+- 관찰: display 줄의 한자가 Jua보다 가늘게 → `FontFamily` 체인 폴백이 아니라 OS 시스템 폰트 대체로 추정 (열린 일)
+- Ubuntu에서 Gradle 실행 앱은 독 아이콘이 Java 기본일 수 있음. 창 아이콘 코드는 연결됨 → A9 `.deb`에서 독 아이콘 확인
+
+### 2026-10-14 (저녁) — 창 기본 크기·반응형 순서 조정
+
+- 사용자 요청: Desktop 기본 창 = 화면의 가로 85% × 세로 75% → A6 가이드 4-6에 추가 (`rememberWindowState` + `maximumWindowBounds`, 선택: 최소 360×600)
+- 사용자 요청: 반응형을 미리 → **A7(반응형)과 A8(잉크 마감) 순서 교체**. 버튼 높이·스택 폭이 크기 구간에 따라 달라서 구간을 먼저 만든다. A5·A6 가이드의 "A7에서 잉크 마감" 참조를 A8로 고침
 
 ### 2026-10-14 (오후 늦게) — A5 완료
 
