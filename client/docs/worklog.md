@@ -24,8 +24,8 @@
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
 - **A4**: PR #9 머지 완료
 - **A5**: PR #10 머지 완료
-- **A6 — Compose Resources**: 완료 → 구현 커밋 + PR. 실제 일러스트 4-3 로컬 확인 후 되돌림, 커밋된 `intro_*.webp`는 플레이스홀더임을 확인함. **남은 것: CI → 사용자 squash merge (bypass)**
-- **A7 — 반응형** (가이드 작성, 브랜치 `client/feat-a7-responsive-intro`, A6 위)
+- **A6 — Compose Resources**: 완료 → 구현 커밋 + PR #11. 실제 일러스트 4-3 로컬 확인 후 되돌림, 커밋된 `intro_*.webp`는 플레이스홀더임을 확인함. **남은 것: CI → 사용자 squash merge (bypass)**
+- **A7 — 반응형** ([guides/A7-responsive-intro.md](guides/A7-responsive-intro.md), 브랜치 `client/feat-a7-responsive-intro`, A6 위). 가이드 작성 완료: `WidthClass` enum(600/840) + `LocalWidthClass`/`ProvideWidthClass`(BoxWithConstraints), `QuadrantGrid`/`QuadrantStack`(반복문), Phone 초점 0.16, 스택 310/360, 워드마크 46sp, 디버그 창 크기 프리셋. PR은 #11 머지 후
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
