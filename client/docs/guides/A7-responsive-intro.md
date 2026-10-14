@@ -236,7 +236,25 @@ import androidx.compose.ui.unit.dp
 | 봄·여름 | `0f` | `0f` |
 | 가을·겨울 | `0.1f` | `0.16f` |
 
-`SeasonQuadrant`는 계절에서 초점을 직접 꺼내지 않고 **파라미터로 받는다.** 어느 초점을 쓸지는 배치(2×2냐 세로냐)가 정하기 때문이다. 시그니처가 이렇게 된다.
+**두 값은 `Season`에 저장하고, 칸(`SeasonQuadrant`)은 이미 골라진 값 하나만 받는다.** 칸은 이미지 한 장을 한 가지 정렬로 그리므로 초점이 하나만 필요하다. 지금 Desktop인지 Phone인지는 칸이 아니라 배치(`QuadrantGrid` / `QuadrantStack`, 5-4)가 아는 정보라서 배치가 고른다.
+
+```
+Season.AUTUMN                      ← enum에 두 값을 "저장"
+├── desktopFocusY = 0.1f
+└── phoneFocusY   = 0.16f
+
+QuadrantGrid  (2×2)                ← 배치가 하나를 "고름"
+└── SeasonQuadrant(season, selected, focusY = season.desktopFocusY, …)
+QuadrantStack (세로 4단)
+└── SeasonQuadrant(season, selected, focusY = season.phoneFocusY, …)
+
+SeasonQuadrant                     ← 받은 하나를 "씀"
+└── Image(alignment = BiasAlignment(0f, focusY))
+```
+
+> 대안: 칸이 `focusY`를 받지 않고 안에서 `LocalWidthClass.current`를 읽어 직접 고를 수도 있다. 파라미터는 안 늘지만, 칸이 화면 폭이라는 바깥 정보에 몰래 기대게 된다. 이 가이드는 칸을 "받은 값만 쓰는 부품"으로 두는 쪽을 따른다.
+
+시그니처가 이렇게 된다.
 
 ```kotlin
 private fun SeasonQuadrant(
