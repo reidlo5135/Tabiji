@@ -182,6 +182,25 @@ cp $H/logo/icon/desktop-window-512.png $R/drawable/app_icon.png
 - PretendardJP는 굵기 하나가 5MB가 넘는다. 9 스타일이 쓰는 600(SemiBold)·700(Bold)만 넣는다. 크기를 줄이는 서브셋은 worklog 열린 일로 남아 있다
 - 넣은 뒤 `composeResources/font/.gitkeep`과 `drawable/.gitkeep`은 지워도 된다 (빈 폴더 표시용이었다)
 
+### import — 이름이 겹치는 것 (이번 단계 공통)
+
+같은 이름의 클래스가 여러 패키지에 있다. 자동완성이 엉뚱한 쪽을 고르기 쉬우니 이 표대로 고른다.
+
+| 쓰려는 것 | 맞는 import | 고르면 안 되는 것 |
+| --- | --- | --- |
+| 글자 스타일 | `androidx.compose.ui.text.TextStyle` | `org.jetbrains.skia.paragraph.TextStyle` |
+| 리소스 폰트 | `org.jetbrains.compose.resources.Font` | `androidx.compose.ui.text.font.Font` (Android `R.font`·파일 경로용) |
+| 굵기 | `androidx.compose.ui.text.font.FontWeight` | `FontStyle`(기울임), `org.jetbrains.skia.FontWeight` |
+| 이미지 꺼내기 | `org.jetbrains.compose.resources.painterResource` | `androidx.compose.ui.res.painterResource` |
+| 문자열 꺼내기 | `org.jetbrains.compose.resources.stringResource` | `androidx.compose.ui.res.stringResource` (Android `R.string`용) |
+| 이미지 Composable | `androidx.compose.foundation.Image` | `org.jetbrains.skia.Image` |
+| 색 | `androidx.compose.ui.graphics.Color` | `java.awt.Color` |
+| 글자 | `androidx.compose.material3.Text` | `androidx.compose.material.Text` (Material 2) |
+
+- `org.jetbrains.skia.*`는 그리기 엔진 내부다. 화면 코드에서 쓸 일이 없다
+- `java.awt.*`는 Desktop 창 설정(`main.kt`)에서만 쓴다
+- `org.jetbrains.compose.resources.*`는 `Res`와 짝으로 쓰는 것들이다
+
 ---
 
 ## 4. 조립 순서
@@ -214,6 +233,13 @@ cp $H/logo/icon/desktop-window-512.png $R/drawable/app_icon.png
   ```
 
   `stringResource(키)`는 `strings.xml`에서 그 키의 값을 읽어 `String`으로 돌려준다 (React i18n의 `t('intro_wordmark')`). import는 `org.jetbrains.compose.resources.stringResource`와 `tabiji.shared.generated.resources.*`
+
+import (`IntroScreen.kt`에 추가):
+
+```kotlin
+import org.jetbrains.compose.resources.stringResource
+import tabiji.shared.generated.resources.*
+```
 
 ✅ 확인: 앱을 다시 띄워도 **화면이 그대로**다. 일부러 `strings.xml`의 `Tabiji`를 바꿔 보면 화면 글자가 따라 바뀐다 (확인 뒤 되돌림).
 
@@ -262,7 +288,22 @@ Box(                                          Box(
 
 - A4~A5의 `seasonColor()` 함수는 이제 쓰이지 않으니 지운다 (`TabijiPalette` import도)
 
-import: `androidx.compose.foundation.Image`, `androidx.compose.ui.layout.ContentScale`, `androidx.compose.ui.BiasAlignment`, `org.jetbrains.compose.resources.painterResource`, `tabiji.shared.generated.resources.*`. `Season.kt`에는 `DrawableResource`·`StringResource`와 `tabiji.shared.generated.resources.*`가 필요하다
+import:
+
+```kotlin
+// Season.kt
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
+import tabiji.shared.generated.resources.*
+
+// IntroScreen.kt (4-1에 더해)
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.BiasAlignment
+import androidx.compose.ui.layout.ContentScale
+import org.jetbrains.compose.resources.painterResource
+// 지울 것: com.yamada.studio.tabiji.core.ui.theme.TabijiPalette (seasonColor 삭제로 안 씀)
+```
 
 `Season.kt`의 `focusY`는 1-3 표대로 **봄·여름 `0f`, 가을·겨울 `0.1f`** 다.
 
@@ -328,6 +369,23 @@ val display = FontFamily(
 
 - 함수 이름이 소문자로 시작하는 건 Compose 관례다. 화면을 그리지 않고 **값을 돌려주는** Composable은 소문자로 쓴다 (`remember…`, `painterResource`처럼)
 - `Font`는 `org.jetbrains.compose.resources.Font`다. `androidx.compose.ui.text.font.Font`와 이름이 같으니 import를 정확히 고른다
+- data class 필드에 `= TextStyle()` 같은 기본값을 **주지 않는다.** 하나를 빠뜨리면 컴파일 오류로 잡혀야 한다 (`TabijiColors`와 같은 이유)
+
+import (`TabijiTypography.kt`):
+
+```kotlin
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.ui.text.TextStyle              // skia 것 아님
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight        // FontStyle(기울임) 아님
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
+import org.jetbrains.compose.resources.Font            // androidx 것 아님
+import tabiji.shared.generated.resources.*
+```
+
+`TabijiTheme.kt`·`TokenSwatches.kt`는 A5의 import로 충분하다 (`error(…)`는 Kotlin 기본 함수).
 
 **③ 테마에 연결** (`TabijiTheme.kt`, A5와 같은 패턴):
 - 통로: `val LocalTabijiTypography = staticCompositionLocalOf<TabijiTypography> { error("TabijiTheme 밖에서 typography를 읽었어요") }`. 색과 달리 기본값을 만들 수 없다(`Font`가 Composable이라서). 그래서 "여기 오면 버그"라고 표시한다
@@ -358,6 +416,14 @@ Text("displayXL  Day 2 · 시즈오카 센겐 신사 · 駿府城 · 旅路 1.8k
 
 - `copy(…)`는 A4에서 본 data class 복사다. `TextStyle`도 일부 값만 바꾼 복사본을 만들 수 있다
 - 흰 글자는 밝은 이미지 위에서 잘 안 읽힐 수 있다. **잉크 아웃라인과 하드 섀도는 A8에서** 입힌다
+
+import (`IntroScreen.kt`에 추가):
+
+```kotlin
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
+// Column·Alignment는 이미 있음 (layout.* · ui.Alignment)
+```
 
 ✅ 확인: 가운데에 큰 Sora "Tabiji", 그 아래 Jua "여행(旅路) 도우미". 旅路에 두부가 없다.
 
@@ -392,7 +458,7 @@ Window(state = windowState, …)
 - `maximumWindowBounds`는 작업표시줄·상단 바를 **뺀** 영역이다. 전체 화면 크기(`Toolkit.getDefaultToolkit().screenSize`)로 계산하면 창 아래가 작업표시줄에 가릴 수 있다
 - **단위**: AWT가 돌려주는 값은 배율(HiDPI)이 적용된 논리 픽셀이고, Compose Desktop에서는 이 값이 곧 `dp`다. 그래서 그대로 `.dp`를 붙인다
 - CSS로 치면 `width: 85vw; height: 75vh`를 창 자체에 거는 셈이다. 다만 **처음 열릴 때 한 번만** 정해진다. 사용자가 창 크기를 바꾸면 그 값이 `windowState`에 들어간다
-- import: `java.awt.GraphicsEnvironment`, `androidx.compose.ui.window.rememberWindowState`, `androidx.compose.ui.window.WindowPosition`, `androidx.compose.ui.unit.DpSize`, `androidx.compose.ui.unit.dp`, `androidx.compose.ui.Alignment`
+- import는 아래 블록에 모았다
 
 **③ 최소 크기 (선택).** 너무 작게 줄이면 레이아웃이 깨지니 바닥을 둔다. `Window { }` 블록 안에서는 실제 AWT 창 객체가 `window`로 보인다. 그 객체에 직접 설정한다.
 
@@ -401,6 +467,28 @@ Window(…) {
     window.minimumSize = java.awt.Dimension(360, 600)   // A7에서 폰 크기(390×844)까지 줄여 볼 수 있게 360
     …
 }
+```
+
+import:
+
+```kotlin
+// app/AppResources.kt
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+import tabiji.shared.generated.resources.*
+
+// main.kt (기존에 더해)
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.rememberWindowState
+import com.yamada.studio.tabiji.app.appIcon
+import com.yamada.studio.tabiji.app.appTitle
+import java.awt.Dimension                 // ③ 최소 크기 (AWT 창 설정이라 java.awt가 맞다)
+import java.awt.GraphicsEnvironment
 ```
 
 ✅ 확인:
