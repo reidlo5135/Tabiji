@@ -12,9 +12,9 @@
 - 가운데 "Tabiji" → **Sora 굵은 워드마크** + 그 아래 **Jua 부제 "여행(旅路) 도우미"**
 - 앱 전체가 쓸 **글꼴 스타일 9종**을 테마에 추가한다 (`TabijiTheme.typography`)
 - 화면에 보이는 글자는 코드가 아니라 **`strings.xml`** 에서 온다
-- Desktop 창(작업 전환기·작업표시줄)에 **旅 아이콘**이 붙는다
+- Desktop 창(작업 전환기·작업표시줄)에 **旅 아이콘**이 붙고, 처음 뜰 때 **화면의 가로 85% × 세로 75%** 크기로 가운데에 열린다
 
-끝 그림은 핸드오프 `images/screens/intro_desktop.png`에서 버튼만 뺀 모습이다. 버튼과 워드마크의 잉크 테두리는 A7에서 한다.
+끝 그림은 핸드오프 `images/screens/intro_desktop.png`에서 버튼만 뺀 모습이다. 버튼과 워드마크의 잉크 테두리는 A8에서 한다.
 
 > **인트로 일러스트는 커밋하지 않는다.** 제3자 캐릭터가 들어 있어서다 (루트 `CLAUDE.md`, roadmap ⚠). 그래서 앱에는 Claude가 만든 **같은 비율의 플레이스홀더**를 넣는다. 실제 일러스트는 로컬에서 잠깐 바꿔 끼워 확인만 한다 (4-3).
 
@@ -327,13 +327,13 @@ Text("displayXL  Day 2 · 시즈오카 센겐 신사 · 駿府城 · 旅路 1.8k
 | 부제 | `Res.string.intro_subtitle` | `displayM.copy(fontSize = 17.sp, letterSpacing = 0.1.em)`, 흰색 (`10_intro.md`: Jua 17sp, 자간 0.1em) |
 
 - `copy(…)`는 A4에서 본 data class 복사다. `TextStyle`도 일부 값만 바꾼 복사본을 만들 수 있다
-- 흰 글자는 밝은 이미지 위에서 잘 안 읽힐 수 있다. **잉크 아웃라인과 하드 섀도는 A7에서** 입힌다
+- 흰 글자는 밝은 이미지 위에서 잘 안 읽힐 수 있다. **잉크 아웃라인과 하드 섀도는 A8에서** 입힌다
 
 ✅ 확인: 가운데에 큰 Sora "Tabiji", 그 아래 Jua "여행(旅路) 도우미". 旅路에 두부가 없다.
 
-### 4-6. 창 아이콘과 제목
+### 4-6. 창 아이콘·제목·기본 크기
 
-`main.kt`는 `Res`를 못 쓴다(1-1). 그래서 `shared`에 꺼내 주는 함수를 만든다.
+**① 아이콘과 제목.** `main.kt`는 `Res`를 못 쓴다(1-1). 그래서 `shared`에 꺼내 주는 함수를 만든다.
 
 `app/AppResources.kt`:
 
@@ -347,7 +347,36 @@ fun appTitle(): String = stringResource(Res.string.app_name)
 
 `main.kt`: `Window(…, title = appTitle(), icon = appIcon())`. `application { }` 안은 Composable이라 두 함수를 부를 수 있다. import는 `com.yamada.studio.tabiji.app.appIcon`, `appTitle`이다.
 
-✅ 확인: `Alt+Tab` 전환기와 창 목록에 旅 아이콘이 보인다. GNOME 독(dock)에는 Gradle로 띄운 앱 아이콘이 Java 기본 아이콘으로 나올 수 있다. 설치 패키지(A9)에서는 `.desktop` 파일 아이콘이 쓰인다.
+**② 기본 창 크기: 화면의 가로 85% × 세로 75%, 가운데.** 지금은 Compose Desktop 기본값(800×600)으로 뜬다. 창의 크기와 위치는 **`WindowState`** 라는 상태 객체가 들고 있다. A4의 `remember { mutableStateOf(…) }`처럼 `rememberWindowState(…)`로 만들어 `Window(state = …)`에 넘긴다.
+
+```kotlin
+val screen = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds   // 작업표시줄을 뺀 화면 영역
+val windowState = rememberWindowState(
+    position = WindowPosition(Alignment.Center),
+    size = DpSize((screen.width * 0.85f).dp, (screen.height * 0.75f).dp),
+)
+Window(state = windowState, …)
+```
+
+- **화면 크기는 플랫폼 API로 읽는다.** `java.awt.GraphicsEnvironment`는 JVM(Desktop)에만 있는 API라서 `commonMain`이 아니라 `desktopApp`의 `main.kt`에서만 쓸 수 있다. Android에는 "창 크기"라는 개념이 없다 (앱이 화면을 차지한다)
+- `maximumWindowBounds`는 작업표시줄·상단 바를 **뺀** 영역이다. 전체 화면 크기(`Toolkit.getDefaultToolkit().screenSize`)로 계산하면 창 아래가 작업표시줄에 가릴 수 있다
+- **단위**: AWT가 돌려주는 값은 배율(HiDPI)이 적용된 논리 픽셀이고, Compose Desktop에서는 이 값이 곧 `dp`다. 그래서 그대로 `.dp`를 붙인다
+- CSS로 치면 `width: 85vw; height: 75vh`를 창 자체에 거는 셈이다. 다만 **처음 열릴 때 한 번만** 정해진다. 사용자가 창 크기를 바꾸면 그 값이 `windowState`에 들어간다
+- import: `java.awt.GraphicsEnvironment`, `androidx.compose.ui.window.rememberWindowState`, `androidx.compose.ui.window.WindowPosition`, `androidx.compose.ui.unit.DpSize`, `androidx.compose.ui.unit.dp`, `androidx.compose.ui.Alignment`
+
+**③ 최소 크기 (선택).** 너무 작게 줄이면 레이아웃이 깨지니 바닥을 둔다. `Window { }` 블록 안에서는 실제 AWT 창 객체가 `window`로 보인다. 그 객체에 직접 설정한다.
+
+```kotlin
+Window(…) {
+    window.minimumSize = java.awt.Dimension(360, 600)   // A7에서 폰 크기(390×844)까지 줄여 볼 수 있게 360
+    …
+}
+```
+
+✅ 확인:
+- `Alt+Tab` 전환기와 창 목록에 旅 아이콘이 보인다. GNOME 독(dock)에는 Gradle로 띄운 앱이 Java 기본 아이콘으로 나올 수 있다. 설치 패키지(A9)에서는 `.desktop` 파일 아이콘이 쓰인다
+- 앱을 띄우면 화면 가운데에 화면의 85%×75% 크기로 열린다
+- (③을 했다면) 창을 끝까지 줄여도 360×600 아래로는 안 줄어든다
 
 ### 4-7. 하드코딩 확인
 
@@ -384,7 +413,7 @@ git status --short shared/src/commonMain/composeResources/drawable   # intro_*.w
 - [ ] 4-3: 실제 일러스트로 바꿔 봤을 때 인물이 안 잘림. **되돌린 뒤** `git status`에 `intro_*.webp` 변경 없음
 - [ ] 토큰 화면 글꼴 구역: 9 스타일이 표의 글꼴·크기로 보이고, 두부 없음
 - [ ] 인트로 가운데: Sora "Tabiji" + Jua "여행(旅路) 도우미"
-- [ ] `Alt+Tab`에 旅 창 아이콘, 창 제목은 `strings.xml`에서
+- [ ] `Alt+Tab`에 旅 창 아이콘, 창 제목은 `strings.xml`에서, 처음 열릴 때 화면 85%×75% 가운데
 - [ ] 4-7의 grep 0줄
 - [ ] A4 선택 동작, A5 테마 전환이 그대로 동작
 - [ ] PR의 `client-ci` 초록
@@ -397,4 +426,4 @@ git status --short shared/src/commonMain/composeResources/drawable   # intro_*.w
 
 중간에 막히면 단계 번호와 코드·출력을 붙여넣으면 된다.
 
-→ 진단을 통과하면 Claude가 커밋(`feat(client): load intro images, fonts and strings from compose resources`, `Refs: A6`)과 push를 하고, #10 머지 뒤 `main`과 맞춰 PR을 연다. 그다음 A7(잉크 마감: 워드마크 아웃라인·하드 섀도·chamfer 버튼·눌림)로 간다.
+→ 진단을 통과하면 Claude가 커밋(`feat(client): load intro images, fonts and strings from compose resources`, `Refs: A6`)과 push를 하고, #10 머지 뒤 `main`과 맞춰 PR을 연다. 그다음 A7(반응형: Desktop 2×2 ↔ Phone 세로 4단)로 간다. 잉크 마감(워드마크 아웃라인·하드 섀도·chamfer 버튼·눌림)은 A8이다.
