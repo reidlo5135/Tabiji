@@ -198,25 +198,34 @@ enum class TabijiPalette(val colors: TabijiColors) {
 
 ### 4-3. 통로·공급자·읽기 — 그리고 첫 사용
 
-`TabijiTheme.kt`에 세 가지를 만든다. 패턴은 이것이다 (`Foo`는 예시 이름).
+`TabijiTheme.kt`에 세 가지를 만든다.
 
 ```kotlin
-val LocalFoo = staticCompositionLocalOf { 기본값 }            // 통로
+val LocalTabijiColors = staticCompositionLocalOf { TabijiPalette.CLOUD.colors }   // 통로 (기본값 cloud)
 
 @Composable
-fun FooTheme(value: Foo, content: @Composable () -> Unit) {     // 공급자
-    CompositionLocalProvider(LocalFoo provides value, content = content)
+fun TabijiTheme(palette: TabijiPalette, content: @Composable () -> Unit) {         // 공급자
+    CompositionLocalProvider(LocalTabijiColors provides palette.colors, content = content)
 }
 
-object FooTheme {                                               // 읽기
-    val foo: Foo
-        @Composable get() = LocalFoo.current
+object TabijiTheme {                                                               // 읽기
+    val colors: TabijiColors
+        @Composable get() = LocalTabijiColors.current
 }
 ```
 
-- 통로의 기본값은 `TabijiPalette.CLOUD.colors`
-- 공급자 `TabijiTheme`의 파라미터는 `palette: TabijiPalette`이고, 공급하는 값은 `palette.colors`다 (크로스페이드는 4-6에서)
+React로 옮기면 이렇다.
+
+```jsx
+const TabijiColorsCtx = createContext(CLOUD.colors)                    // LocalTabijiColors
+const TabijiTheme = ({ palette, children }) =>
+  <TabijiColorsCtx.Provider value={palette.colors}>{children}</TabijiColorsCtx.Provider>
+const useTabijiColors = () => useContext(TabijiColorsCtx)              // TabijiTheme.colors
+```
+
+- 함수 `TabijiTheme`과 객체 `TabijiTheme`은 이름이 같아도 공존한다. 괄호로 부르면 함수(`TabijiTheme(…) { }`), 점으로 접근하면 객체(`TabijiTheme.colors`)다
 - `content: @Composable () -> Unit`은 "Composable 람다를 받는다"는 뜻이다. 그래서 `TabijiTheme(…) { IntroScreen() }`처럼 trailing lambda로 쓸 수 있다. React의 `children`과 같은 역할이다
+- 크로스페이드는 4-6에서 `palette.colors` 자리를 바꿔서 넣는다
 
 그다음 연결한다.
 
