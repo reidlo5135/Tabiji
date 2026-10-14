@@ -21,7 +21,7 @@
 
 ## 진행 중
 
-- **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
+- **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
 - **다음: A4 — 사분면 선택(`remember`, state hoisting)**. 가이드는 A4 시작 때 작성
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 - **디자인 핸드오프 v2** (PR #7): #5 다음에 머지
@@ -34,6 +34,7 @@
 | #5 디자인 핸드오프 v1 + 旅 아이콘 세트 | `design/feat-handoff-v1` | 열림 | 사용자가 머지. v2가 대체하지만 스냅샷 보존 원칙(`design/README.md`)대로 머지 권장 |
 | #6 A1 단계 | `client/feat-a1-intro-window` | ✅ 머지 | `08c1383` |
 | #7 디자인 핸드오프 v2 | `design/feat-handoff-v2` | 열림 | **#5 다음에 머지** (base를 `main`으로 바꾼 뒤). 루트 `.gitignore`의 인트로 webp 규칙을 `design/handoff/*/assets/intro/*.webp`로 넓힘 |
+| #8 A3 단계 | `client/feat-a3-intro-quadrants` | 열림 | 로드맵 v2·데스크톱 우선 문서 포함. CI 확인 후 squash merge |
 
 ### 세션 간 로컬 메모 (레포 밖 상태 — 다른 머신에는 없음)
 
