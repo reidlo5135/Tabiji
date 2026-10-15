@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
+import com.yamada.studio.tabiji.core.ui.modifier.inkShadow
 
 
 @Composable
@@ -48,15 +49,18 @@ fun TokenSwatches(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier.background(c.paper).verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.xs),
     ) {
         rows.forEach { (name, color) ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.md)
             ) {
                 Box(
-                    modifier = Modifier.size(32.dp).background(color).border(2.dp, c.ink)
+                    modifier = Modifier.size(32.dp)
+                        .inkShadow(TabijiTheme.shadow.panel, c.shadow)
+                        .background(color)
+                        .border(TabijiTheme.border.panel, c.ink)
                 )
                 Text(
                     text = name,

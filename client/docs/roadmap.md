@@ -27,9 +27,9 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 | --- | --- |
 | T1 테마×역할 색 (8종) | A5 |
 | T2 폰트·타이포 (Jua 폴백 체인) | A6 |
-| T3 도감 표면 (`inkPanel` · `pressSink` · `chamferShape` · `paperStripes`) | A8 (인트로에 쓰는 하드 섀도·chamfer·눌림) · B1 (`inkPanel`·`paperStripes`) |
-| T4 UI 아이콘 22종 | B1 |
-| T5 앱 아이콘·파비콘 (`04_icons_favicon`) | A6 (Desktop 창 아이콘, Compose Resources로) · A9 (설치 패키지 아이콘) · M1 (Android adaptive) · F3 (favicon·manifest) |
+| T3 도감 표면 (`inkPanel` · `pressSink` · `chamferShape` · `paperStripes`) | A8 (하드 섀도) · A9 (chamfer·눌림) · B1 (`inkPanel`·`paperStripes`) |
+| T4 UI 아이콘 22종 | B1 (인트로 메뉴 버튼 아이콘 포함) |
+| T5 앱 아이콘·파비콘 (`04_icons_favicon`) | A6 (Desktop 창 아이콘, Compose Resources로) · A10 (설치 패키지 아이콘) · M1 (Android adaptive) · F3 (favicon·manifest) |
 | I 인트로 | **A3~A8 (정적 화면)** · E1~E3 (파티클·시퀀스·패럴랙스) |
 | P 플래너 | B1~B2 (배경·골격·컴포넌트·상태) · B8 (드래그) · C2~C3 (지도·마커·경로) |
 | L 여행 목록 | B3 (내비게이션과 함께) |
@@ -42,6 +42,7 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 ## Phase A — Compose 기초: 인트로 화면 완성 → `client-v0.1.0`
 
 > 모듈 구조는 KMP 공식 권장 구조다. 화면·로직은 전부 `shared`에 쓰고, 두 앱 모듈에는 진입점(`main()`, `MainActivity`)만 둔다 ([architecture.md](architecture.md)).
+> 2026-10-15: 잉크 마감을 A8(그리기)·A9(버튼·눌림)으로 나누고 릴리스를 A10으로 옮겼다.
 > 2026-10-14: 반응형(원래 A8)을 잉크 마감(원래 A7)보다 앞으로 옮겼다. 버튼 높이·스택 폭이 크기 구간에 따라 달라서 구간을 먼저 만든다.
 > A5 전까지는 색·크기 리터럴에 `// TODO(A5): 토큰으로` 주석을 달아 두고, A5에서 전부 `TabijiTheme` 토큰으로 옮긴다.
 
@@ -55,8 +56,9 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 | A5 | ✅ 완료 (PR #10) | `data class`, `@Immutable`, enum 생성자, `object`·커스텀 getter, `CompositionLocal`(`staticCompositionLocalOf`, React Context 대응), `animateColorAsState`, Desktop `MenuBar` | `core/ui/theme/`: `TabijiColors`(역할 15개 + `headers`) × `enum TabijiPalette` 8종, `LocalTabijiColors`, 공급 함수 `TabijiTheme(palette)` + 읽기 `TabijiTheme.colors`, 240ms 크로스페이드. 값은 **`tokens.json`의 `themes.*`** (핸드오프 T1). Desktop 메뉴바로 테마 전환·토큰 화면 토글(디버그). 화면 코드의 색 리터럴 제거. **치수 토큰(테두리·모서리·간격)은 A8로** | 메뉴로 8테마 전환 시 240ms 크로스페이드, 레이아웃 불변 · 토큰 화면의 역할·hex가 tokens.json과 일치(korea만 h4) · `Color(0x` grep이 `TabijiPalette.kt`에만 · `theme_tokens.png`와 색감 대조 |
 | A6 | ✅ 완료 (PR #11) | Compose Resources(이미지·폰트·문자열), `FontFamily` 폴백 체인, `TextStyle` | 계절 이미지 4장 fit-in-view(`ContentScale.Crop` + `BiasAlignment`), 폰트 Jua·Pretendard JP·Sora와 타이포 9스타일, 워드마크 "Tabiji" + 부제 "여행(旅路) 도우미"(마감 없이 글자만), Desktop 창 아이콘 `Window(icon = …)`, Desktop 기본 창 크기(화면의 가로 85% × 세로 75%, 가운데) (핸드오프 I1 + T2 + T5 일부) | 창 비율을 바꿔도 왜곡·레터박스 없음, 가을·겨울 인물 안 잘림 · 디버그 샘플 "Day 2 · 시즈오카 센겐 신사 · 駿府城 · 旅路 1.8km"에서 Day 2는 Jua, 한자는 Pretendard JP 폴백(두부 □ 없음), 숫자는 Sora · 화면 코드에 하드코딩 문자열 0개 · Desktop 작업표시줄에 旅 · **커밋 이미지는 IP 없는 플레이스홀더**(위 ⚠). 로컬에서 실제 일러스트로 교체해 확인 |
 | A7 | ✅ 완료 (PR #12) | 반응형: `BoxWithConstraints`(CSS 미디어 쿼리 대응), 크기 구간 enum(Material 기준 Compact <600dp · Medium · Expanded ≥840dp), 구간을 화면에 내려주기(파라미터 또는 CompositionLocal), Desktop 최소 창 크기 | Desktop 2×2 ↔ Phone 세로 4단 전환(칸 높이 ≈211dp, 가을·겨울 bias +0.16f), 가운데 스택 폭 360↔310 (`10_intro.md`) | Desktop 창을 좁히면(600dp 미만) 세로 4단으로 전환 · 창을 390×844로 맞췄을 때 `source/intro_phone.html`·`intro_phone.png`와 크롭 일치 · 넓히면 다시 2×2 · 실기기 확인은 M2 |
-| A8 | ▶ 다음 | 커스텀 `Shape`(`GenericShape`), `drawBehind`, `DrawStyle`(`Stroke`), `InteractionSource`·눌림 상태, `animateDpAsState` | 치수 토큰(`border`·`radius`·`shadowSpec`·`spacing`)을 `TabijiTheme`에 추가(A5와 같은 방식) + 로고·메뉴 스택: 워드마크 **잉크 아웃라인(Stroke 2벌) + (3,3) 하드 섀도**, chamfer `accent` "시작하기" + `card` "내 여행"·"설정" 버튼, 하단 (0,4) 잉크 섀도, **눌림 = 가라앉기**(`pressSink`, 80ms) (핸드오프 I2, T3 일부) | 네 이미지 어느 위에서도 워드마크가 또렷함 · 버튼을 누르면 2dp 가라앉고 섀도가 줄어듦(스프링·스케일 없음) · `elevation`·블러 사용 0건(grep) · 버튼 클릭 시 로그 출력(이동은 B3) |
-| A9 | | 버전·CHANGELOG·태그, Release CI | **릴리스: `client-v0.1.0` 태그 → Release CI 산출물 확인** (설치 패키지 아이콘 포함) | Releases에 `client-v0.1.0` prerelease · `.deb` 설치 후 인트로가 뜸 · `SHA256SUMS.txt` 검증 통과 |
+| A8 | ✅ 완료 (PR 대기) | 상수 `object`(토큰이 모두 CompositionLocal일 필요는 없다), 커스텀 Modifier 확장 함수, `drawBehind`·`Shape.createOutline`·`translate`, `DrawStyle`(`Stroke`) | 잉크 마감 ① 그리기: 치수 토큰 `TabijiDimens`(테두리·모서리·섀도·간격, `tokens.json`) + `Modifier.inkShadow`(블러 0 하드 섀도) + `OutlinedText`(흰 글자 + 잉크 아웃라인 + (3,3) 하드 섀도)를 워드마크·부제에 적용 (핸드오프 I2 일부, T3 일부) | 네 계절 이미지 어디 위에서도 워드마크·부제가 또렷함(실제 일러스트로 로컬 확인) · 토큰 화면 색 상자에 (3,3) 하드 섀도 · `elevation`·`Modifier.shadow` 0건 · 화면 코드에 이름 없는 `.dp` 숫자 0개(토큰 또는 이름 붙은 상수) |
+| A9 | ▶ 다음 | 커스텀 `Shape`(`Path`·`arcTo`), `InteractionSource`·`collectIsPressedAsState`, `animateDpAsState`, 재사용 컴포넌트 설계 | 잉크 마감 ② 버튼: `ChamferShape`(우상단 8dp 사선) + 메뉴 버튼 3개(시작하기 `accent`·chamfer / 내 여행·설정 `card`), 하단 (0,4) 잉크 섀도, **눌림 = 가라앉기**(2dp, 80ms), Desktop 58/52 · Phone 56/50 높이, 스택 gap 24/20 (핸드오프 I2, T3 나머지). 버튼 아이콘 자리만 두고 아이콘은 B1(T4) | 버튼을 누르면 2dp 가라앉고 섀도가 줄어듦(스프링·스케일 없음) · chamfer가 `intro_desktop.png`와 같은 모양 · 버튼 클릭 시 로그(이동은 B3) · Phone 프리셋에서 버튼 높이·스택 폭 일치 |
+| A10 | | 버전·CHANGELOG·태그, Release CI | **릴리스: `client-v0.1.0` 태그 → Release CI 산출물 확인** (설치 패키지 아이콘 포함) | Releases에 `client-v0.1.0` prerelease · `.deb` 설치 후 인트로가 뜸 · `SHA256SUMS.txt` 검증 통과 |
 
 ## Phase B — 앱 구조와 플래너 → `client-v0.2.0`
 
