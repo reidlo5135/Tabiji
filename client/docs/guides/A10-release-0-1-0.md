@@ -90,7 +90,7 @@ client-release
 | 아이콘 | 어디에 보이나 | 파일 |
 | --- | --- | --- |
 | 창 아이콘 | `Alt+Tab`, 창 목록 | `shared/…/composeResources/drawable/app_icon.png` (A6) |
-| 패키지 아이콘 | 앱 목록(Activities), 독, 설치 관리자 | `desktopApp/icons/tabiji.png` · `.ico` · `.icns` (이번에 Claude가 추가) |
+| 패키지 아이콘 | 앱 목록(Activities), 독, 설치 관리자 | `desktopApp/icons/tabiji.png` · `.ico` · `.icns` (이번에 Claude가 추가, handoff-v3 한지 타일) |
 
 A6에서 GNOME 독에 Java 기본 아이콘이 보였던 건, Gradle로 띄운 앱에는 `.desktop` 파일이 없기 때문이었다. 설치한 `.deb`에는 jpackage가 만든 `.desktop` 파일이 들어가서 앱 목록에 旅가 보여야 한다.
 
@@ -137,6 +137,8 @@ sudo apt install ./desktopApp/build/compose/binaries/main-release/deb/tabiji_*.d
   3. **앱 목록과 독에 旅 아이콘**이 보인다
   4. 버튼을 누르면 가라앉는다 (release 빌드에서도 애니메이션이 정상인지)
 - 지울 때: `sudo apt remove tabiji`
+
+> **2026-10-15 갱신**: 처음 만든 `.deb`의 아이콘(투명 배경 + 진한 고딕 旅)이 어두운 독에서 거의 안 보여서, 사용자 선택으로 **한지 타일 위 붓글씨 旅(handoff-v3, 디자인 PR #15)** 로 바꿨다. 창 아이콘(`app_icon.png`)과 패키지 아이콘(`desktopApp/icons/`)을 둘 다 교체했으니 3-1·3-2를 **다시** 한다. 아래 표의 두 번째 줄(안 보임)은 이걸로 해결됐다.
 
 **아이콘 관련 결정 두 가지** (보고 알려 주면 된다):
 

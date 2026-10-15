@@ -43,7 +43,7 @@ compose.desktop {
                 // deb 패키지 이름은 소문자만 허용된다
                 packageName = "tabiji"
                 shortcut = true
-                // 앱 목록·독 아이콘. 旅 글리프, 투명 배경 (handoff-v2 04_icons_favicon: Desktop 기본)
+                // 앱 목록·독 아이콘. 한지 타일 위 붓글씨 旅 (handoff-v3 04_icons_favicon)
                 iconFile.set(project.file("icons/tabiji.png"))
             }
             windows {
@@ -51,7 +51,7 @@ compose.desktop {
                 upgradeUuid = "6ee9ef0a-cb77-4182-b044-3fc8fe6b500b"
                 menu = true
                 shortcut = true
-                // 같은 512px 원본에서 만든 16~256px 묶음 (icons/README.md)
+                // 핸드오프 v3의 크기별 PNG(16~256px)를 묶은 것 (icons/README.md)
                 iconFile.set(project.file("icons/tabiji.ico"))
             }
             macOS {
