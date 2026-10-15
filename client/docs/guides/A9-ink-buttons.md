@@ -8,11 +8,11 @@
 
 인트로 가운데 스택에 **메뉴 버튼 3개**를 단다. 이것으로 Phase A의 인트로 화면이 완성된다.
 
-| 버튼 | 면 | 글자 | 모양 | 높이 Desktop / Phone |
+| 버튼 | 면 | 글자 | 모양 | 높이 |
 | --- | --- | --- | --- | --- |
-| **시작하기** · 새 여행 일정 만들기 | `accent` | 흰색 (부제 85%) | **chamfer**: 우상단 8dp 사선 | 58 / 56 |
-| **내 여행** · 저장된 일정 보기 | `card` | 제목 `ink`, 부제 `sub` | 둥근 모서리 10 | 52 / 50 |
-| **설정** · 테마 · 언어 · 데이터 | `card` | 제목 `ink`, 부제 `sub` | 둥근 모서리 10 | 52 / 50 |
+| **시작하기** · 새 여행 일정 만들기 | `accent` | 흰색 (부제 85%) | **chamfer**: 우상단 8dp 사선 | Desktop `58.dp`, Phone `56.dp` |
+| **내 여행** · 저장된 일정 보기 | `card` | 제목 `ink`, 부제 `sub` | 둥근 모서리 `10.dp` | Desktop `52.dp`, Phone `50.dp` |
+| **설정** · 테마 · 언어 · 데이터 | `card` | 제목 `ink`, 부제 `sub` | 둥근 모서리 `10.dp` | Desktop `52.dp`, Phone `50.dp` |
 
 공통 마감은 이렇다.
 - 2dp 잉크 테두리
@@ -195,15 +195,16 @@ A4부터 "상태는 위로 올린다"를 지켜 왔다. 그런데 "지금 손가
 
 ```
 전 (A8)                                         후 (A9)
-Column (가운데 스택, width 360/310,              Column (가운데 스택, width 360/310,
-        spacedBy WordmarkGap)                           spacedBy StackGap 24/20)
+Column (가운데 스택,                             Column (가운데 스택,
+  width = StackWidthWide 또는 Compact,              width = StackWidthWide 또는 Compact,
+  spacedBy(WordmarkGap))                            spacedBy(StackGap))   ← Desktop 24.dp, Phone 20.dp
 ├── OutlinedText 워드마크                        ├── Column (워드마크 블록, spacedBy WordmarkGap)
 └── OutlinedText 부제                            │   ├── OutlinedText 워드마크
                                                 │   └── OutlinedText 부제
                                                 └── Column (메뉴, spacedBy TabijiTheme.spacing.md = 12)
-                                                    ├── IntroMenuButton 시작하기  primary   height 58/56
-                                                    ├── IntroMenuButton 내 여행   secondary height 52/50
-                                                    └── IntroMenuButton 설정      secondary height 52/50
+                                                    ├── IntroMenuButton 시작하기  primary = true    height = Desktop 58.dp, Phone 56.dp
+                                                    ├── IntroMenuButton 내 여행   primary = false   height = Desktop 52.dp, Phone 50.dp
+                                                    └── IntroMenuButton 설정      primary = false   height = Desktop 52.dp, Phone 50.dp
 ```
 
 ### 버튼 하나의 트리
@@ -214,8 +215,9 @@ IntroMenuButton(title, subtitle, primary, height, modifier, onClick)
     └── Row (padding 가로 16 = spacing.lg, spacedBy 12 = spacing.md, 세로 가운데)     ← InkButton 안쪽
         ├── (아이콘 자리 — B1)
         ├── Column (Modifier.weight(1f))                                              ← slot 내용물
-        │   ├── Text 제목   Jua 18/22 (primary) · 16/20 (secondary)
-        │   └── Text 부제   Pretendard 11/14 w600
+        │   ├── Text 제목   style = displayM.copy(fontSize = 18.sp, lineHeight = 22.sp)   ← primary
+        │   │                   displayM.copy(fontSize = 16.sp, lineHeight = 20.sp)   ← secondary
+        │   └── Text 부제   style = caption.copy(fontSize = 11.sp, lineHeight = 14.sp)   (caption = Pretendard SemiBold)
         └── (쉐브론 자리 — B1)
 ```
 
@@ -399,9 +401,17 @@ fun IntroMenuButton(
 )
 ```
 
-- `primary`에 따라 고르는 값 다섯 개: 면(`accent`/`card`), 모양(`ChamferShape()`/`RoundedCornerShape(radius.button)`), 제목 색(`onAccent`/`ink`), 부제 색(`onAccent.copy(alpha = 0.85f)`/`sub`), 제목 크기(18/22 · 16/20)
+- `primary`에 따라 고르는 값 다섯 개 (각각 `val 이름 = if (primary) A else B`):
+
+  | 값 | `primary = true` (시작하기) | `primary = false` (내 여행·설정) |
+  | --- | --- | --- |
+  | 면 | `c.accent` | `c.card` |
+  | 모양 | `ChamferShape()` | `RoundedCornerShape(TabijiTheme.radius.button)` |
+  | 제목 색 | `c.onAccent` | `c.ink` |
+  | 부제 색 | `c.onAccent.copy(alpha = 0.85f)` | `c.sub` |
+  | 제목 스타일 | `displayM.copy(fontSize = 18.sp, lineHeight = 22.sp)` | `displayM.copy(fontSize = 16.sp, lineHeight = 20.sp)` |
 - 각각 `val fill = if (primary) c.accent else c.card`처럼 `if` 식으로 함수 위쪽에 모아 둔다 (A7의 `stackWidth`와 같은 모양)
-- 제목 스타일은 `TabijiTheme.typography.displayM.copy(fontSize = …, lineHeight = …)`, 부제 스타일은 `TabijiTheme.typography.caption.copy(fontSize = 11.sp, lineHeight = 14.sp)`다. caption이 Pretendard SemiBold라서 크기만 바꾼다
+- 부제 스타일은 두 버튼 모두 `TabijiTheme.typography.caption.copy(fontSize = 11.sp, lineHeight = 14.sp)`다. `caption`이 Pretendard SemiBold라서 크기와 줄 높이만 바꾼다
 - 섀도 깊이 4dp는 인트로 전용 값이다 (`10_intro.md` "(0,4) ink"). `IntroMenuButton.kt` 안에 `private val IntroButtonShadow = 4.dp`로 둔다
 - 아이콘·쉐브론 자리에는 `// TODO(B1): 아이콘` 주석만 둔다
 
@@ -443,7 +453,7 @@ import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
 - "시작하기"만 오른쪽 위가 사선이고 `accent` 색이다. "내 여행"·"설정"은 흰 바탕에 잉크 글자, 부제는 회색(`sub`)이다
 - 버튼을 **누르고 있으면** 2dp 가라앉고 아래 섀도가 얇아진다. **떼면** 조금 더 천천히 올라온다. 튀거나 커지는 효과는 없다
 - 버튼을 누르면 터미널에 로그가 찍힌다. 버튼을 눌러도 뒤의 사분면은 선택되지 않는다
-- Phone 프리셋: 폭 310, 높이 56/50, 간격 20
+- Phone 프리셋: 스택 폭 `310.dp`, 시작하기 높이 `56.dp`, 내 여행·설정 높이 `50.dp`, 스택 간격 `20.dp`
 - 테마를 바꾸면 버튼 색(`accent`·`card`·`ink`)이 240ms로 따라 바뀐다
 
 ### 5-5. 하드코딩 확인
@@ -477,7 +487,7 @@ grep -rn 'Modifier.shadow\|elevation\|spring(' shared/src/commonMain/kotlin
 - [ ] 토큰 화면: chamfer 견본 186×48, 우상단만 사선, 테두리·섀도가 사선을 따라감
 - [ ] 인트로 Desktop: 버튼 3개(시작하기 chamfer `accent` / 내 여행·설정 `card`), 간격·폭이 `intro_desktop.png`와 같음
 - [ ] 누르면 2dp 가라앉고 섀도가 줄어듦, 떼면 복귀 (스프링·확대 없음). 클릭 시 터미널 로그
-- [ ] Phone 프리셋: 폭 310, 높이 56/50, 스택 간격 20
+- [ ] Phone 프리셋: 스택 폭 `310.dp`, 버튼 높이 `56.dp`·`50.dp`, 스택 간격 `20.dp`
 - [ ] 테마 전환 시 버튼 색이 따라 바뀜
 - [ ] 5-5 grep 기준 통과
 - [ ] PR의 `client-ci` 초록
