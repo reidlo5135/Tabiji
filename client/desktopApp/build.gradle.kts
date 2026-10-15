@@ -43,15 +43,20 @@ compose.desktop {
                 // deb 패키지 이름은 소문자만 허용된다
                 packageName = "tabiji"
                 shortcut = true
+                // 앱 목록·독 아이콘. 旅 글리프, 투명 배경 (handoff-v2 04_icons_favicon: Desktop 기본)
+                iconFile.set(project.file("icons/tabiji.png"))
             }
             windows {
                 // MSI 업그레이드 식별자. 바꾸면 새 버전이 기존 설치를 덮어쓰지 못한다 — 절대 변경 금지
                 upgradeUuid = "6ee9ef0a-cb77-4182-b044-3fc8fe6b500b"
                 menu = true
                 shortcut = true
+                // 같은 512px 원본에서 만든 16~256px 묶음 (icons/README.md)
+                iconFile.set(project.file("icons/tabiji.ico"))
             }
             macOS {
                 bundleID = "com.yamada.studio.tabiji"
+                iconFile.set(project.file("icons/tabiji.icns"))
                 // macOS jpackage는 버전 첫 자리가 0이면 거부한다. 0.x 동안만 1.x로 올려 쓰고,
                 // 파일 이름·릴리스에는 진짜 버전(tabiji.version)을 쓴다 (docs/decisions/0002)
                 packageVersion = tabijiVersion.split(".").let { (major, minor, patch) ->
