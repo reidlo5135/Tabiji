@@ -40,7 +40,23 @@ fun main() = application {
                 }
             }
             Menu("Debug") {
-                CheckboxItem("Token Page", checked = showTokens, onCheckedChange = { showTokens = it })
+                CheckboxItem(
+                    "Token Page",
+                    checked = showTokens,
+                    onCheckedChange = { showTokens = it }
+                )
+                Item(
+                    "Phone 390x844",
+                    onClick = {
+                        windowState.size = DpSize(390.dp, 844.dp)
+                    }
+                )
+                Item(
+                    "Desktop 1440x900",
+                    onClick = {
+                        windowState.size = DpSize(1440.dp, 900.dp)
+                    }
+                )
             }
         }
         App(palette = palette, showTokens = showTokens)

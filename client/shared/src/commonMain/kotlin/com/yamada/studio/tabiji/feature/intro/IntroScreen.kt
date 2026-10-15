@@ -11,9 +11,13 @@ import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.yamada.studio.tabiji.core.ui.layout.LocalWidthClass
+import com.yamada.studio.tabiji.core.ui.layout.WidthClass
 import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -21,6 +25,36 @@ import tabiji.shared.generated.resources.Res
 import tabiji.shared.generated.resources.intro_subtitle
 import tabiji.shared.generated.resources.intro_wordmark
 
+@Composable
+private fun QuadrantStack(selected: Season?, onSelect: (Season) -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize().background(TabijiTheme.colors.ink),
+        verticalArrangement = Arrangement.spacedBy(3.dp),
+    ) {
+        Season.entries.forEach { season ->
+            SeasonQuadrant(season, selected, season.phoneFocusY, Modifier.weight(1f).fillMaxWidth(), onSelect)
+        }
+    }
+}
+
+@Composable
+private fun QuadrantGrid(selected: Season?, onSelect: (Season) -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize().background(TabijiTheme.colors.ink),
+        verticalArrangement = Arrangement.spacedBy(3.dp),
+    ) {
+        Season.entries.chunked(2).forEach { row ->
+            Row(
+                modifier = Modifier.weight(1f).fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(3.dp),
+            ) {
+                row.forEach { season ->
+                    SeasonQuadrant(season, selected, season.desktopFocusY, Modifier.weight(1f).fillMaxSize(), onSelect)
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun IntroScreen(modifier: Modifier = Modifier) {
@@ -28,58 +62,27 @@ fun IntroScreen(modifier: Modifier = Modifier) {
     val toggle: (Season) -> Unit = {
         selected = if (selected == it) null else it
     }
+    val widthClass: WidthClass = LocalWidthClass.current
 
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize().background(TabijiTheme.colors.ink),
-            verticalArrangement = Arrangement.spacedBy(3.dp),
-        ) {
-            Row(
-                modifier = Modifier.weight(1f).fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(3.dp),
-            ) {
-                SeasonQuadrant(
-                    season = Season.SPRING,
-                    selected = selected,
-                    modifier = Modifier.weight(1f).fillMaxSize(),
-                    onSelect = toggle,
-                )
-                SeasonQuadrant(
-                    season = Season.SUMMER,
-                    selected = selected,
-                    modifier = Modifier.weight(1f).fillMaxSize(),
-                    onSelect = toggle,
-                )
-            }
-
-            Row(
-                modifier = Modifier.weight(1f).fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(3.dp),
-            ) {
-                SeasonQuadrant(
-                    season = Season.AUTUMN,
-                    selected = selected,
-                    modifier = Modifier.weight(1f).fillMaxSize(),
-                    onSelect = toggle,
-                )
-                SeasonQuadrant(
-                    season = Season.WINTER,
-                    selected = selected,
-                    modifier = Modifier.weight(1f).fillMaxSize(),
-                    onSelect = toggle,
-                )
-            }
+        when (widthClass) {
+            WidthClass.COMPACT -> QuadrantStack(selected = selected, onSelect = toggle, modifier = Modifier.fillMaxSize())
+            WidthClass.MEDIUM -> QuadrantGrid(selected = selected, onSelect = toggle, modifier = Modifier.fillMaxSize())
+            WidthClass.EXPANDED -> QuadrantGrid(selected = selected, onSelect = toggle, modifier = Modifier.fillMaxSize())
         }
 
+        val stackWidth: Dp = if (widthClass == WidthClass.COMPACT) 310.dp else 360.dp
+        val titleStyle: TextStyle = if(widthClass == WidthClass.COMPACT) TabijiTheme.typography.wordmark.copy(fontSize = 46.sp, lineHeight = 52.sp) else TabijiTheme.typography.wordmark
+
         Column(
-            modifier = Modifier.align(Alignment.Center),
+            modifier = Modifier.align(Alignment.Center).width(stackWidth),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = stringResource(Res.string.intro_wordmark),
-                style = TabijiTheme.typography.wordmark,
+                style = titleStyle,
                 color = Color.White
             )
 
@@ -96,6 +99,7 @@ fun IntroScreen(modifier: Modifier = Modifier) {
 private fun SeasonQuadrant(
     season: Season,
     selected: Season?,
+    focusY: Float,
     modifier: Modifier = Modifier,
     onSelect: (Season) -> Unit
 ) {
@@ -108,7 +112,7 @@ private fun SeasonQuadrant(
             painter = painterResource(season.image),
             contentDescription = stringResource(season.label),
             contentScale = ContentScale.Crop,
-            alignment = BiasAlignment(0f, season.focusY),
+            alignment = BiasAlignment(0f, focusY),
             modifier = Modifier.fillMaxSize(),
         )
 

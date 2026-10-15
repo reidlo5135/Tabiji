@@ -24,10 +24,9 @@
 - **A3 — 인트로 사분면 + 잉크 경계**: 완료 조건 전부 확인 → 구현 커밋 + PR #8 (브랜치 `client/feat-a3-intro-quadrants`, `main` merge로 #6과 맞춤). **남은 것: CI 확인 → 사용자 squash merge**
 - **A4**: PR #9 머지 완료
 - **A5**: PR #10 머지 완료
-- **A6 — Compose Resources**: 완료 → 구현 커밋 + PR #11. 실제 일러스트 4-3 로컬 확인 후 되돌림, 커밋된 `intro_*.webp`는 플레이스홀더임을 확인함. **남은 것: CI → 사용자 squash merge (bypass)**
-- **A7 — 반응형** ([guides/A7-responsive-intro.md](guides/A7-responsive-intro.md), 브랜치 `client/feat-a7-responsive-intro`, A6 위). 가이드 작성 완료: `WidthClass` enum(600/840) + `LocalWidthClass`/`ProvideWidthClass`(BoxWithConstraints), `QuadrantGrid`/`QuadrantStack`(반복문), Phone 초점 0.16, 스택 310/360, 워드마크 46sp, 디버그 창 크기 프리셋. PR은 #11 머지 후
-  - **진행 상황 (2026-10-14 밤, 코드는 미커밋 — 로컬 작업 트리에만)**: `WidthClass.kt`(enum·`of()`·`LocalWidthClass`) ✓, `Season` 초점 2개 ✓, `main.kt` 창 크기 프리셋 ✓, `SeasonQuadrant`는 대안 방식(안에서 `LocalWidthClass` 읽어 초점 선택) ✓
-  - **남은 것**: ① `App.kt`를 `ProvideWidthClass`로 감싸기(안 감싸서 늘 EXPANDED) ② 함수 이름 `ProviderWidthClass` → `ProvideWidthClass` ③ `QuadrantGrid`(`chunked(2)`)·`QuadrantStack`(`forEach`) 본문 채우기 ④ `IntroScreen`의 `when` 뒤에 남은 예전 2×2 `Column`을 `QuadrantGrid`로 옮기기 ⑤ `when`의 MEDIUM·EXPANDED 묶기(선택) ⑥ 5-5 스택 폭 310/360·COMPACT 워드마크 46/52 ⑦ 토큰 화면 구간 표시(선택) → 그다음 6장 실험, 스크린샷
+- **A6**: PR #11 머지 완료
+- **A7 — 반응형**: 완료 → 구현 커밋 + PR. **남은 것: CI → 사용자 squash merge (bypass)**
+- **다음: A8 — 잉크 마감** (치수 토큰, 워드마크 아웃라인·하드 섀도, chamfer 버튼, 눌림). 가이드는 A8 시작 때
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -70,6 +69,13 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-15 — A7 완료
+
+- 막힌 곳: `QuadrantStack`·`QuadrantGrid` 본문이 뒤바뀜(이름과 내용 불일치), `SeasonQuadrant`가 받은 `focusY`를 안쪽 `val focusY`로 가림(shadowing) → 덮어쓰기 덕분에 초점은 우연히 맞아 뒤바뀜이 덜 드러남, 두 배치가 받은 `modifier` 미사용
+- 저장 타이밍: 리뷰 시점이 저장보다 37초 앞서 "안 바뀌었다"고 잘못 말함 → **리뷰 전에 파일 mtime을 현재 시각과 비교**할 것
+- 실험 6-1: 결론은 맞으나 React 비유를 또 `useEffect`로 듦 → `useState`를 공통 부모에 두는 lifting state up으로 정정 (A4 때와 같은 혼동, 다음 상태 관련 단계에서 다시 짚기). **실험 6-2는 사용자가 건너뜀** → 결과(가지 안 상태는 unmount 시 사라짐)만 설명
+- 확인: Desktop 1440×900 2×2, Phone 390×844 세로 4단·초점 58%·워드마크 46sp
 
 ### 2026-10-14 (밤) — A7 진행 중 마무리
 
