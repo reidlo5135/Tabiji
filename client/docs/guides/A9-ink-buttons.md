@@ -116,6 +116,18 @@ val sink by animateDpAsState(
 
 `animateDpAsState`는 A5의 `animateColorAsState`의 dp 버전이다. 목표값이 바뀌면 중간값을 프레임마다 돌려준다. CSS로 치면 `transition: transform 80ms`다.
 
+**시간(ms)은 두 번째 인자 `animationSpec` 안에 넣는다.** `animateDpAsState`에 ms를 받는 파라미터가 따로 있는 게 아니다. `tween(durationMillis = 80)`이 "80ms 동안 가라"는 규격 객체이고, A5의 `animateColorAsState(target, ThemeSwitchSpec)`에서 넘긴 `ThemeSwitchSpec = tween(240)`과 같은 자리다.
+
+함수 맨 위 세 줄은 받는 법이 서로 다르다.
+
+| 줄 | 돌려받는 것 | 받는 법 |
+| --- | --- | --- |
+| `remember { MutableInteractionSource() }` | 통로 **객체** | `val interactionSource = …` (`by` 아님) |
+| `interactionSource.collectIsPressedAsState()` | `State<Boolean>` 상자 | `val pressed by …` |
+| `animateDpAsState(…)` | `State<Dp>` 상자 | `val sink by …` |
+
+`by`는 상태 상자(`State`)에서 값을 꺼내는 장치다 (A4). `MutableInteractionSource`는 상자가 아니라서 `by`를 쓰면 "Property delegate must have a 'getValue'" 오류가 난다. 이름 끝이 `…AsState`인 함수가 상자를 돌려준다.
+
 `clickable`에 `indication = null`을 준다. 기본 눌림 효과(회색 덮개)는 v2에 없다. 눌림 피드백은 가라앉기 하나다.
 
 ### 1-5. 껍데기와 내용물을 나눈다 — Slot
