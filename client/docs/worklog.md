@@ -73,6 +73,12 @@
 
 ## 기록
 
+### 2026-10-15 (밤) — 모니터 이동 시 빈 띠 → 0.1.3
+
+- 증상: 1920×1080 외부 모니터(HDMI, NVIDIA) ↔ 2560×1600 노트북 화면(eDP, AMD) 사이로 창을 옮기면 창 아래가 빈 띠로 남고, 되돌아와도 유지. 사용자는 반응형·초점 문제로 의심 → 레이아웃은 전부 `fillMaxSize`/`weight`라 원인 아님을 설명
+- 진단: 하이브리드 GPU에서 Skia(OpenGL) 그리기 표면이 다른 GPU의 모니터로 넘어갈 때 크기를 못 따라감. `SKIKO_RENDER_API=SOFTWARE /opt/tabiji/bin/Tabiji`로 모니터를 옮겨도 정상(사용자 확인) → 확정
+- PokeSix(Qt 6)는 Qt가 X11·화면 변경을 직접 처리해서 같은 문제가 없었음. Compose Desktop은 AWT 위에 Skia 판을 얹는 구조라 이 환경에 약함
+- 0.1.3: `desktopApp/LinuxRendering.kt`로 Linux 기본 소프트웨어 렌더링 (환경변수·시스템 속성으로 덮어쓸 수 있음). Claude 구현 (플랫폼 처리)
 ### 2026-10-15 (밤) — 0.1.2 공개, 캐릭터 없는 인트로 그림, B1 신설
 
 - `client-v0.1.2` 공개 (Claude 태그, 전 job 성공). 0.1.1 공개본 `sha256sum -c` OK (사용자) → **A10·Phase A 완료**
