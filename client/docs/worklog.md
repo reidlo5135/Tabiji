@@ -16,7 +16,7 @@
 | `build.sh` | ✅ BUILD SUCCESSFUL | 2026-10-14 | A3. 이후로는 PR의 `client-ci`로 갈음 (사용자 요청: 매번 붙여넣기 안 함) |
 | Android 설치 | ⬜ Phase M | — | `<activity>` 없음 (정상). 데스크톱 우선 결정 |
 | `client-ci` | ✅ 초록 (3m) | 2026-10-14 | PR #6: `.ci-enabled` 후 **첫 실제 빌드·테스트** 통과 |
-| `client-release` | ⬜ 미실행 | — | A10에서 첫 실행 |
+| `client-release` | ✅ `client-v0.1.1` 성공 | 2026-10-15 | 0.1.0은 Windows `.msi` 실패(values/.gitkeep)로 미공개 |
 | IntelliJ Gradle 동기화 | ❌ 실패 | 2026-10-14 | "incompatible AGP 9.3.3, latest supported 9.1.0" — IntelliJ 2026.2.3 번들 Android 플러그인 한계. 명령줄 빌드는 무관 |
 
 ## 진행 중
@@ -28,7 +28,8 @@
 - **A7**: PR #12 머지 완료
 - **A8**: PR #13 머지 완료
 - **A9**: PR #14 머지 완료
-- **A10 — 릴리스 `client-v0.1.0`** ([guides/A10-release-0-1-0.md](guides/A10-release-0-1-0.md), 브랜치 `client/chore-release-0-1-0`). 첫 로컬 `.deb`에서 v2 아이콘이 어두운 독에서 안 보임 → 사용자 선택 **3B: Ma Shan Zheng 붓글씨 + 한지 타일** → 디자인 PR #15(handoff-v3 아이콘 델타) + 창·패키지 아이콘 교체. **다음: 사용자 로컬 `.deb` 재생성·재설치 확인 → #15·릴리스 PR 머지 → Claude가 태그 push(사용자 요청) + Release CI 확인 → sha256 검증**
+- **A10 / Phase A 완료**: `client-v0.1.0` 태그는 Windows 빌드 실패로 미공개, **`client-v0.1.1`이 첫 공개 Release** (https://github.com/yamada-studio/Tabiji/releases/tag/client-v0.1.1, deb·msi·dmg·SHA256SUMS). 아이콘 재변경으로 **0.1.2** 준비 중 (디자인 PR #18 handoff-v4 + 클라이언트 PR) → 머지되면 Claude가 `client-v0.1.2` 태그·CI 확인 (사용자 요청)
+- **다음: Phase B — B1 플래너 정적 화면** (가이드는 B1 시작 때)
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -71,6 +72,13 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-15 (저녁) — 0.1.1 공개, 아이콘 v4
+
+- `client-v0.1.1` 태그(Claude, 사용자 요청) → `client-release` 전 job 성공, prerelease 공개
+- 0.1.1 설치 후 독에 v3 한지 타일 아이콘이 정상 표시(WM_CLASS 수정 확인). 하지만 사용자 평가 "바둑 게임 로고 같다" → 원하는 것: 배경 없음, 검은 획 + 진한 남색 테두리, 로봇 느낌 서체
+- 기계적 OFL 서체 8종 시안(`~/Downloads/tabiji-icon-options-2.png`) → 사용자 선택 **ZCOOL QingKe HuangYou + 밝은 남색 `#2E5AA8`** (진한 남색은 48px에서 어두운 독에 묻힘) → 디자인 PR #18(handoff-v4) + 클라이언트 0.1.2
+- 사용자 확인 대기: 0.1.1 공개본 `sha256sum -c` 결과
 
 ### 2026-10-15 (오후 늦게) — 0.1.0 태그, 0.1.1 패치 준비
 
