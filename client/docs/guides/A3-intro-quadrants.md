@@ -71,7 +71,7 @@ A1의 하늘색 바탕을 **인트로 화면의 뼈대**로 바꾼다.
 | `shared/src/commonMain/kotlin/com/yamada/studio/tabiji/feature/intro/IntroScreen.kt` (새 파일) | `IntroScreen(modifier)`(공개)와 `SeasonQuadrant(color, modifier)`(`private`) |
 | `shared/src/commonMain/kotlin/com/yamada/studio/tabiji/app/App.kt` (수정) | 하늘색 `Box`를 지우고 `IntroScreen()`만 부른다 |
 
-> 패키지: `IntroScreen.kt`는 `package com.yamada.studio.tabiji.feature.intro`다. `architecture.md`의 패키지 구조(`app / feature / core`)를 따른다. 그래야 B5에서 모듈을 나눌 때 폴더를 옮기기만 하면 된다. `App.kt`에서는 `com.yamada.studio.tabiji.feature.intro.IntroScreen`을 import한다.
+> 패키지: `IntroScreen.kt`는 `package com.yamada.studio.tabiji.feature.intro`다. `architecture.md`의 패키지 구조(`app / feature / core`)를 따른다. 그래야 B6에서 모듈을 나눌 때 폴더를 옮기기만 하면 된다. `App.kt`에서는 `com.yamada.studio.tabiji.feature.intro.IntroScreen`을 import한다.
 
 ## 조립 순서
 
@@ -134,7 +134,7 @@ A6에서 이미지로 바뀔 자리라 의미 있는 임시 색을 쓴다. 값�
 
 ### 4. `App.kt` 정리
 
-`App()` 안의 하늘색 `Box`와 `Text`를 지우고 `IntroScreen()` 한 줄만 남긴다. 화면의 실체는 `feature/intro`로 가고, `App()`은 "앱의 루트"라는 자리만 지킨다. B3에서 여기에 내비게이션이 들어온다. 쓰지 않게 된 import도 지운다.
+`App()` 안의 하늘색 `Box`와 `Text`를 지우고 `IntroScreen()` 한 줄만 남긴다. 화면의 실체는 `feature/intro`로 가고, `App()`은 "앱의 루트"라는 자리만 지킨다. B4에서 여기에 내비게이션이 들어온다. 쓰지 않게 된 import도 지운다.
 
 ### 5. 실행
 

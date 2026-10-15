@@ -123,7 +123,7 @@ A4와 같은 단방향 흐름이 한 층 위에서 반복된다. `App`의 파라
 
 ### 파일
 
-모두 `shared/src/commonMain/kotlin/com/yamada/studio/tabiji/` 아래다. 테마는 `architecture.md`의 패키지 구조대로 **`core/ui/theme/`** 에 둔다. 나중에 B5에서 `core-ui` 모듈로 옮길 자리다.
+모두 `shared/src/commonMain/kotlin/com/yamada/studio/tabiji/` 아래다. 테마는 `architecture.md`의 패키지 구조대로 **`core/ui/theme/`** 에 둔다. 나중에 B6에서 `core-ui` 모듈로 옮길 자리다.
 
 | 경로 | 들어갈 것 |
 | --- | --- |
@@ -258,7 +258,7 @@ TabijiPalette.entries.forEach { p ->
 
 - import: `androidx.compose.ui.window.MenuBar` (`Menu`·`RadioButtonItem`은 블록 안에서 저절로 보인다. A3의 `weight`와 같은 스코프 원리)
 - `p.name`은 enum 항목 이름 문자열(`"CLOUD"`)이다. 디버그 메뉴라 그대로 쓴다
-- 메뉴바 전체가 **디버그용**이다. 사용자용 테마 선택은 B6 설정 화면에서 만든다. 그래서 메뉴 글자는 하드코딩하고 `// 디버그 메뉴 — B6 설정 화면이 생기면 정리` 주석을 단다
+- 메뉴바 전체가 **디버그용**이다. 사용자용 테마 선택은 B7 설정 화면에서 만든다. 그래서 메뉴 글자는 하드코딩하고 `// 디버그 메뉴 — B7 설정 화면이 생기면 정리` 주석을 단다
 - `App(palette = palette)`로 내려준다
 
 ✅ 확인: 메뉴에서 테마를 바꾸면 **인트로의 잉크 경계선 색이 바뀐다** (아직 즉시 바뀜). cloud의 남색 잉크와 spring의 자주빛 잉크처럼 차이가 미묘하니 잘 본다. 4-5의 토큰 화면에서는 확실히 보인다.

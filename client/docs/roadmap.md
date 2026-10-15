@@ -27,21 +27,22 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 | --- | --- |
 | T1 테마×역할 색 (8종) | A5 |
 | T2 폰트·타이포 (Jua 폴백 체인) | A6 |
-| T3 도감 표면 (`inkPanel` · `pressSink` · `chamferShape` · `paperStripes`) | A8 (하드 섀도) · A9 (chamfer·눌림) · B1 (`inkPanel`·`paperStripes`) |
-| T4 UI 아이콘 22종 | B1 (인트로 메뉴 버튼 아이콘 포함) |
+| T3 도감 표면 (`inkPanel` · `pressSink` · `chamferShape` · `paperStripes`) | A8 (하드 섀도) · A9 (chamfer·눌림) · B2 (`inkPanel`·`paperStripes`) |
+| T4 UI 아이콘 22종 | B2 (인트로 메뉴 버튼 아이콘 포함) |
 | T5 앱 아이콘·파비콘 (`04_icons_favicon`) | A6 (Desktop 창 아이콘, Compose Resources로) · A10 (설치 패키지 아이콘) · M1 (Android adaptive) · F3 (favicon·manifest) |
-| I 인트로 | **A3~A8 (정적 화면)** · E1~E3 (파티클·시퀀스·패럴랙스) |
-| P 플래너 | B1~B2 (배경·골격·컴포넌트·상태) · B8 (드래그) · C2~C3 (지도·마커·경로) |
-| L 여행 목록 | B3 (내비게이션과 함께) |
+| I 인트로 | **A3~A9 (정적 화면)** · B1 (실제 일러스트, handoff-v5) · E1~E3 (파티클·시퀀스·패럴랙스) |
+| P 플래너 | B2~B3 (배경·골격·컴포넌트·상태) · B9 (드래그) · C2~C3 (지도·마커·경로) |
+| L 여행 목록 | B4 (내비게이션과 함께) |
 | A AI 시트 | F1 |
 | S 공통 상태 | D3~D4 (네트워크 상태와 함께) |
-| 테마 선택 UI (PROMPT §8-3, 미설계) | B6 (설정 화면) |
+| 테마 선택 UI (PROMPT §8-3, 미설계) | B7 (설정 화면) |
 
 > ⚠ **인트로 일러스트 4장**(`assets/intro/*.webp`, v1·v2 같은 파일)에는 제3자 캐릭터가 들어 있어 레포에 커밋하지 않는다(루트 `CLAUDE.md`). 로컬에서는 팀 보관소 사본을 같은 경로에 두고 쓰고, **앱 리소스로 커밋하는 것은 IP 없는 플레이스홀더 이미지**다 (A6 참조). 권리 처리된 교체본이 오면 파일만 바꾼다.
 
 ## Phase A — Compose 기초: 인트로 화면 완성 → `client-v0.1.0`
 
 > 모듈 구조는 KMP 공식 권장 구조다. 화면·로직은 전부 `shared`에 쓰고, 두 앱 모듈에는 진입점(`main()`, `MainActivity`)만 둔다 ([architecture.md](architecture.md)).
+> 2026-10-15: Phase B 맨 앞에 B1(인트로 실제 일러스트)을 넣고 기존 B1~B9를 B2~B10으로 밀었다.
 > 2026-10-15: 잉크 마감을 A8(그리기)·A9(버튼·눌림)으로 나누고 릴리스를 A10으로 옮겼다.
 > 2026-10-14: 반응형(원래 A8)을 잉크 마감(원래 A7)보다 앞으로 옮겼다. 버튼 높이·스택 폭이 크기 구간에 따라 달라서 구간을 먼저 만든다.
 > A5 전까지는 색·크기 리터럴에 `// TODO(A5): 토큰으로` 주석을 달아 두고, A5에서 전부 `TabijiTheme` 토큰으로 옮긴다.
@@ -57,22 +58,23 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 | A6 | ✅ 완료 (PR #11) | Compose Resources(이미지·폰트·문자열), `FontFamily` 폴백 체인, `TextStyle` | 계절 이미지 4장 fit-in-view(`ContentScale.Crop` + `BiasAlignment`), 폰트 Jua·Pretendard JP·Sora와 타이포 9스타일, 워드마크 "Tabiji" + 부제 "여행(旅路) 도우미"(마감 없이 글자만), Desktop 창 아이콘 `Window(icon = …)`, Desktop 기본 창 크기(화면의 가로 85% × 세로 75%, 가운데) (핸드오프 I1 + T2 + T5 일부) | 창 비율을 바꿔도 왜곡·레터박스 없음, 가을·겨울 인물 안 잘림 · 디버그 샘플 "Day 2 · 시즈오카 센겐 신사 · 駿府城 · 旅路 1.8km"에서 Day 2는 Jua, 한자는 Pretendard JP 폴백(두부 □ 없음), 숫자는 Sora · 화면 코드에 하드코딩 문자열 0개 · Desktop 작업표시줄에 旅 · **커밋 이미지는 IP 없는 플레이스홀더**(위 ⚠). 로컬에서 실제 일러스트로 교체해 확인 |
 | A7 | ✅ 완료 (PR #12) | 반응형: `BoxWithConstraints`(CSS 미디어 쿼리 대응), 크기 구간 enum(Material 기준 Compact <600dp · Medium · Expanded ≥840dp), 구간을 화면에 내려주기(파라미터 또는 CompositionLocal), Desktop 최소 창 크기 | Desktop 2×2 ↔ Phone 세로 4단 전환(칸 높이 ≈211dp, 가을·겨울 bias +0.16f), 가운데 스택 폭 360↔310 (`10_intro.md`) | Desktop 창을 좁히면(600dp 미만) 세로 4단으로 전환 · 창을 390×844로 맞췄을 때 `source/intro_phone.html`·`intro_phone.png`와 크롭 일치 · 넓히면 다시 2×2 · 실기기 확인은 M2 |
 | A8 | ✅ 완료 (PR #13) | 상수 `object`(토큰이 모두 CompositionLocal일 필요는 없다), 커스텀 Modifier 확장 함수, `drawBehind`·`Shape.createOutline`·`translate`, `DrawStyle`(`Stroke`) | 잉크 마감 ① 그리기: 치수 토큰 `TabijiDimens`(테두리·모서리·섀도·간격, `tokens.json`) + `Modifier.inkShadow`(블러 0 하드 섀도) + `OutlinedText`(흰 글자 + 잉크 아웃라인 + (3,3) 하드 섀도)를 워드마크·부제에 적용 (핸드오프 I2 일부, T3 일부) | 네 계절 이미지 어디 위에서도 워드마크·부제가 또렷함(실제 일러스트로 로컬 확인) · 토큰 화면 색 상자에 (3,3) 하드 섀도 · `elevation`·`Modifier.shadow` 0건 · 화면 코드에 이름 없는 `.dp` 숫자 0개(토큰 또는 이름 붙은 상수) |
-| A9 | ✅ 완료 (PR #14) | 커스텀 `Shape`(`Path`·`arcTo`), `InteractionSource`·`collectIsPressedAsState`, `animateDpAsState`, 재사용 컴포넌트 설계 | 잉크 마감 ② 버튼: `ChamferShape`(우상단 8dp 사선) + 메뉴 버튼 3개(시작하기 `accent`·chamfer / 내 여행·설정 `card`), 하단 (0,4) 잉크 섀도, **눌림 = 가라앉기**(2dp, 80ms), Desktop 58/52 · Phone 56/50 높이, 스택 gap 24/20 (핸드오프 I2, T3 나머지). 버튼 아이콘 자리만 두고 아이콘은 B1(T4) | 버튼을 누르면 2dp 가라앉고 섀도가 줄어듦(스프링·스케일 없음) · chamfer가 `intro_desktop.png`와 같은 모양 · 버튼 클릭 시 로그(이동은 B3) · Phone 프리셋에서 버튼 높이·스택 폭 일치 |
+| A9 | ✅ 완료 (PR #14) | 커스텀 `Shape`(`Path`·`arcTo`), `InteractionSource`·`collectIsPressedAsState`, `animateDpAsState`, 재사용 컴포넌트 설계 | 잉크 마감 ② 버튼: `ChamferShape`(우상단 8dp 사선) + 메뉴 버튼 3개(시작하기 `accent`·chamfer / 내 여행·설정 `card`), 하단 (0,4) 잉크 섀도, **눌림 = 가라앉기**(2dp, 80ms), Desktop 58/52 · Phone 56/50 높이, 스택 gap 24/20 (핸드오프 I2, T3 나머지). 버튼 아이콘 자리만 두고 아이콘은 B2(T4) | 버튼을 누르면 2dp 가라앉고 섀도가 줄어듦(스프링·스케일 없음) · chamfer가 `intro_desktop.png`와 같은 모양 · 버튼 클릭 시 로그(이동은 B4) · Phone 프리셋에서 버튼 높이·스택 폭 일치 |
 | A10 | ✅ 완료 (PR #16·#17, `client-v0.1.1` 첫 공개) | 버전·CHANGELOG·태그, Release CI | **릴리스: `client-v0.1.0` 태그 → Release CI 산출물 확인** (설치 패키지 아이콘 포함) | Releases에 `client-v0.1.0` prerelease · `.deb` 설치 후 인트로가 뜸 · `SHA256SUMS.txt` 검증 통과 |
 
 ## Phase B — 앱 구조와 플래너 → `client-v0.2.0`
 
 | 단계 | 현재 위치 | 배우는 개념 | 만드는 것 | 완료 조건 (눈으로 확인) |
 | --- | --- | --- | --- | --- |
-| B1 | ▶ 다음 | `LazyColumn`, `key`, data class, `drawBehind` 반복 그리기 | 플래너 정적 화면: **종이+45° 스트라이프 배경**(`paperStripes`), 잉크 프레임 지도 자리(`map_light.svg` Crop), `inkPanel` 일정 패널 + `DayHeader` + 머리띠 로테이션 `VisitCard` + `SegmentChip` + 아이콘 22종 (핸드오프 P1~P4, T3 나머지, T4) | 더미 4곳+3구간이 `planner_desktop.png`·`source/planner_desktop.html`과 외곽·색 일치 (머리띠 h1→h2→accent→h3, '추정' 배지, dashed 칩, 고정 시계) · 8테마 전환 시 색만 바뀜 · 30개 더미로 부드럽게 스크롤 · 항목 삭제에도 나머지 상태 유지(`key`) |
-| B2 | | ViewModel, `StateFlow`, sealed UI 상태, 단방향 흐름 | 플래너 상태를 ViewModel로 (Loading/Content/Error), 카드↔선택 상호작용 (P6 일부) | 창 크기 변경 후 상태 유지(회전은 M2) · 오류 토글 시 Error 화면 · ViewModel 단위 테스트 통과 |
-| B3 | | Navigation (type-safe route) | 여행 목록 화면(핸드오프 L: 머리띠 40 카드·D-day 배지·dashed 새 여행 타일) + 인트로 "시작하기"→플래너, "내 여행"→목록 연결 | 인트로 버튼으로 이동하고 뒤로 가기(버튼·단축키)로 복귀 · `trips_*.png`와 일치, 인접 카드 머리띠 색 중복 없음 |
-| B4 | | DI, Koin 모듈 | ViewModel·저장소 주입 (`FakeTripRepository`) | 화면 코드에 저장소 직접 생성 0개 · 테스트에서 가짜 저장소 교체 |
-| B5 | | Gradle 멀티모듈, 의존 방향 | `shared`를 `core-*`, `feature-*`로 분리, CI·스크립트·`.vscode/tasks.json` 태스크 경로 갱신 | `./gradlew build` 통과 · feature 간 import 시 컴파일 실패 · CI 초록 |
-| B6 | | `expect/actual` | 설정 화면: 플랫폼 정보 같은 작은 플랫폼 API + **테마 선택**(A5 디버그 토글 대체. 피커 디자인은 미설계라 디자인 요청 먼저) | 설정 화면에 "Android 17 / Linux" 같은 플랫폼 문자열 · 테마를 고르면 앱 전체 색이 바뀜 |
-| B7 | | SQLDelight, 코루틴 Dispatcher | 여행·방문지 로컬 저장 + 선택 테마 저장 | 재시작 후 데이터·테마 유지 · DB 접근이 UI 스레드 밖(로그) |
-| B8 | | 제스처, 드래그 앤 드롭 | 방문지 드래그 순서 변경 (P6 나머지) | 드래그로 순서 변경, 재시작 후 유지 |
-| B9 | | 릴리스 반복 | **릴리스: `client-v0.2.0`** | Releases에 `client-v0.2.0` · 업그레이드 설치 시 데이터 유지 |
+| B1 | ▶ 진행 중 | 리소스 교체만으로 화면이 바뀌는 구조 확인, `ContentScale.Crop`에서 **어느 축이 잘리는가**(이미지 비율 ↔ 칸 비율), `BiasAlignment`의 두 축, 이미지 디코딩 크기와 메모리 | 인트로 실제 일러스트 적용: 캐릭터 없는 사계절 4장(handoff-v5, 전부 1.79:1)으로 플레이스홀더 교체, 계절별 초점 다시 잡기(v2의 가을·겨울 0.1/0.16은 1.34:1 기준이라 폐기), TODO 번호 정리 | Desktop 기본 창·1440×900·Phone 390×844 세 크기에서 네 칸 모두 핵심 피사체가 잘리지 않음 · `intro_desktop.png`·`intro_phone.png`와 분위기 비교 · 커밋된 `intro_*.webp`가 handoff-v5와 같은 파일 |
+| B2 | | `LazyColumn`, `key`, data class, `drawBehind` 반복 그리기 | 플래너 정적 화면: **종이+45° 스트라이프 배경**(`paperStripes`), 잉크 프레임 지도 자리(`map_light.svg` Crop), `inkPanel` 일정 패널 + `DayHeader` + 머리띠 로테이션 `VisitCard` + `SegmentChip` + 아이콘 22종 (핸드오프 P1~P4, T3 나머지, T4) | 더미 4곳+3구간이 `planner_desktop.png`·`source/planner_desktop.html`과 외곽·색 일치 (머리띠 h1→h2→accent→h3, '추정' 배지, dashed 칩, 고정 시계) · 8테마 전환 시 색만 바뀜 · 30개 더미로 부드럽게 스크롤 · 항목 삭제에도 나머지 상태 유지(`key`) |
+| B3 | | ViewModel, `StateFlow`, sealed UI 상태, 단방향 흐름 | 플래너 상태를 ViewModel로 (Loading/Content/Error), 카드↔선택 상호작용 (P6 일부) | 창 크기 변경 후 상태 유지(회전은 M2) · 오류 토글 시 Error 화면 · ViewModel 단위 테스트 통과 |
+| B4 | | Navigation (type-safe route) | 여행 목록 화면(핸드오프 L: 머리띠 40 카드·D-day 배지·dashed 새 여행 타일) + 인트로 "시작하기"→플래너, "내 여행"→목록 연결 | 인트로 버튼으로 이동하고 뒤로 가기(버튼·단축키)로 복귀 · `trips_*.png`와 일치, 인접 카드 머리띠 색 중복 없음 |
+| B5 | | DI, Koin 모듈 | ViewModel·저장소 주입 (`FakeTripRepository`) | 화면 코드에 저장소 직접 생성 0개 · 테스트에서 가짜 저장소 교체 |
+| B6 | | Gradle 멀티모듈, 의존 방향 | `shared`를 `core-*`, `feature-*`로 분리, CI·스크립트·`.vscode/tasks.json` 태스크 경로 갱신 | `./gradlew build` 통과 · feature 간 import 시 컴파일 실패 · CI 초록 |
+| B7 | | `expect/actual` | 설정 화면: 플랫폼 정보 같은 작은 플랫폼 API + **테마 선택**(A5 디버그 토글 대체. 피커 디자인은 미설계라 디자인 요청 먼저) | 설정 화면에 "Android 17 / Linux" 같은 플랫폼 문자열 · 테마를 고르면 앱 전체 색이 바뀜 |
+| B8 | | SQLDelight, 코루틴 Dispatcher | 여행·방문지 로컬 저장 + 선택 테마 저장 | 재시작 후 데이터·테마 유지 · DB 접근이 UI 스레드 밖(로그) |
+| B9 | | 제스처, 드래그 앤 드롭 | 방문지 드래그 순서 변경 (P6 나머지) | 드래그로 순서 변경, 재시작 후 유지 |
+| B10 | | 릴리스 반복 | **릴리스: `client-v0.2.0`** | Releases에 `client-v0.2.0` · 업그레이드 설치 시 데이터 유지 |
 
 ## Phase C — 지도 → `client-v0.3.0`
 
@@ -120,6 +122,6 @@ Tabiji 클라이언트를 만들며 Kotlin과 Compose Multiplatform을 기초부
 | 단계 | 현재 위치 | 배우는 개념 | 만드는 것 | 완료 조건 (눈으로 확인) |
 | --- | --- | --- | --- | --- |
 | M1 | | 클래스·상속·`override`, `ComponentActivity`, `setContent`, 매니페스트(`<activity>`, 런처 intent-filter), Android 리소스(VectorDrawable, adaptive icon), 에뮬레이터 | `androidApp`에 `MainActivity` + 매니페스트 `<activity>` + 旅 글리프 adaptive 런처 아이콘(전경·흰 배경·monochrome). 가이드 초안: [`guides/M1-android-entry.md`](guides/M1-android-entry.md) | 에뮬레이터(tabiji-api37)에 설치, Desktop과 같은 화면 · `App()` 문구를 바꾸면 두 플랫폼 모두 바뀜 · 런처(원형 마스크)와 13+ 테마 아이콘에 旅 |
-| M2 | | 창 insets(edge-to-edge), 회전·구성 변경, Android 권한 | 그때까지 만든 화면의 Android 점검: 시스템 바 insets, Phone 레이아웃 실기기 확인(A8), 회전 후 상태 유지(B2), 지도(C1~C3), 위치 권한·현재 위치(C4) | 에뮬레이터에서 각 단계 완료 조건 중 "M2"로 미룬 항목 전부 통과 |
+| M2 | | 창 insets(edge-to-edge), 회전·구성 변경, Android 권한 | 그때까지 만든 화면의 Android 점검: 시스템 바 insets, Phone 레이아웃 실기기 확인(A8), 회전 후 상태 유지(B3), 지도(C1~C3), 위치 권한·현재 위치(C4) | 에뮬레이터에서 각 단계 완료 조건 중 "M2"로 미룬 항목 전부 통과 |
 | M3 | | iOS 타깃, Xcode 연동 | iOS 앱 (Release CI의 iOS는 서명 정책 확정 후) | 시뮬레이터에서 인트로·플래너 동작 |
 | M4 | | 릴리스 반복 | **릴리스: 그 시점의 다음 MINOR** (APK 포함) | Releases에 APK · 에뮬레이터 설치 후 실행 |

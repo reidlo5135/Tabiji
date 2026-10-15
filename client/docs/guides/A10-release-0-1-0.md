@@ -177,7 +177,7 @@ gh run watch                                # 방금 시작된 실행을 고르�
 ### 3-6. 공개된 파일 검증하고 설치하기
 
 ```bash
-mkdir -p ~/Downloads/tabiji-0.1.0 && cd ~/Downloads/tabiji-0.1.0
+mkdir -p /tmp/tabiji-release && cd /tmp/tabiji-release
 gh release download client-v0.1.0 --repo yamada-studio/Tabiji -p '*.deb' -p 'SHA256SUMS.txt'
 sha256sum -c SHA256SUMS.txt --ignore-missing      # "Tabiji-0.1.0-linux.deb: OK"가 나와야 한다
 
@@ -220,4 +220,4 @@ sudo apt install ./Tabiji-0.1.0-linux.deb          # 공개된 파일로 다시 
 3. 3-5 Release 페이지 링크 또는 `gh release view client-v0.1.0` 출력
 4. 3-6 `sha256sum -c` 출력
 
-→ 끝나면 Claude가 roadmap·worklog를 갱신한다 (A10 ✅, Phase A 완료). 그다음은 **Phase B — 앱 구조와 플래너**의 B1(플래너 정적 화면, 아이콘 22종)이다.
+→ 끝나면 Claude가 roadmap·worklog를 갱신한다 (A10 ✅, Phase A 완료). 그다음은 **Phase B — 앱 구조와 플래너**의 B2(플래너 정적 화면, 아이콘 22종)이다.
