@@ -111,7 +111,7 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier,
                     primary = true,
                     height = startHeight,
-                    onClick = { println("Tabiji/intro: start") } // TODO(B3): 내비게이션
+                    onClick = { println("Tabiji/intro: start") } // TODO(B4): 내비게이션
                 )
 
                 IntroMenuButton(
@@ -120,7 +120,7 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier,
                     primary = false,
                     height = menuHeight,
-                    onClick = { println("Tabiji/intro: trip") } // TODO(B3): 내비게이션
+                    onClick = { println("Tabiji/intro: trip") } // TODO(B4): 내비게이션
                 )
 
                 IntroMenuButton(
@@ -129,7 +129,7 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier,
                     primary = false,
                     height = menuHeight,
-                    onClick = { println("Tabiji/intro: setting") } // TODO(B3): 내비게이션
+                    onClick = { println("Tabiji/intro: setting") } // TODO(B4): 내비게이션
                 )
             }
         }

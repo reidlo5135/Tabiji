@@ -26,7 +26,7 @@
 - **`client/`는 독립 Gradle 루트다.** 레포 루트에는 Gradle 파일이 없고, `server/`와 하나의 빌드로 묶지 않는다 (루트 빌드·루트 `includeBuild`·일괄 스크립트 금지)
 - 모든 클라이언트 명령은 `client/`에서 실행한다
 
-## 지금의 모듈 구조 (Phase A~B3)
+## 지금의 모듈 구조 (Phase A~B5)
 
 Kotlin Multiplatform **공식 권장 구조**를 따른다: 앱 진입점마다 별도 모듈, 공유 코드는 하나의 모듈. AGP 9부터는 Android 앱 진입점을 공유 모듈에서 분리하는 것이 **필수**다. 근거: [`docs/decisions/0002-toolchain-versions.md`](../../docs/decisions/0002-toolchain-versions.md)
 
@@ -65,7 +65,7 @@ CMake로 빗대면 `shared`는 `add_library(tabiji_shared)`, 두 앱은 `add_exe
 
 ### 패키지 (분리 전에도 최종 구조를 따른다)
 
-`shared` 안에서도 패키지는 최종 모듈 구조를 따른다. 그래야 B4에서 폴더를 옮기기만 하면 된다.
+`shared` 안에서도 패키지는 최종 모듈 구조를 따른다. 그래야 B6에서 폴더를 옮기기만 하면 된다.
 
 ```
 com.yamada.studio.tabiji
@@ -83,9 +83,9 @@ com.yamada.studio.tabiji
     └── domain/
 ```
 
-## 최종 모듈 구조 (B4 이후)
+## 최종 모듈 구조 (B6 이후)
 
-B4에서 `shared`를 기능·핵심 모듈로 나눈다. 진입점 모듈(`androidApp`, `desktopApp`)은 그대로다.
+B6에서 `shared`를 기능·핵심 모듈로 나눈다. 진입점 모듈(`androidApp`, `desktopApp`)은 그대로다.
 
 ```
 androidApp ─┐                         ┌─► core-ui       (TabijiTheme, 공용 컴포넌트)
@@ -105,7 +105,7 @@ desktopApp ─┼─► feature-intro    ─────┼─► core-map      
 | `core-network` | HTTP 클라이언트, DTO, 오류 매핑 | core-domain | Compose, DB |
 | `core-domain` | 여행·방문지·구간 모델, 규칙 | **Kotlin 표준 라이브러리와 코루틴뿐** | Compose, 플랫폼 API, 직렬화 라이브러리 세부 |
 
-## 화면의 데이터 흐름 (B1 이후)
+## 화면의 데이터 흐름 (B3 이후)
 
 ```
  사용자 입력 ──event──► ViewModel ──► Repository ──► (DB / 서버)

@@ -12,6 +12,6 @@ enum class Season(
 ) {
     SPRING(Res.drawable.intro_spring, Res.string.season_spring, 0f, 0f),
     SUMMER(Res.drawable.intro_summer, Res.string.season_summer, 0f, 0f),
-    AUTUMN(Res.drawable.intro_autumn, Res.string.season_autumn, 0.1f, 0.16f),
-    WINTER(Res.drawable.intro_winter, Res.string.season_winter, 0.1f, 0.16f),
+    AUTUMN(Res.drawable.intro_autumn, Res.string.season_autumn, 0f, 0f),
+    WINTER(Res.drawable.intro_winter, Res.string.season_winter, 0f, 0f),
 }

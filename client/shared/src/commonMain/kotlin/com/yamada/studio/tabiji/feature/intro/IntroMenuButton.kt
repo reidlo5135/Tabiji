@@ -44,7 +44,7 @@ fun IntroMenuButton(
         modifier = modifier.fillMaxWidth().height(height = height),
         onClick = onClick,
     ) {
-        // TODO(B1): 아이콘
+        // TODO(B2): 아이콘
         Column(
             modifier = Modifier,
         ) {
