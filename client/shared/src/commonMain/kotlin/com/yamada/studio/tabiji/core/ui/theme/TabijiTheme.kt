@@ -25,6 +25,11 @@ object TabijiTheme {
 
     val typography: TabijiTypography
         @Composable get() = LocalTabijiTypography.current
+
+    val border: TabijiBorder = TabijiBorder
+    val radius: TabijiRadius = TabijiRadius
+    val shadow: TabijiShadow = TabijiShadow
+    val spacing: TabijiSpacing = TabijiSpacing
 }
 
 private val ThemeSwitchSpec = tween<Color>(durationMillis = 240, easing = CubicBezierEasing(0.2f, 0f, 0f, 1f))

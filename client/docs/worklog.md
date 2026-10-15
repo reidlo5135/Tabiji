@@ -26,7 +26,8 @@
 - **A5**: PR #10 머지 완료
 - **A6**: PR #11 머지 완료
 - **A7 — 반응형**: 완료 → 구현 커밋 + PR #12. **남은 것: CI → 사용자 squash merge (bypass)**
-- **A8 — 잉크 마감 ① 그리기** ([guides/A8-ink-drawing.md](guides/A8-ink-drawing.md), 브랜치 `client/feat-a8-ink-drawing`, A7 위). 잉크 마감을 A8(그리기)·A9(버튼·눌림)로 나누고 릴리스 A10으로
+- **A8 — 잉크 마감 ① 그리기**: 완료 → 구현 커밋 (브랜치 `client/feat-a8-ink-drawing`, A7 위). **PR은 #12 머지 후 `main` merge하고 연다**
+- **다음: A9 — 잉크 마감 ② 버튼** (`ChamferShape`, 메뉴 버튼 3개, 눌림). 가이드는 A9 시작 때
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -69,6 +70,13 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-15 (낮) — A8 완료
+
+- 막힌 곳: `OutlinedText` 본문을 비워 둔 채 "했어"(→ 워드마크가 사라짐), `Stroke(width = outlineWidth.value)`로 dp 숫자를 px로 그대로 씀(변환·2배 누락), 저장 지연 다시 발생(mtime으로 확인)
+- **사용자 요청: 가이드에서 실험 항목을 빼고 개념 설명만** → `client/CLAUDE.md` 학습 루프에 반영. 이전 가이드(A3~A8)의 실험 절은 그대로 두되 앞으로 쓰지 않음
+- 확인: Desktop·Phone 인트로 워드마크·부제 아웃라인 + 하드 섀도, 토큰 화면 색 상자 (3,3) 섀도, 화면 코드 `.dp`는 이름 붙은 상수만, `Modifier.shadow`·elevation 0건
+- Hot Reload 중 창 테두리의 무지개색은 Compose Hot Reload 표시(코드 아님)
 
 ### 2026-10-15 — A7 완료
 
