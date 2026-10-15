@@ -16,7 +16,7 @@
 | `build.sh` | ✅ BUILD SUCCESSFUL | 2026-10-14 | A3. 이후로는 PR의 `client-ci`로 갈음 (사용자 요청: 매번 붙여넣기 안 함) |
 | Android 설치 | ⬜ Phase M | — | `<activity>` 없음 (정상). 데스크톱 우선 결정 |
 | `client-ci` | ✅ 초록 (3m) | 2026-10-14 | PR #6: `.ci-enabled` 후 **첫 실제 빌드·테스트** 통과 |
-| `client-release` | ⬜ 미실행 | — | A9에서 첫 실행 |
+| `client-release` | ⬜ 미실행 | — | A10에서 첫 실행 |
 | IntelliJ Gradle 동기화 | ❌ 실패 | 2026-10-14 | "incompatible AGP 9.3.3, latest supported 9.1.0" — IntelliJ 2026.2.3 번들 Android 플러그인 한계. 명령줄 빌드는 무관 |
 
 ## 진행 중
@@ -26,7 +26,7 @@
 - **A5**: PR #10 머지 완료
 - **A6**: PR #11 머지 완료
 - **A7 — 반응형**: 완료 → 구현 커밋 + PR #12. **남은 것: CI → 사용자 squash merge (bypass)**
-- **다음: A8 — 잉크 마감** (치수 토큰, 워드마크 아웃라인·하드 섀도, chamfer 버튼, 눌림). 가이드는 A8 시작 때
+- **A8 — 잉크 마감 ① 그리기** ([guides/A8-ink-drawing.md](guides/A8-ink-drawing.md), 브랜치 `client/feat-a8-ink-drawing`, A7 위). 잉크 마감을 A8(그리기)·A9(버튼·눌림)로 나누고 릴리스 A10으로
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -55,7 +55,7 @@
 - [ ] Compose `FontFamily(Jua, PretendardJP)` 목록이 글자 단위 폴백으로 동작하는지 플랫폼별 미확인 (A6 1-6). **2026-10-14 Desktop 관찰: display 줄의 駿府城·旅路가 주변 Jua보다 가늘게 렌더 → 체인의 Pretendard SemiBold가 아니라 OS 시스템 폰트(Noto CJK)로 대체된 것으로 추정.** 즉 Desktop에서도 체인 폴백은 안 되는 듯. Linux는 시스템 Noto CJK가 있어 두부는 안 나옴. Android는 M2에서 확인, 필요하면 `AnnotatedString`으로 한자 구간만 Pretendard 지정
 - [ ] handoff PROMPT "열린 질문" 중 개발 몫: 폰트 서브셋(v1 §9-1 — v2는 PretendardJP 4벌 22MB + Jua 2.8MB라 더 시급, A6에서), MapLibre Desktop 경로(v1 §9-3, C1에서) — 해당 단계에서 ADR로 답. v1 §9-2 Desktop 블러는 v2에서 블러 자체가 없어져 해소
 - [ ] handoff-v2 PROMPT §8 팀 결정: 테마별 다크 변형 방식, v2 컴포넌트 보드 추가 제작 여부, **테마 선택 UI 디자인(B6 전에 디자인 요청 필요)**, 인트로와 테마 결합 여부
-- [ ] Android API 24·25용 런처 아이콘 폴백 PNG (adaptive icon은 26+). A9 패키징 전 점검
+- [ ] Android API 24·25용 런처 아이콘 폴백 PNG (adaptive icon은 26+). A10 패키징 전 점검
 - [ ] **에디터 결정**: IntelliJ 2026.2.3은 AGP 9.3.3 동기화 실패 → 코드 인사이트 없음. 선택지: Android Studio로 이사(추천) / IntelliJ Android 플러그인 갱신 대기 / 명령줄만으로 진행. 결정 후 `client/CLAUDE.md` "에디터 환경" 절을 갱신 — 별도 PR
 
 ## 환경 메모
@@ -87,7 +87,7 @@
 - 막힌 곳: `SeasonQuadrant`를 이미지로 바꾸며 A4 시그니처·덮개를 지움(가이드가 "시그니처 유지"를 안 적음 → 전/후 그림으로 보강), `stringResource(키, 스타일)`로 스타일을 format 인자에 넣음(오류 없이 무시됨), 4-5 문장 "Box 안에서"를 새 Box로 읽음 → 트리로 교체, import 혼동(skia `TextStyle`, androidx `Font`, `FontStyle.SemiBold`) → 단계별 import 블록 + 겹치는 이름 표
 - **사용자 요청(규칙화)**: 가이드에 단계·파일별 import 블록, 단계별 Composable 트리 그림 (`client/CLAUDE.md` 반영)
 - 관찰: display 줄의 한자가 Jua보다 가늘게 → `FontFamily` 체인 폴백이 아니라 OS 시스템 폰트 대체로 추정 (열린 일)
-- Ubuntu에서 Gradle 실행 앱은 독 아이콘이 Java 기본일 수 있음. 창 아이콘 코드는 연결됨 → A9 `.deb`에서 독 아이콘 확인
+- Ubuntu에서 Gradle 실행 앱은 독 아이콘이 Java 기본일 수 있음. 창 아이콘 코드는 연결됨 → A10 `.deb`에서 독 아이콘 확인
 
 ### 2026-10-14 (저녁) — 창 기본 크기·반응형 순서 조정
 
