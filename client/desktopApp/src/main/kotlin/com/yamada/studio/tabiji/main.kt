@@ -15,6 +15,7 @@ import com.yamada.studio.tabiji.core.ui.theme.TabijiPalette
 import java.awt.GraphicsEnvironment
 
 fun main() {
+    useSoftwareRenderingOnLinux()          // 창을 만들기 전에: 모니터를 옮길 때 빈 띠 방지 (LinuxRendering.kt)
     setLinuxWmClass(LINUX_DESKTOP_ENTRY)   // 창을 만들기 전에: GNOME 독 아이콘 짝짓기 (LinuxWmClass.kt)
 
     application {
