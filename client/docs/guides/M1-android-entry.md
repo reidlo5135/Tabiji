@@ -165,7 +165,7 @@ VectorDrawable은 SVG의 축소판이라 대응표만 알면 옮길 수 있다.
 
 `mipmap-anydpi-v26/ic_launcher.xml`의 모양은 핸드오프 `docs/04_icons_favicon.md`의 "Android 리소스 구성" 절에 이미 있다. 그대로 따르되 `<?xml …?>` 선언과 `xmlns:android`를 붙인다. monochrome 레이어는 전경과 **같은 drawable**을 가리킨다. 테마 아이콘에서는 시스템이 모양(알파)만 보고 색을 다시 칠하기 때문이다.
 
-> IntelliJ에서 Android 플러그인이 켜져 있으면 `File ▸ New ▸ Vector Asset`으로 SVG를 자동 변환할 수도 있다. 이번에는 손 변환을 권한다. 경로가 하나뿐이고, VectorDrawable 구조를 한 번 직접 보는 게 이후 아이콘 22종(B2)을 다룰 때 도움이 된다.
+> IntelliJ에서 Android 플러그인이 켜져 있으면 `File ▸ New ▸ Vector Asset`으로 SVG를 자동 변환할 수도 있다. 이번에는 손 변환을 권한다. 경로가 하나뿐이고, VectorDrawable 구조를 한 번 직접 보는 게 이후 아이콘 22종(B3)을 다룰 때 도움이 된다.
 
 > **API 24·25 기기**: adaptive icon은 API 26부터라서 `minSdk 24`인 이 앱은 24·25에서 기본 아이콘으로 보인다. 에뮬레이터는 API 37이라 이번 단계와 무관하다. 폴백 PNG는 A9(패키징) 전에 다시 본다 (worklog 열린 일).
 

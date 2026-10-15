@@ -36,7 +36,7 @@ fun main() {
         ) {
             window.minimumSize = java.awt.Dimension(360, 600)
 
-            // 디버그 메뉴 — B6 설정 화면이 생기면 정리
+            // 디버그 메뉴 — B9 설정 화면이 생기면 정리
             MenuBar {
                 Menu("Theme") {
                     TabijiPalette.entries.forEach { p ->

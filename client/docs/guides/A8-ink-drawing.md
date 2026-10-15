@@ -124,7 +124,7 @@ Box  (겹쳐 쌓기, A3)
 | `shared/…/core/ui/theme/TokenSwatches.kt` (수정) | 색 상자에 하드 섀도, 리터럴 → 토큰 |
 | `shared/…/feature/intro/IntroScreen.kt` (수정) | 워드마크·부제를 `OutlinedText`로, 이름 없는 `.dp` 정리 |
 
-`core/ui/` 아래 `theme`·`modifier`·`component`로 나누는 건 `architecture.md`의 `core-ui`(테마, 공용 컴포넌트) 자리다. B6에서 모듈로 분리할 때 그대로 옮긴다.
+`core/ui/` 아래 `theme`·`modifier`·`component`로 나누는 건 `architecture.md`의 `core-ui`(테마, 공용 컴포넌트) 자리다. B8에서 모듈로 분리할 때 그대로 옮긴다.
 
 ### 치수 토큰 값 (`tokens.json`)
 
@@ -135,7 +135,7 @@ Box  (겹쳐 쌓기, A3)
 | `TabijiShadow` | `panel` · `button` · `modal` (`DpOffset`) | (3,3) · (0,3) · (5,5) dp |
 | `TabijiSpacing` | `xs` · `sm` · `md` · `lg` · `xl` | 4 · 8 · 12 · 16 · 24 dp |
 
-- `chip` 모서리(999 = 완전 둥근 알약)는 dp 값이 아니라 모양(`RoundedCornerShape(50)`)으로 쓸 것이라 B2에서 다룬다
+- `chip` 모서리(999 = 완전 둥근 알약)는 dp 값이 아니라 모양(`RoundedCornerShape(50)`)으로 쓸 것이라 B4(구간 칩)에서 다룬다
 - 섀도 **색**은 토큰이 아니라 테마 색이다: 패널은 `colors.shadow`(ink 22%), 버튼은 `colors.ink`
 
 ---
