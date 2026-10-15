@@ -25,9 +25,9 @@
 - **A4**: PR #9 머지 완료
 - **A5**: PR #10 머지 완료
 - **A6**: PR #11 머지 완료
-- **A7 — 반응형**: 완료 → 구현 커밋 + PR #12. **남은 것: CI → 사용자 squash merge (bypass)**
-- **A8 — 잉크 마감 ① 그리기**: 완료 → 구현 커밋 (브랜치 `client/feat-a8-ink-drawing`, A7 위). **PR은 #12 머지 후 `main` merge하고 연다**
-- **다음: A9 — 잉크 마감 ② 버튼** (`ChamferShape`, 메뉴 버튼 3개, 눌림). 가이드는 A9 시작 때
+- **A7**: PR #12 머지 완료
+- **A8 — 잉크 마감 ① 그리기**: PR #13 (#12 머지 후 `main` merge로 맞춤). **CI → 사용자 squash merge (bypass)**
+- **A9 — 잉크 마감 ② 버튼** ([guides/A9-ink-buttons.md](guides/A9-ink-buttons.md), 브랜치 `client/feat-a9-ink-buttons`, A8 위). 가이드 작성 완료 (실험 없이 개념 설명만). PR은 #13 머지 후
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
