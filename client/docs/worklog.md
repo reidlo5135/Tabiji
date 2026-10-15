@@ -72,6 +72,13 @@
 
 ## 기록
 
+### 2026-10-15 (오후 늦게) — 0.1.0 태그, 0.1.1 패치 준비
+
+- #15(handoff-v3 아이콘)·#16(릴리스) 머지 → 사용자 요청으로 **Claude가 `client-v0.1.0` 태그 push**, `client-release` 실행 38688036741
+- 새 `.deb` 설치 후 앱 목록에 옛 아이콘 → 설치된 `/opt/tabiji/lib/Tabiji.png`는 새 아이콘(해시 일치), GNOME Shell 아이콘 캐시 문제 → 로그아웃·로그인 안내
+- 실행 중 독에 톱니바퀴 → `.desktop`에 `StartupWMClass` 없음 + AWT WM_CLASS가 메인 클래스 이름 → **0.1.1 패치**: `desktopApp/LinuxWmClass.kt`로 `XToolkit.awtAppClassName`을 `tabiji-Tabiji`로 바꾸고 `--add-opens java.desktop/sun.awt.X11=ALL-UNNAMED` (사용자 요청으로 Claude 구현, 플랫폼 패키징 처리)
+- 아이콘(handoff-v3)은 사용자 선택(3B)을 받아 Claude가 폰트 글리프로 생성. 디자인 담당이 생기면 손글씨·한지 질감 다듬은 판을 handoff-v4로 받을 수 있음
+
 ### 2026-10-15 (오후) — A9: 인트로 완성
 
 - 가이드 지적 두 번: ① `18/22`·`58/56` 같은 CSS식 축약 → `fontSize = 18.sp, lineHeight = 22.sp`처럼 풀어 씀(메모리 규칙) ② Desktop/Phone과 `WidthClass.COMPACT`의 대응을 안 밝힘 → 용어 표와 값 고르는 코드 추가

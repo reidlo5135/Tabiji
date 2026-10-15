@@ -30,6 +30,10 @@ compose.desktop {
         // A1에서 사용자가 만들 src/main/kotlin/com/yamada/studio/tabiji/main.kt 의 main() (main.kt → MainKt)
         mainClass = "com.yamada.studio.tabiji.MainKt"
 
+        // LinuxWmClass.kt가 AWT 내부 필드로 창의 WM_CLASS를 바꿀 수 있게 연다 (GNOME 독 아이콘).
+        // run·hotRun과 설치 패키지 실행기 모두에 적용된다
+        jvmArgs("--add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED")
+
         // 설치 패키지(jpackage). 크로스 빌드가 안 돼서 각 OS에서 자기 형식만 만든다 (Release CI 매트릭스)
         nativeDistributions {
             targetFormats(TargetFormat.Deb, TargetFormat.Msi, TargetFormat.Dmg)

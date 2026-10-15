@@ -14,6 +14,12 @@
 
 ### [Unreleased]
 
+### [0.1.1] - 2026-10-15
+
+#### Fixed
+
+- Linux(GNOME): 설치한 앱을 실행하면 독에 旅 아이콘 대신 기본 톱니바퀴가 뜨던 문제. 창의 WM_CLASS를 설치된 `.desktop` 항목 이름(`tabiji-Tabiji`)과 맞췄다
+
 ### [0.1.0] - 2026-10-15
 
 Phase A 완료: 인트로 화면. Desktop(Linux·Windows·macOS) 첫 릴리스이고, Android 실행 확인은 이후 Phase M에서 한다.
