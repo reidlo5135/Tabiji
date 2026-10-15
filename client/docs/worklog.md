@@ -27,8 +27,8 @@
 - **A6**: PR #11 머지 완료
 - **A7**: PR #12 머지 완료
 - **A8**: PR #13 머지 완료
-- **A9 — 잉크 마감 ② 버튼**: PR #14 (TODO(B3) 주석 커밋 추가). Phone 프리셋·눌림 사용자 확인 대기 → squash merge (bypass)
-- **A10 — 릴리스 `client-v0.1.0`** ([guides/A10-release-0-1-0.md](guides/A10-release-0-1-0.md), 브랜치 `client/chore-release-0-1-0`, A9 위). Claude 준비 완료: 패키지 아이콘(`desktopApp/icons/`, PNG=핸드오프 원본, ICO·ICNS=Pillow 생성) + `iconFile`, `tabiji.version=0.1.0`, `CHANGELOG.md` `[0.1.0] - 2026-10-15` (CI awk 추출 사전 확인). **다음: 사용자 로컬 `package-desktop.sh` → `.deb` 설치 확인 → #14 머지 → 릴리스 PR → 태그 → Release CI → sha256 검증**
+- **A9**: PR #14 머지 완료
+- **A10 — 릴리스 `client-v0.1.0`** ([guides/A10-release-0-1-0.md](guides/A10-release-0-1-0.md), 브랜치 `client/chore-release-0-1-0`). 첫 로컬 `.deb`에서 v2 아이콘이 어두운 독에서 안 보임 → 사용자 선택 **3B: Ma Shan Zheng 붓글씨 + 한지 타일** → 디자인 PR #15(handoff-v3 아이콘 델타) + 창·패키지 아이콘 교체. **다음: 사용자 로컬 `.deb` 재생성·재설치 확인 → #15·릴리스 PR 머지 → Claude가 태그 push(사용자 요청) + Release CI 확인 → sha256 검증**
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
