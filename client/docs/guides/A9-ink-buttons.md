@@ -3,6 +3,8 @@
 > 브랜치: `client/feat-a9-ink-buttons` (Claude가 만들어 둠, A8 PR #13 위에 쌓음) · 커밋 footer `Refs: A9`
 > 시각 기준: handoff-v2 `docs/10_intro.md`(버튼 행 1~3), `docs/03_components.md`(버튼 표·chamfer 클립 패스), `docs/20_motion.md`(press 80ms), `source/intro_desktop.html`·`intro_phone.html`, `images/screens/intro_desktop.png`
 > 확인은 **Desktop**에서 한다 (Phone 프리셋 포함)
+>
+> **용어**: 이 가이드에서 "Phone 값"은 `widthClass == WidthClass.COMPACT`(창 폭 600dp 미만)일 때, "Desktop 값"은 그 외(`MEDIUM`·`EXPANDED`)일 때 쓰는 값이다 (A7). 기기 종류가 아니라 **폭**으로 가른다. 핸드오프 문서가 Desktop/Phone이라고 부르는 것을 코드에서는 이 두 경우로 나눈다.
 
 ## 목표
 
@@ -196,16 +198,29 @@ A4부터 "상태는 위로 올린다"를 지켜 왔다. 그런데 "지금 손가
 ```
 전 (A8)                                         후 (A9)
 Column (가운데 스택,                             Column (가운데 스택,
-  width = StackWidthWide 또는 Compact,              width = StackWidthWide 또는 Compact,
-  spacedBy(WordmarkGap))                            spacedBy(StackGap))   ← Desktop 24.dp, Phone 20.dp
-├── OutlinedText 워드마크                        ├── Column (워드마크 블록, spacedBy WordmarkGap)
+  width(stackWidth),                                width(stackWidth),
+  spacedBy(WordmarkGap))                            spacedBy(stackGap))
+├── OutlinedText 워드마크                        ├── Column (워드마크 블록, spacedBy(WordmarkGap))
 └── OutlinedText 부제                            │   ├── OutlinedText 워드마크
                                                 │   └── OutlinedText 부제
-                                                └── Column (메뉴, spacedBy TabijiTheme.spacing.md = 12)
-                                                    ├── IntroMenuButton 시작하기  primary = true    height = Desktop 58.dp, Phone 56.dp
-                                                    ├── IntroMenuButton 내 여행   primary = false   height = Desktop 52.dp, Phone 50.dp
-                                                    └── IntroMenuButton 설정      primary = false   height = Desktop 52.dp, Phone 50.dp
+                                                └── Column (메뉴, spacedBy(TabijiTheme.spacing.md))   ← 12.dp
+                                                    ├── IntroMenuButton(…start…,    primary = true,  height = startHeight)
+                                                    ├── IntroMenuButton(…trips…,    primary = false, height = menuHeight)
+                                                    └── IntroMenuButton(…settings…, primary = false, height = menuHeight)
 ```
+
+트리의 `stackWidth`·`stackGap`·`startHeight`·`menuHeight`는 `IntroScreen` 안에서 너비 구간으로 고른 값이다 (A7의 `stackWidth`와 같은 방식).
+
+```kotlin
+val compact = widthClass == WidthClass.COMPACT                                       // "Phone 값"을 쓸지
+
+val stackWidth  = if (compact) StackWidthCompact        else StackWidthWide          // 310.dp / 360.dp
+val stackGap    = if (compact) StackGapCompact          else StackGapWide            // 20.dp  / 24.dp
+val startHeight = if (compact) StartButtonHeightCompact else StartButtonHeightWide   // 56.dp  / 58.dp
+val menuHeight  = if (compact) MenuButtonHeightCompact  else MenuButtonHeightWide    // 50.dp  / 52.dp
+```
+
+숫자는 파일 맨 아래 `private val` 상수에 둔다 (5-4 표).
 
 ### 버튼 하나의 트리
 
@@ -419,11 +434,11 @@ fun IntroMenuButton(
 
 - 값 세 개를 구간으로 고른다 (A7의 `stackWidth`와 같은 방식). 이름 붙은 상수로 둔다
 
-  | 상수 | Desktop | Phone (`COMPACT`) | 출처 |
+  | 뜻 | `COMPACT` 아닐 때 (Desktop 값) | `COMPACT`일 때 (Phone 값) | 출처 |
   | --- | --- | --- | --- |
-  | 스택 간격 (워드마크 블록 ↔ 메뉴) | 24 | 20 | `10_intro.md` gap 24 / `intro_phone.html` gap 20 |
-  | 시작하기 높이 | 58 | 56 | `10_intro.md` |
-  | 내 여행·설정 높이 | 52 | 50 | `10_intro.md` |
+  | 스택 간격 (워드마크 블록 ↔ 메뉴) | `private val StackGapWide = 24.dp` | `private val StackGapCompact = 20.dp` | `10_intro.md` · `intro_phone.html` |
+  | 시작하기 높이 | `private val StartButtonHeightWide = 58.dp` | `private val StartButtonHeightCompact = 56.dp` | `10_intro.md` |
+  | 내 여행·설정 높이 | `private val MenuButtonHeightWide = 52.dp` | `private val MenuButtonHeightCompact = 50.dp` | `10_intro.md` |
 
 - 메뉴 `Column`의 간격 12는 `TabijiTheme.spacing.md`와 같은 값이라 토큰을 쓴다
 - `onClick`은 지금은 로그만 남긴다: `println("Tabiji/intro: start")`처럼 쓰고 `// TODO(B3): 내비게이션`을 단다. 공통 로거는 아직 없다 (`conventions.md`의 "`println` 남발 금지"는 B단계 로거가 생기면 바꾼다)
