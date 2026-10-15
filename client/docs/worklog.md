@@ -27,8 +27,8 @@
 - **A6**: PR #11 머지 완료
 - **A7**: PR #12 머지 완료
 - **A8**: PR #13 머지 완료
-- **A9 — 잉크 마감 ② 버튼**: 구현 커밋 + PR. Desktop 확인 완료, **Phone 프리셋(폭 310·높이 56/50·간격 20)과 눌림 가라앉기는 사용자 확인 대기** → 확인 후 squash merge (bypass)
-- **다음: A10 — Phase A 릴리스 `client-v0.1.0`** (`tabiji.version` 올림 + 루트 `CHANGELOG.md` Client 섹션 PR → 머지 후 태그 명령 안내 → Release CI 산출물 확인, `.deb` 독 아이콘 확인). 인트로 버튼 `onClick`의 `println` 세 곳은 B3에서 내비게이션으로 교체 (TODO 주석 아직 없음)
+- **A9 — 잉크 마감 ② 버튼**: PR #14 (TODO(B3) 주석 커밋 추가). Phone 프리셋·눌림 사용자 확인 대기 → squash merge (bypass)
+- **A10 — 릴리스 `client-v0.1.0`** ([guides/A10-release-0-1-0.md](guides/A10-release-0-1-0.md), 브랜치 `client/chore-release-0-1-0`, A9 위). Claude 준비 완료: 패키지 아이콘(`desktopApp/icons/`, PNG=핸드오프 원본, ICO·ICNS=Pillow 생성) + `iconFile`, `tabiji.version=0.1.0`, `CHANGELOG.md` `[0.1.0] - 2026-10-15` (CI awk 추출 사전 확인). **다음: 사용자 로컬 `package-desktop.sh` → `.deb` 설치 확인 → #14 머지 → 릴리스 PR → 태그 → Release CI → sha256 검증**
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
