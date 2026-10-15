@@ -22,7 +22,7 @@ fun main() {
         val screen = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
         val windowState = rememberWindowState(
             position = WindowPosition(Alignment.Center),
-            size = DpSize((screen.width * 0.85F).dp, (screen.height * 0.75F).dp)
+            size = DpSize((screen.width * 0.85F).dp, (screen.height * 0.85F).dp)
         )
 
         var palette by remember { mutableStateOf(TabijiPalette.CLOUD) }
@@ -67,3 +67,4 @@ fun main() {
         }
     }
 }
+
