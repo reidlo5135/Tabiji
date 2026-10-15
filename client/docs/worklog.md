@@ -26,8 +26,9 @@
 - **A5**: PR #10 머지 완료
 - **A6**: PR #11 머지 완료
 - **A7**: PR #12 머지 완료
-- **A8 — 잉크 마감 ① 그리기**: PR #13 (#12 머지 후 `main` merge로 맞춤). **CI → 사용자 squash merge (bypass)**
-- **A9 — 잉크 마감 ② 버튼** ([guides/A9-ink-buttons.md](guides/A9-ink-buttons.md), 브랜치 `client/feat-a9-ink-buttons`, A8 위). 가이드 작성 완료 (실험 없이 개념 설명만). PR은 #13 머지 후
+- **A8**: PR #13 머지 완료
+- **A9 — 잉크 마감 ② 버튼**: 구현 커밋 + PR. Desktop 확인 완료, **Phone 프리셋(폭 310·높이 56/50·간격 20)과 눌림 가라앉기는 사용자 확인 대기** → 확인 후 squash merge (bypass)
+- **다음: A10 — Phase A 릴리스 `client-v0.1.0`** (`tabiji.version` 올림 + 루트 `CHANGELOG.md` Client 섹션 PR → 머지 후 태그 명령 안내 → Release CI 산출물 확인, `.deb` 독 아이콘 확인). 인트로 버튼 `onClick`의 `println` 세 곳은 B3에서 내비게이션으로 교체 (TODO 주석 아직 없음)
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기
 
@@ -70,6 +71,12 @@
 | 툴체인 | Kotlin 2.4.21 · CMP 1.12.1 · AGP 9.3.3 · Gradle 9.7.1 · compileSdk/targetSdk 37 · minSdk 24 |
 
 ## 기록
+
+### 2026-10-15 (오후) — A9: 인트로 완성
+
+- 가이드 지적 두 번: ① `18/22`·`58/56` 같은 CSS식 축약 → `fontSize = 18.sp, lineHeight = 22.sp`처럼 풀어 씀(메모리 규칙) ② Desktop/Phone과 `WidthClass.COMPACT`의 대응을 안 밝힘 → 용어 표와 값 고르는 코드 추가
+- 막힌 곳: `animateDpAsState`에 ms 인자가 없다(→ `animationSpec = tween(…)`), `var … by remember { MutableInteractionSource() }`(by는 State 상자에만), slot 안에 `Row`를 또 만들고 부모 `modifier` 재사용, `Text`에 글자색 대신 `Modifier.background`, 버튼에 `Modifier.weight(1f)`(높이가 화면을 나눠 가짐), `InkButton` 체인 맨 앞 `padding`(바깥 여백), 스택 `align(Center)` 누락, 워드마크 블록 `horizontalAlignment` 누락(정렬은 손자에게 상속 안 됨)
+- 결과: Desktop 인트로가 `intro_desktop.png`와 같은 구성 (버튼 아이콘은 B1)
 
 ### 2026-10-15 (낮) — A8 완료
 

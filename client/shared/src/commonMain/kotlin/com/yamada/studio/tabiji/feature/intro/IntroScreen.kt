@@ -18,9 +18,7 @@ import com.yamada.studio.tabiji.core.ui.layout.WidthClass
 import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import tabiji.shared.generated.resources.Res
-import tabiji.shared.generated.resources.intro_subtitle
-import tabiji.shared.generated.resources.intro_wordmark
+import tabiji.shared.generated.resources.*
 
 @Composable
 private fun QuadrantStack(selected: Season?, onSelect: (Season) -> Unit, modifier: Modifier = Modifier) {
@@ -70,27 +68,73 @@ fun IntroScreen(modifier: Modifier = Modifier) {
             WidthClass.EXPANDED -> QuadrantGrid(selected = selected, onSelect = toggle, modifier = Modifier.fillMaxSize())
         }
 
-        val stackWidth: Dp = if (widthClass == WidthClass.COMPACT) StackWidthCompact else StackWidthWide
+        val compact = widthClass == WidthClass.COMPACT
+
+        val stackWidth  = if (compact) StackWidthCompact        else StackWidthWide
+        val stackGap    = if (compact) StackGapCompact          else StackGapWide
+        val startHeight = if (compact) StartButtonHeightCompact else StartButtonHeightWide
+        val menuHeight  = if (compact) MenuButtonHeightCompact  else MenuButtonHeightWide
+
         val titleStyle: TextStyle = if(widthClass == WidthClass.COMPACT) TabijiTheme.typography.wordmark.copy(fontSize = 46.sp, lineHeight = 52.sp) else TabijiTheme.typography.wordmark
         val subTitleStyle: TextStyle = TabijiTheme.typography.displayM.copy(fontSize = 17.sp, letterSpacing = 0.1.em)
 
         Column(
             modifier = Modifier.align(Alignment.Center).width(stackWidth),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(WordmarkGap)
+            verticalArrangement = Arrangement.spacedBy(stackGap),
         ) {
-            OutlinedText(
-                text = stringResource(Res.string.intro_wordmark),
-                style = titleStyle,
-            )
+            Column(
+                modifier = Modifier,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(WordmarkGap)
+            ) {
+                OutlinedText(
+                    text = stringResource(Res.string.intro_wordmark),
+                    style = titleStyle,
+                )
 
-            OutlinedText(
-                text = stringResource(Res.string.intro_subtitle),
-                style = subTitleStyle,
-                outlineWidth = SubtitleOutline,
-                shadowOffset = SubtitleShadow
-            )
+                OutlinedText(
+                    text = stringResource(Res.string.intro_subtitle),
+                    style = subTitleStyle,
+                    outlineWidth = SubtitleOutline,
+                    shadowOffset = SubtitleShadow
+                )
+            }
+
+            Column(
+                modifier = Modifier,
+                verticalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.md),
+            ) {
+                IntroMenuButton(
+                    title = stringResource(Res.string.intro_start_title),
+                    subtitle = stringResource(Res.string.intro_start_subtitle),
+                    modifier = Modifier,
+                    primary = true,
+                    height = startHeight,
+                    onClick = { println("Tabiji/intro: start") }
+                )
+
+                IntroMenuButton(
+                    title = stringResource(Res.string.intro_trips_title),
+                    subtitle = stringResource(Res.string.intro_trips_subtitle),
+                    modifier = Modifier,
+                    primary = false,
+                    height = menuHeight,
+                    onClick = { println("Tabiji/intro: trip") }
+                )
+
+                IntroMenuButton(
+                    title = stringResource(Res.string.intro_settings_title),
+                    subtitle = stringResource(Res.string.intro_settings_subtitle),
+                    modifier = Modifier,
+                    primary = false,
+                    height = menuHeight,
+                    onClick = { println("Tabiji/intro: setting") }
+                )
+            }
         }
+
+
     }
 }
 
@@ -131,5 +175,12 @@ private val QuadrantInkGap: Dp = 3.dp
 private val StackWidthCompact: Dp = 310.dp
 private val StackWidthWide: Dp = 360.dp
 private val SubtitleOutline: Dp = (1.5).dp
+private val StackGapWide: Dp = 24.dp
+private val StackGapCompact: Dp = 20.dp
 private val SubtitleShadow: DpOffset = DpOffset(2.dp, 2.dp)
 private val WordmarkGap: Dp = 6.dp
+
+private val StartButtonHeightCompact: Dp = 56.dp
+private val StartButtonHeightWide: Dp = 58.dp
+private val MenuButtonHeightCompact: Dp = 50.dp
+private val MenuButtonHeightWide: Dp = 52.dp

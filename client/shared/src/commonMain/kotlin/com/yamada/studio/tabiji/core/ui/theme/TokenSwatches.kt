@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.yamada.studio.tabiji.core.ui.modifier.inkShadow
+import com.yamada.studio.tabiji.core.ui.shape.ChamferShape
 
 
 @Composable
@@ -56,11 +58,17 @@ fun TokenSwatches(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.md)
             ) {
+//                Box(
+//                    modifier = Modifier.size(32.dp)
+//                        .inkShadow(TabijiTheme.shadow.panel, c.shadow)
+//                        .background(color)
+//                        .border(TabijiTheme.border.panel, c.ink)
+//                )
                 Box(
-                    modifier = Modifier.size(32.dp)
-                        .inkShadow(TabijiTheme.shadow.panel, c.shadow)
-                        .background(color)
-                        .border(TabijiTheme.border.panel, c.ink)
+                    modifier = Modifier.size(186.dp, 48.dp)
+                        .inkShadow(DpOffset(0.dp, 4.dp), c.ink, ChamferShape())
+                        .background(c.accent, ChamferShape())
+                        .border(TabijiTheme.border.panel, c.ink, ChamferShape())
                 )
                 Text(
                     text = name,

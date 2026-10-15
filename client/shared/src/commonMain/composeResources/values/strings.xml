@@ -6,4 +6,10 @@
     <string name="season_summer">여름</string>
     <string name="season_autumn">가을</string>
     <string name="season_winter">겨울</string>
+    <string name="intro_start_title">시작하기</string>
+    <string name="intro_start_subtitle">새 여행 일정 만들기</string>
+    <string name="intro_trips_title">내 여행</string>
+    <string name="intro_trips_subtitle">저장된 일정 보기</string>
+    <string name="intro_settings_title">설정</string>
+    <string name="intro_settings_subtitle">테마 · 언어 · 데이터</string>
 </resources>
