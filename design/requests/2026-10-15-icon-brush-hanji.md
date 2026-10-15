@@ -16,7 +16,7 @@
 
 ## 검토한 시안
 
-폰트 7종 × 스타일 3종을 어두운 배경 위에 그려 비교했다 (`~/Downloads/tabiji-icon-options.png`, 레포 밖).
+폰트 7종 × 스타일 3종을 어두운 배경 위에 그려 비교했다 (`~/Pictures/Tabiji/tabiji-icon-options.png`, 레포 밖).
 
 | 스타일 | 모습 |
 | --- | --- |
