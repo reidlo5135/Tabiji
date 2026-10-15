@@ -17,7 +17,7 @@
 
 ## 검토한 시안
 
-기계적인 OFL 서체 8종 × (어두운 독·진한 남색 / 어두운 독·밝은 남색 / 밝은 배경·진한 남색)을 비교했다 (`~/Downloads/tabiji-icon-options-2.png`, 레포 밖). DotGothic16 · Stick · ZCOOL QingKe HuangYou · Dela Gothic One · Train One · Rampart One · RocknRoll One · Reggae One.
+기계적인 OFL 서체 8종 × (어두운 독·진한 남색 / 어두운 독·밝은 남색 / 밝은 배경·진한 남색)을 비교했다 (`~/Pictures/Tabiji/tabiji-icon-options-2.png`, 레포 밖). DotGothic16 · Stick · ZCOOL QingKe HuangYou · Dela Gothic One · Train One · Rampart One · RocknRoll One · Reggae One.
 
 시안에서 확인한 점: 어두운 독에서는 검은 속이 배경과 섞이므로 **테두리 색이 가독성을 전부 맡는다.** 진한 남색(`#1E3A6E`)은 48px에서 독에 묻혔고, 밝은 남색(`#2E5AA8`)은 형태가 살았다.
 
