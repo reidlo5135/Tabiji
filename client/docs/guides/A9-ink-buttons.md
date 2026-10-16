@@ -20,9 +20,9 @@
 - 2dp 잉크 테두리
 - 하단 **(0,4) 잉크 하드 섀도** (A8의 `inkShadow`)
 - **누르면 가라앉는다**: 2dp 내려가면서 섀도가 줄어든다 (80ms, 뗄 때 120ms). 스프링·바운스·확대는 없다 (v2 원칙 7)
-- 버튼을 누르면 로그만 남긴다. 실제 화면 이동은 B4(내비게이션)에서 한다
+- 버튼을 누르면 로그만 남긴다. 실제 화면 이동은 B6(내비게이션)에서 한다
 
-> 범위: 버튼 왼쪽 아이콘(📍·📅·⚙)과 오른쪽 쉐브론(›)은 **자리만** 둔다. 핸드오프 아이콘 22종은 SVG라서 Compose용 벡터로 바꾸는 작업이 필요하다. 그 작업은 B2(T4)에서 한꺼번에 하고, 그때 이 자리를 채운다.
+> 범위: 버튼 왼쪽 아이콘(📍·📅·⚙)과 오른쪽 쉐브론(›)은 **자리만** 둔다. 핸드오프 아이콘 22종은 SVG라서 Compose용 벡터로 바꾸는 작업이 필요하다. 그 작업은 B3(T4)에서 한꺼번에 하고, 그때 이 자리를 채운다.
 
 ## 먼저 읽을 것 (30분)
 
@@ -228,12 +228,12 @@ val menuHeight  = if (compact) MenuButtonHeightCompact  else MenuButtonHeightWid
 IntroMenuButton(title, subtitle, primary, height, modifier, onClick)
 └── InkButton(fill, shape, shadowDepth = 4dp, modifier = modifier.fillMaxWidth().height(height), onClick)
     └── Row (padding 가로 16 = spacing.lg, spacedBy 12 = spacing.md, 세로 가운데)     ← InkButton 안쪽
-        ├── (아이콘 자리 — B2)
+        ├── (아이콘 자리 — B3)
         ├── Column (Modifier.weight(1f))                                              ← slot 내용물
         │   ├── Text 제목   style = displayM.copy(fontSize = 18.sp, lineHeight = 22.sp)   ← primary
         │   │                   displayM.copy(fontSize = 16.sp, lineHeight = 20.sp)   ← secondary
         │   └── Text 부제   style = caption.copy(fontSize = 11.sp, lineHeight = 14.sp)   (caption = Pretendard SemiBold)
-        └── (쉐브론 자리 — B2)
+        └── (쉐브론 자리 — B3)
 ```
 
 `InkButton` 자체의 트리:
@@ -428,7 +428,7 @@ fun IntroMenuButton(
 - 각각 `val fill = if (primary) c.accent else c.card`처럼 `if` 식으로 함수 위쪽에 모아 둔다 (A7의 `stackWidth`와 같은 모양)
 - 부제 스타일은 두 버튼 모두 `TabijiTheme.typography.caption.copy(fontSize = 11.sp, lineHeight = 14.sp)`다. `caption`이 Pretendard SemiBold라서 크기와 줄 높이만 바꾼다
 - 섀도 깊이 4dp는 인트로 전용 값이다 (`10_intro.md` "(0,4) ink"). `IntroMenuButton.kt` 안에 `private val IntroButtonShadow = 4.dp`로 둔다
-- 아이콘·쉐브론 자리에는 `// TODO(B2): 아이콘` 주석만 둔다
+- 아이콘·쉐브론 자리에는 `// TODO(B3): 아이콘` 주석만 둔다
 
 **`IntroScreen.kt`**: 3장의 "전 → 후" 트리대로 가운데 스택을 바꾼다.
 
@@ -441,7 +441,7 @@ fun IntroMenuButton(
   | 내 여행·설정 높이 | `private val MenuButtonHeightWide = 52.dp` | `private val MenuButtonHeightCompact = 50.dp` | `10_intro.md` |
 
 - 메뉴 `Column`의 간격 12는 `TabijiTheme.spacing.md`와 같은 값이라 토큰을 쓴다
-- `onClick`은 지금은 로그만 남긴다: `println("Tabiji/intro: start")`처럼 쓰고 `// TODO(B4): 내비게이션`을 단다. 공통 로거는 아직 없다 (`conventions.md`의 "`println` 남발 금지"는 B단계 로거가 생기면 바꾼다)
+- `onClick`은 지금은 로그만 남긴다: `println("Tabiji/intro: start")`처럼 쓰고 `// TODO(B6): 내비게이션`을 단다. 공통 로거는 아직 없다 (`conventions.md`의 "`println` 남발 금지"는 B단계 로거가 생기면 바꾼다)
 
 import (`IntroMenuButton.kt`):
 

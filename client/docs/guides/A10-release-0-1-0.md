@@ -220,4 +220,4 @@ sudo apt install ./Tabiji-0.1.0-linux.deb          # 공개된 파일로 다시 
 3. 3-5 Release 페이지 링크 또는 `gh release view client-v0.1.0` 출력
 4. 3-6 `sha256sum -c` 출력
 
-→ 끝나면 Claude가 roadmap·worklog를 갱신한다 (A10 ✅, Phase A 완료). 그다음은 **Phase B — 앱 구조와 플래너**의 B2(플래너 정적 화면, 아이콘 22종)이다.
+→ 끝나면 Claude가 roadmap·worklog를 갱신한다 (A10 ✅, Phase A 완료). 그다음은 **Phase B — 앱 구조와 플래너**의 B2(플래너 배경과 골격)다. 아이콘 22종은 B3, 카드·목록은 B4.

@@ -12,4 +12,7 @@
     <string name="intro_trips_subtitle">저장된 일정 보기</string>
     <string name="intro_settings_title">설정</string>
     <string name="intro_settings_subtitle">테마 · 언어 · 데이터</string>
+    <string name="planner_search_hint">장소, 주소, 역 이름 검색</string>
+    <string name="planner_search">검색</string>
+    <string name="planner_ai_optimize">AI 동선 최적화</string>
 </resources>
