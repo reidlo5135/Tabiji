@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import com.yamada.studio.tabiji.app.App
+import com.yamada.studio.tabiji.app.DebugScreen
 import com.yamada.studio.tabiji.app.appIcon
 import com.yamada.studio.tabiji.app.appTitle
 import com.yamada.studio.tabiji.core.ui.theme.TabijiPalette
@@ -19,14 +20,14 @@ fun main() {
     setLinuxWmClass(LINUX_DESKTOP_ENTRY)   // 창을 만들기 전에: GNOME 독 아이콘 짝짓기 (LinuxWmClass.kt)
 
     application {
-        val screen = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
+        val windowScreen = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
         val windowState = rememberWindowState(
             position = WindowPosition(Alignment.Center),
-            size = DpSize((screen.width * 0.85F).dp, (screen.height * 0.85F).dp)
+            size = DpSize((windowScreen.width * 0.85F).dp, (windowScreen.height * 0.85F).dp)
         )
 
         var palette by remember { mutableStateOf(TabijiPalette.CLOUD) }
-        var showTokens by remember { mutableStateOf(false) }
+        var screen by remember { mutableStateOf(DebugScreen.INTRO) }
 
         Window(
             state = windowState,
@@ -38,17 +39,17 @@ fun main() {
 
             // 디버그 메뉴 — B9 설정 화면이 생기면 정리
             MenuBar {
+                Menu("Screen") {
+                    DebugScreen.entries.forEach { s ->
+                        RadioButtonItem(s.name, selected = (s == screen), onClick = { screen = s })
+                    }
+                }
                 Menu("Theme") {
                     TabijiPalette.entries.forEach { p ->
-                        RadioButtonItem(p.name, selected = palette === p, onClick = { palette = p })
+                        RadioButtonItem(p.name, selected = (palette == p), onClick = { palette = p })
                     }
                 }
                 Menu("Debug") {
-                    CheckboxItem(
-                        "Token Page",
-                        checked = showTokens,
-                        onCheckedChange = { showTokens = it }
-                    )
                     Item(
                         "Phone 390x844",
                         onClick = {
@@ -63,7 +64,7 @@ fun main() {
                     )
                 }
             }
-            App(palette = palette, showTokens = showTokens)
+            App(screen = screen, palette = palette)
         }
     }
 }

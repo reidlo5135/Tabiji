@@ -132,41 +132,43 @@ A7과 같다. `COMPACT`면 `PhonePlanner`, 아니면 `DesktopPlanner`를 그린�
 | `shared/…/core/ui/modifier/InkPanel.kt` (새 파일) | `fun Modifier.inkPanel(colors, shape)` |
 | `shared/…/feature/planner/PlannerScreen.kt` (새 파일) | `PlannerScreen` (구간으로 골격 선택), `DesktopPlanner`, `PhonePlanner` |
 | `shared/…/feature/planner/PlannerParts.kt` (새 파일) | `MapFrame`, `PlannerSearchBar`, `DayPanelHeader`, `DayPanelFooter`, `MapControls` |
-| `shared/…/feature/planner/PlannerDummy.kt` (새 파일) | 헤더용 더미 값 (B4에서 data class로 바뀜) |
+| `shared/…/feature/planner/PlannerDummy.kt` (새 파일) | 헤더 글자 `DUMMY_DAY_TITLE`·`DUMMY_DAY_DATE`·`DUMMY_DAY_MOVE`만 (치수 상수는 여기 아님. B4에서 data class로 바뀜) |
 | `shared/src/commonMain/composeResources/drawable/planner_map_placeholder.svg` | 핸드오프 `map_light.svg` 복사 |
-| `shared/src/commonMain/composeResources/values/strings.xml` | 검색 안내·검색·AI 버튼 글자 |
+| `shared/src/commonMain/composeResources/values/strings.xml` | `planner_search_hint`·`planner_search`·`planner_ai_optimize` (5-4의 2번) |
 | `shared/…/app/App.kt` · `desktopApp/…/main.kt` | 디버그 화면 enum과 메뉴 |
 
 ### Desktop 트리 (`DesktopPlanner`)
 
 ```
 Box (modifier.fillMaxSize().paperStripes(paper, stripe, band = 16.dp))
-├── MapFrame          Modifier.padding(start = 16, top = 76, end = 408, bottom = 16).fillMaxSize()
-│   └── (MapFrame 안) Box(modifier.inkPanel(c))
-│       ├── Image(planner_map_placeholder, ContentScale.Crop, fillMaxSize)
-│       └── MapControls  Modifier.align(BottomEnd).padding(12.dp)     ← 46×46 ×2, 간격 8
+├── MapFrame(MapControlSizeDesktop, TabijiSpacing.md, showZoom = true,
+│            Modifier.padding(start = 16, top = 76, end = 408, bottom = 16).fillMaxSize())   ← 46×46 ×2, 간격 8, 안쪽 12
 ├── PlannerSearchBar  Modifier.padding(16.dp).size(480.dp, 48.dp)
 └── Column (일정 패널)  Modifier.align(TopEnd).padding(16.dp).width(376.dp).fillMaxHeight().inkPanel(c)
-    ├── DayPanelHeader   height 52, 배경 headers[0](h1), 아래 2dp 잉크 선
+    ├── DayPanelHeader(Modifier.height(DayHeaderHeightDesktop))   배경 headers[0](h1), 아래 2dp 잉크 선
     ├── Box (목록 자리)   Modifier.weight(1f).fillMaxWidth().background(c.soft)   ← B4에서 LazyColumn
-    └── DayPanelFooter   위 2dp 잉크 선, card 면, AI 버튼 348×50 가운데
+    └── DayPanelFooter(FooterPaddingDesktop)   → AI 버튼 348×50
 ```
 
 ### Phone 트리 (`PhonePlanner`)
 
 ```
-Box (modifier.fillMaxSize().paperStripes(paper, stripe, band = 14.dp))
-├── PlannerSearchBar  Modifier.padding(start = 12, top = 10, end = 12).fillMaxWidth().height(44.dp)
-├── MapFrame          Modifier.padding(start = 12, top = 64, end = 12, bottom = 396).fillMaxSize()
-│                     (MapControls: 44×44 하나, 안쪽 여백 10)
-└── Column (하단 시트) Modifier.align(BottomCenter).fillMaxWidth().height(384.dp)
-                          .inkShadow(DpOffset(0.dp, (-4).dp), c.shadow, sheetShape)
-                          .background(c.card, sheetShape).border(2.dp 토큰, c.ink, sheetShape).clip(sheetShape)
-    │                  sheetShape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp)
-    ├── Box (그랩바 자리)   높이 16, 가운데에 36×4 막대 (ink 30%)
-    ├── DayPanelHeader     height 44
-    ├── Box (목록 자리)     weight(1f), soft
-    └── DayPanelFooter     AI 버튼 폭 = 시트 폭 − 24, 높이 50
+Box (modifier.fillMaxSize().paperStripes(paper, stripe, StripeBandPhone))
+├── PlannerSearchBar  Modifier.padding(SearchBarPaddingPhone).fillMaxWidth().height(SearchBarHeightPhone)
+├── MapFrame(MapControlSizePhone, MapControlInsetPhone, showZoom = false,       ← 44×44 하나(내 위치), 안쪽 10
+│            Modifier.padding(start = TabijiSpacing.md, top = MapFrameTopPhone,
+│                             end = TabijiSpacing.md, bottom = MapFrameBottomPhone).fillMaxSize())
+└── Column (하단 시트)  Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(SheetHeight)
+    │                      .inkShadow(SheetShadowOffset, c.shadow, sheetShape)
+    │                      .background(c.card, sheetShape)
+    │                      .border(TabijiBorder.panel, c.ink, sheetShape)
+    │                      .clip(sheetShape)
+    │                   sheetShape = RoundedCornerShape(topStart = SheetCorner, topEnd = SheetCorner)  ← 지역 변수
+    ├── Box (그랩바 영역)  Modifier.fillMaxWidth().height(GrabBarAreaHeight), contentAlignment = Alignment.Center
+    │   └── Box (막대)     Modifier.size(GrabBarSize).background(c.ink.copy(alpha = 0.3f), CircleShape)
+    ├── DayPanelHeader(Modifier.height(DayHeaderHeightPhone))
+    ├── Box (목록 자리)    Modifier.weight(1f).fillMaxWidth().background(c.soft)
+    └── DayPanelFooter(FooterPaddingPhone)     → AI 버튼 366×50
 ```
 
 시트 섀도는 위로 `(0, −4)`다. 아래가 화면 끝이라 섀도가 위쪽에 깔린다.
@@ -177,22 +179,72 @@ Box (modifier.fillMaxSize().paperStripes(paper, stripe, band = 14.dp))
 PlannerSearchBar(modifier)                          ← 정적. 입력은 나중 단계
 └── Row (modifier.inkPanel(c), 세로 가운데, padding start 14 / end 8, spacedBy 10)
     ├── (돋보기 아이콘 자리 20dp — B3)
-    ├── Text(검색 안내 글자, style = typography.body, color = c.sub, Modifier.weight(1f))
-    └── InkButton(fill = c.accent, height 34, shape = RoundedCornerShape(8.dp), shadowDepth = 2.dp) { Text("검색", displayS, onAccent) }
+    ├── Text(stringResource(Res.string.planner_search_hint), style = typography.body, color = c.sub, Modifier.weight(1f))
+    └── InkButton(fill = c.accent, Modifier.height(SearchButtonHeight),
+        │         shape = RoundedCornerShape(SearchButtonCorner), shadowDepth = SearchButtonShadow)
+        └── Text(stringResource(Res.string.planner_search), displayS, onAccent)   ← content 람다 { } 안 = 버튼의 자식
 
-DayPanelHeader(height, modifier)
-└── Row (fillMaxWidth().height(height).background(c.headers[0]), 세로 가운데, padding 가로 14, spacedBy 10)
-    ├── Text(DUMMY_DAY_TITLE "Day 2",            style = typography.displayL, color = Color.White)
-    ├── Text(DUMMY_DAY_DATE "9월 20일 (토) · 시즈오카", style = typography.body.copy(fontSize = 13.sp), color = Color.White.copy(alpha = 0.92f))
-    ├── Spacer(Modifier.weight(1f))
-    └── Text(DUMMY_DAY_MOVE "이동 1시간 12분", style = typography.badge.copy(fontSize = 12.sp),
-             Modifier.background(Color.White, CircleShape).border(2.dp 토큰, c.ink, CircleShape).padding(horizontal = 10.dp, vertical = 2.dp))
-(아래 2dp 잉크 선: 헤더 Row 다음에 Box(fillMaxWidth().height(2.dp 토큰).background(c.ink)))
+DayPanelHeader(modifier)                            ← 높이는 부르는 쪽이 modifier로 정한다 (선 2dp 포함)
+└── Column (modifier.fillMaxWidth())
+    ├── Row (Modifier.weight(1f).fillMaxWidth().background(c.headers[0]), 세로 가운데, padding 가로 14, spacedBy 10)
+    │   ├── Text(DUMMY_DAY_TITLE "Day 2",            style = typography.displayL, color = Color.White)
+    │   ├── Text(DUMMY_DAY_DATE "9월 20일 (토) · 시즈오카", style = typography.body.copy(fontSize = 13.sp), color = Color.White.copy(alpha = 0.92f))
+    │   ├── Spacer(Modifier.weight(1f))
+    │   └── Text(DUMMY_DAY_MOVE "이동 1시간 12분", style = typography.badge.copy(fontSize = 12.sp),
+    │            Modifier.background(Color.White, CircleShape).border(TabijiBorder.panel, c.ink, CircleShape).padding(horizontal = 10.dp, vertical = 2.dp))
+    └── Box (Modifier.fillMaxWidth().height(TabijiBorder.divider).background(c.ink))   ← 아래 2dp 잉크 선
+
+MapFrame(controlSize, controlInset, showZoom, modifier)   ← Desktop: 46.dp / 12.dp / true, Phone: 44.dp / 10.dp / false
+└── Box (modifier.inkPanel(c))
+    ├── Image(painterResource(Res.drawable.planner_map_placeholder), contentDescription = null,
+    │         contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
+    └── MapControls(controlSize, showZoom, Modifier.align(Alignment.BottomEnd).padding(controlInset))
+
+MapControls(size: Dp, showZoom: Boolean, modifier: Modifier = Modifier)   ← 버튼 자리만. 아이콘은 B3, 동작은 C단계
+│
+│  (본문 맨 위, Column 앞에 지역 변수 셋)
+│  val c: TabijiColors = TabijiTheme.colors
+│  val shape: Shape = RoundedCornerShape(TabijiRadius.button)              ← 버튼 모양. 모서리 10dp
+│  val buttonModifier: Modifier = Modifier.size(size)
+│      .inkShadow(TabijiShadow.button, c.shadow, shape)                    ← 섀도·면·테두리 셋 다 같은 shape
+│      .background(c.card, shape)
+│      .border(TabijiBorder.panel, c.ink, shape)
+│
+└── Column (modifier, verticalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.sm))
+    ├── Box(buttonModifier)                    ← 내 위치. 둘 다 있음 (위)
+    └── if (showZoom) Box(buttonModifier)      ← 확대. Desktop만 (아래, 핸드오프 Phone에는 없음)
+
+DayPanelFooter(contentPadding: PaddingValues, modifier)
+└── Column (modifier.fillMaxWidth())
+    ├── Box (Modifier.fillMaxWidth().height(TabijiBorder.divider).background(c.ink))   ← 위 2dp 잉크 선
+    └── Box (Modifier.fillMaxWidth().background(c.card).padding(contentPadding))
+        └── InkButton(fill = c.accent, shape = ChamferShape(), modifier = Modifier.fillMaxWidth().height(AiButtonHeight), onClick = { })
+            └── Text(stringResource(Res.string.planner_ai_optimize),
+                     style = typography.displayM.copy(fontSize = 18.sp, lineHeight = 22.sp), color = c.onAccent)
 ```
 
 `CircleShape`(완전 둥근 알약)는 `androidx.compose.foundation.shape.CircleShape`다.
 
-### 치수 상수 (`PlannerParts.kt`·`PlannerScreen.kt` 맨 아래 `private val`)
+**`MapControls`를 `InkButton`으로 만들지 않는 이유**: `InkButton`의 섀도는 `ink`색이다. 지도 컨트롤은 핸드오프에서 섀도가 `shadow`색(반투명 잉크)이라 따로 그린다. B3에서 아이콘이 들어가면서 버튼이 된다.
+
+**`PaddingValues`**: 네 방향 여백을 값 하나로 묶은 것이다. CSS `padding: 10px 14px 12px` 같은 묶음을 파라미터 하나로 넘길 때 쓴다. `PaddingValues(start = …, top = …, end = …, bottom = …)`. `Modifier.padding(contentPadding)`으로 그대로 적용된다.
+
+**AI 버튼 폭은 `fillMaxWidth` + 바깥 여백으로 맞춘다.**
+
+| | 패널 폭 | footer 가로 여백 | 버튼 폭 |
+| --- | --- | --- | --- |
+| Desktop | 376 | 14 = `spacing.md`(12) + 테두리(2) | 376 − 28 = 348 |
+| Phone | 390 (화면 폭) | 12 = `spacing.md` (시트는 좌우 테두리 없음) | 390 − 24 = 366 |
+
+Desktop에 테두리 2를 더하는 이유: CSS에서는 테두리가 안쪽 공간을 차지해서(`box-sizing`) 내용이 테두리 안쪽부터 시작한다. Compose의 `border`는 **공간을 차지하지 않고 위에 덧그리기만** 한다. 그래서 자식은 테두리 밑까지 깔리고, 핸드오프와 같은 간격을 내려면 여백에 테두리 두께를 더해야 한다.
+
+footer 세로 여백: 위 10, 아래 Desktop 12 / Phone 24 (홈 인디케이터 자리).
+
+### 치수 상수 (`PlannerScreen.kt` 맨 아래 `private val`)
+
+자리·크기는 골격(`DesktopPlanner`·`PhonePlanner`)이 정하고 부품에는 `modifier`나 파라미터로 넘긴다. 그래서 **자리·크기 상수는 `PlannerScreen.kt`**에 둔다. 최상위 `private`는 **그 파일 안에서만** 보인다 (C++ 파일 범위 `static`과 같다). `PlannerDummy.kt`에는 `DUMMY_DAY_*` 글자만 둔다.
+
+부품 **안쪽** 치수(검색 버튼 높이 34, AI 버튼 높이 50 등)는 그 부품만 쓰므로 `PlannerParts.kt` 맨 아래 `private val`로 둔다. 규칙은 하나다: **상수는 그것을 쓰는 파일에 둔다.**
 
 | 상수 | 값 | 출처 |
 | --- | --- | --- |
@@ -200,10 +252,26 @@ DayPanelHeader(height, modifier)
 | `MapFrameTop` / `MapFrameEndDesktop` | `76.dp` / `408.dp` | `planner_desktop.html` |
 | `SearchBarSize` | `DpSize(480.dp, 48.dp)` | 같은 곳 |
 | `DayHeaderHeightDesktop` / `Phone` | `52.dp` / `44.dp` | `03_components.md` |
-| `AiButtonSizeDesktop` | `DpSize(348.dp, 50.dp)` | `11_planner.md` |
+| ~~`AiButtonSizeDesktop`~~ | 지운다 → 높이만 **`AiButtonHeight = 50.dp`로 `PlannerParts.kt`에 새로** 만든다 (아래 표) | 폭 348은 footer 여백으로 정해져서 높이만 남는다 |
+| `FooterPaddingDesktop` | `PaddingValues(start = 14.dp, top = 10.dp, end = 14.dp, bottom = 12.dp)` | `planner_desktop.html` footer + 테두리 2 |
+| `FooterPaddingPhone` | `PaddingValues(start = 12.dp, top = 10.dp, end = 12.dp, bottom = 24.dp)` | `planner_phone.html` footer |
+| `MapControlSizeDesktop` / `Phone` | `46.dp` / `44.dp` | 같은 곳 |
+| `MapControlInsetPhone` | `10.dp` (Desktop은 `TabijiSpacing.md` 12) | `planner_phone.html` |
 | `SheetHeight` / `SheetCorner` | `384.dp` / `18.dp` | `planner_phone.html`, 토큰 `radius.sheetTop` |
 | `MapFrameTopPhone` / `MapFrameBottomPhone` | `64.dp` / `396.dp` | `planner_phone.html` |
+| `SearchBarPaddingPhone` / `SearchBarHeightPhone` | `PaddingValues(start = 12.dp, top = 10.dp, end = 12.dp)` / `44.dp` | `planner_phone.html` |
+| `SheetShadowOffset` | `DpOffset(0.dp, (-4).dp)` | `03_components.md` 시트 섀도 |
+| `GrabBarAreaHeight` / `GrabBarSize` | `16.dp` / `DpSize(36.dp, 4.dp)` | `planner_phone.html` |
 | `StripeBandDesktop` / `Phone` | `16.dp` / `14.dp` | `tokens.json` `stripeSpec` |
+
+`PlannerParts.kt` 맨 아래:
+
+| 상수 | 값 | 쓰는 곳 |
+| --- | --- | --- |
+| `SearchButtonHeight` / `SearchButtonCorner` | `34.dp` / `8.dp` | `PlannerSearchBar`의 검색 버튼 |
+| `SearchBarPaddingStart` / `SearchBarPaddingEnd` | `14.dp` / `8.dp` | `PlannerSearchBar` Row |
+| `HeaderPaddingHorizontal` | `14.dp` | `DayPanelHeader` Row |
+| `AiButtonHeight` | `50.dp` | `DayPanelFooter` |
 
 여백 12·16, 간격 8·10은 토큰(`spacing.md`, `spacing.lg`, `spacing.sm`)을 쓴다. 토큰에 없는 10·14는 이름 붙인 상수로 둔다.
 
@@ -231,13 +299,18 @@ DayPanelHeader(height, modifier)
 
 ```
 전 (main.kt)                                       후
-var showTokens by remember { … false }             var screen by remember { mutableStateOf(DebugScreen.INTRO) }
-Menu("Debug")                                      Menu("Screen")                                   ← 새 메뉴
-├── CheckboxItem("Token Page", …)                  │   └── DebugScreen.entries.forEach { s -> RadioButtonItem(s.name, selected = s == screen, onClick = { screen = s }) }
-├── Item("Phone 390×844")                          Menu("Debug")
-└── Item("Desktop 1440×900")                       ├── Item("Phone 390×844")
-                                                   └── Item("Desktop 1440×900")
-App(palette, showTokens)                           App(palette, screen)
+var palette by remember { … CLOUD }                var palette by remember { … CLOUD }              ← 그대로
+var showTokens by remember { … false }             var screen by remember { mutableStateOf(DebugScreen.INTRO) }   ← showTokens는 지움
+MenuBar                                            MenuBar
+├── Menu("Theme")                                  ├── Menu("Theme")                                ← 그대로 둔다
+│   └── 팔레트 RadioButtonItem ×8                   │   └── 팔레트 RadioButtonItem ×8
+│                                                  ├── Menu("Screen")                               ← 새 메뉴 (추가)
+│                                                  │   └── DebugScreen.entries.forEach { s -> RadioButtonItem(s.name, selected = s == screen, onClick = { screen = s }) }
+└── Menu("Debug")                                  └── Menu("Debug")
+    ├── CheckboxItem("Token Page", …)  ← 지움          ├── Item("Phone 390×844")
+    ├── Item("Phone 390×844")                          └── Item("Desktop 1440×900")
+    └── Item("Desktop 1440×900")
+App(palette, showTokens)                           App(screen = screen, palette = palette)
 
 전 (App.kt)                                        후
 if (showTokens) TokenSwatches(…) else IntroScreen()  when (screen) { INTRO -> IntroScreen(); PLANNER -> PlannerScreen(); TOKENS -> TokenSwatches(Modifier.fillMaxSize()) }
@@ -314,6 +387,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
@@ -327,6 +401,11 @@ import com.yamada.studio.tabiji.core.ui.modifier.inkPanel
 import com.yamada.studio.tabiji.core.ui.modifier.inkShadow
 import com.yamada.studio.tabiji.core.ui.modifier.paperStripes
 import com.yamada.studio.tabiji.core.ui.shape.ChamferShape
+import com.yamada.studio.tabiji.core.ui.theme.TabijiBorder
+import com.yamada.studio.tabiji.core.ui.theme.TabijiColors
+import com.yamada.studio.tabiji.core.ui.theme.TabijiRadius
+import com.yamada.studio.tabiji.core.ui.theme.TabijiShadow
+import com.yamada.studio.tabiji.core.ui.theme.TabijiSpacing
 import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -352,7 +431,7 @@ grep -rnE '[0-9.]+\.dp' shared/src/commonMain/kotlin/com/yamada/studio/tabiji/fe
 grep -rn 'Text("' shared/src/commonMain/kotlin/com/yamada/studio/tabiji/feature/planner
 ```
 
-둘 다 0줄이어야 한다. 더미 값은 `PlannerDummy.kt`의 상수로만 쓴다.
+둘 다 0줄이어야 한다. 치수(`.dp`)는 `PlannerScreen.kt` 맨 아래 `private val`에만, 헤더 글자("Day 2" 등)는 `PlannerDummy.kt`의 `DUMMY_DAY_*`에만 둔다.
 
 ---
 
