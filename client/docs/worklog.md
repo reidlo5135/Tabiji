@@ -32,7 +32,10 @@
 - **B1 — 인트로 실제 일러스트**: 완료 → 구현 커밋 + PR. 초점은 네 계절 모두 `0f`(사용자 결정, 1.79:1 통일 후 위아래 균형), 시작 크기 85%×85%(주 모니터 기준), TODO 번호는 사용자 요청으로 Claude가 갱신
 - **B1 PR #22**: 머지 완료
 - **아이콘 v6** (2026-10-16 사용자 요청): 시안표의 "C 한지색 글자 + 검은 테두리"(Pretendard JP Bold, 배경 없음). PR #23(design handoff-v6) → #24(client 교체, CHANGELOG Unreleased). 릴리스 시점 미정
-- **B2 — 플래너 배경과 골격**: 완료 (2026-10-16). Desktop·Phone 골격, `paperStripes`·`inkPanel`, `DebugScreen` enum, 지도 SVG 자리. 구현은 사용자, 마지막 상수 정리(Phone 치수 혼선)는 사용자 요청으로 Claude가 마무리 — 혼선의 원인은 가이드 트리의 생략이어서 가이드도 함께 고침(람다는 자식 노드로, 값은 상수 이름으로). 구현 커밋 + PR
+- **B3 — UI 아이콘 22종**: 구현 커밋 + PR (2026-10-16). XML 변환 22종은 사용자 요청으로 Claude(스크립트), Kotlin(TabijiIcons·갤러리·인트로 버튼·iconSize 분기)은 사용자, 마무리(지도 컨트롤 contentDescription·확대·돋보기·AI 스파크+가운데 정렬)는 사용자 요청으로 Claude. **남은 검증: TOKENS 갤러리에서 22종 변환 깨짐 확인 + INTRO/PLANNER 스크린샷 → 그 다음 머지**
+- **0.1.4 릴리스 공개**: 태그는 사용자가 push, Release CI 성공 (deb 다운로드 확인). `client/`에 받은 deb·SHA256SUMS는 커밋 금지 — ~/Pictures/Tabiji로
+- **0.1.4 릴리스**: PR #25 머지. `client-v0.1.4` 태그 push는 권한 제한으로 사용자 몫 (`git tag client-v0.1.4 59ab3ec && git push origin client-v0.1.4`)
+- **B2 — 플래너 배경과 골격**: 완료 · PR #26 머지 (2026-10-16). Desktop·Phone 골격, `paperStripes`·`inkPanel`, `DebugScreen` enum, 지도 SVG 자리. 구현은 사용자, 마지막 상수 정리(Phone 치수 혼선)는 사용자 요청으로 Claude가 마무리 — 혼선의 원인은 가이드 트리의 생략이어서 가이드도 함께 고침(람다는 자식 노드로, 값은 상수 이름으로). 구현 커밋 + PR
 - **플래너 단계 분할** (2026-10-15): 옛 B2 "플래너 정적 화면"을 B2(배경·골격) · B3(아이콘 22종) · B4(카드·칩·LazyColumn)로 나눔. 이후 단계 +2 (ViewModel B5 … 릴리스 B12). 코드 TODO도 갱신: `TODO(B3): 아이콘`, `TODO(B6): 내비게이션`, 디버그 메뉴 정리 B9
 - **#5 → #7 → #8 → #3 전부 머지 완료** (2026-10-14). A4 브랜치에 `main` merge로 맞춤. **#3 이후 `client/`·`design/`·`.github/`·루트 공용 파일 PR은 코드 오너(본인) 리뷰 필수 → 머지할 때 관리자 bypass 필요**
 - **데스크톱 우선** (2026-10-14 결정): Android·iOS는 Phase M. `client/feat-a2-android-entry` 원격 브랜치 삭제 여부 사용자 확인 대기

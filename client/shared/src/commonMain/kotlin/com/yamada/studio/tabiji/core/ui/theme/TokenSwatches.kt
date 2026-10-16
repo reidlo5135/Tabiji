@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,8 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.yamada.studio.tabiji.core.ui.icon.TabijiIcons
 import com.yamada.studio.tabiji.core.ui.modifier.inkShadow
 import com.yamada.studio.tabiji.core.ui.shape.ChamferShape
+import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
@@ -58,12 +61,6 @@ fun TokenSwatches(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.md)
             ) {
-//                Box(
-//                    modifier = Modifier.size(32.dp)
-//                        .inkShadow(TabijiTheme.shadow.panel, c.shadow)
-//                        .background(color)
-//                        .border(TabijiTheme.border.panel, c.ink)
-//                )
                 Box(
                     modifier = Modifier.size(186.dp, 48.dp)
                         .inkShadow(DpOffset(0.dp, 4.dp), c.ink, ChamferShape())
@@ -88,6 +85,21 @@ fun TokenSwatches(modifier: Modifier = Modifier) {
                 style = type,
                 color = c.ink
             )
+        }
+
+        TabijiIcons.all.chunked(8).forEach { rowIcons ->
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.md)
+            ) {
+                rowIcons.forEach {
+                    Icon(
+                        painter = painterResource(it),
+                        contentDescription = null,
+                        tint = c.ink,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
         }
     }
 }

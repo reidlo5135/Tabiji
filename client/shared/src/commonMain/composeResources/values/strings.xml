@@ -15,4 +15,6 @@
     <string name="planner_search_hint">장소, 주소, 역 이름 검색</string>
     <string name="planner_search">검색</string>
     <string name="planner_ai_optimize">AI 동선 최적화</string>
+    <string name="planner_my_location">내 위치</string>
+    <string name="planner_zoom_in">확대</string>
 </resources>
