@@ -13,6 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.*
 import com.yamada.studio.tabiji.core.ui.component.OutlinedText
+import com.yamada.studio.tabiji.core.ui.icon.TabijiIcons
 import com.yamada.studio.tabiji.core.ui.layout.LocalWidthClass
 import com.yamada.studio.tabiji.core.ui.layout.WidthClass
 import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
@@ -74,6 +75,7 @@ fun IntroScreen(modifier: Modifier = Modifier) {
         val stackGap    = if (compact) StackGapCompact          else StackGapWide
         val startHeight = if (compact) StartButtonHeightCompact else StartButtonHeightWide
         val menuHeight  = if (compact) MenuButtonHeightCompact  else MenuButtonHeightWide
+        val introSize   = if (compact) IntroIconSizeCompact else IntroIconSizeWide
 
         val titleStyle: TextStyle = if(widthClass == WidthClass.COMPACT) TabijiTheme.typography.wordmark.copy(fontSize = 46.sp, lineHeight = 52.sp) else TabijiTheme.typography.wordmark
         val subTitleStyle: TextStyle = TabijiTheme.typography.displayM.copy(fontSize = 17.sp, letterSpacing = 0.1.em)
@@ -105,12 +107,15 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier,
                 verticalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.md),
             ) {
+
                 IntroMenuButton(
                     title = stringResource(Res.string.intro_start_title),
                     subtitle = stringResource(Res.string.intro_start_subtitle),
                     modifier = Modifier,
                     primary = true,
                     height = startHeight,
+                    leadingIcon = TabijiIcons.Place,
+                    iconSize = introSize,
                     onClick = { println("Tabiji/intro: start") } // TODO(B6): 내비게이션
                 )
 
@@ -120,6 +125,8 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier,
                     primary = false,
                     height = menuHeight,
+                    leadingIcon = TabijiIcons.Calendar,
+                    iconSize = introSize,
                     onClick = { println("Tabiji/intro: trip") } // TODO(B6): 내비게이션
                 )
 
@@ -129,6 +136,8 @@ fun IntroScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier,
                     primary = false,
                     height = menuHeight,
+                    leadingIcon = TabijiIcons.Settings,
+                    iconSize = introSize,
                     onClick = { println("Tabiji/intro: setting") } // TODO(B6): 내비게이션
                 )
             }
@@ -182,3 +191,5 @@ private val StartButtonHeightCompact: Dp = 56.dp
 private val StartButtonHeightWide: Dp = 58.dp
 private val MenuButtonHeightCompact: Dp = 50.dp
 private val MenuButtonHeightWide: Dp = 52.dp
+private val IntroIconSizeWide: Dp = 22.dp
+private val IntroIconSizeCompact: Dp = 20.dp

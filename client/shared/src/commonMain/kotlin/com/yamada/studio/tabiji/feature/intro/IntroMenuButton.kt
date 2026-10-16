@@ -3,10 +3,13 @@ package com.yamada.studio.tabiji.feature.intro
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
@@ -14,8 +17,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yamada.studio.tabiji.core.ui.component.InkButton
+import com.yamada.studio.tabiji.core.ui.icon.TabijiIcons
 import com.yamada.studio.tabiji.core.ui.shape.ChamferShape
 import com.yamada.studio.tabiji.core.ui.theme.TabijiTheme
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
@@ -24,6 +30,8 @@ fun IntroMenuButton(
     subtitle: String,
     primary: Boolean,
     height: Dp,
+    leadingIcon: DrawableResource,
+    iconSize: Dp,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -44,9 +52,15 @@ fun IntroMenuButton(
         modifier = modifier.fillMaxWidth().height(height = height),
         onClick = onClick,
     ) {
-        // TODO(B3): 아이콘
+        Icon(
+            painter = painterResource(resource = leadingIcon),
+            contentDescription = null,
+            tint = titleColor,
+            modifier = Modifier.size(iconSize)
+        )
+
         Column(
-            modifier = Modifier,
+            modifier = Modifier.weight(1f),
         ) {
             Text(
                 text = title,
@@ -60,7 +74,15 @@ fun IntroMenuButton(
                 color = subtitleColor,
             )
         }
+
+        Icon(
+            painter = painterResource(TabijiIcons.ChevronDown),
+            contentDescription = null,
+            tint = titleColor,
+            modifier = Modifier.size(ChevronSize).rotate(degrees = -90f)
+        )
     }
 }
 
 private val IntroButtonShadow: Dp = 4.dp
+private val ChevronSize: Dp = 18.dp

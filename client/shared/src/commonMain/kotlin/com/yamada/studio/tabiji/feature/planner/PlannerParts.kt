@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yamada.studio.tabiji.core.ui.component.InkButton
+import com.yamada.studio.tabiji.core.ui.icon.TabijiIcons
 import com.yamada.studio.tabiji.core.ui.modifier.inkPanel
 import com.yamada.studio.tabiji.core.ui.modifier.inkShadow
 import com.yamada.studio.tabiji.core.ui.shape.ChamferShape
@@ -68,10 +70,33 @@ internal fun MapControls(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.sm)
+        verticalArrangement = Arrangement.spacedBy(TabijiTheme.spacing.sm),
     ) {
-        Box(modifier = buttonModifier)
-        if (showZoom) Box(modifier = buttonModifier)
+        Box(
+            modifier = buttonModifier,
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(TabijiIcons.MyLocation),
+                contentDescription = stringResource(Res.string.planner_my_location),
+                tint = c.ink,
+                modifier = Modifier.size(MapControlIconSize)
+            )
+        }
+
+        if (showZoom) {
+            Box(
+                modifier = buttonModifier,
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(TabijiIcons.ZoomIn),
+                    contentDescription = stringResource(Res.string.planner_zoom_in),
+                    tint = c.ink,
+                    modifier = Modifier.size(MapControlIconSize)
+                )
+            }
+        }
     }
 }
 
@@ -88,6 +113,13 @@ internal fun PlannerSearchBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(RowGap)
     ) {
+        Icon(
+            painter = painterResource(TabijiIcons.Search),
+            contentDescription = null,
+            tint = c.sub,
+            modifier = Modifier.size(SearchIconSize)
+        )
+
         Text(
             text = stringResource(Res.string.planner_search_hint),
             style = TabijiTheme.typography.body,
@@ -193,10 +225,22 @@ internal fun DayPanelFooter(
                     .height(AiButtonHeight),
                 onClick = {}
             ) {
+                // 양쪽 weight(1f)로 아이콘+글자를 버튼 가운데로 (핸드오프 justify-content: center)
+                Spacer(modifier = Modifier.weight(1f))
+
+                Icon(
+                    painter = painterResource(TabijiIcons.Ai),
+                    contentDescription = null,
+                    tint = c.onAccent,
+                    modifier = Modifier.size(AiIconSize)
+                )
+
                 Text(
                     text = stringResource(Res.string.planner_ai_optimize),
                     style = TabijiTheme.typography.displayM.copy(fontSize = 18.sp, lineHeight = 22.sp, color = c.onAccent)
                 )
+
+                Spacer(modifier = Modifier.weight(1f))
             }
         }
     }
@@ -212,3 +256,6 @@ private val RowGap: Dp = 10.dp
 private val HeaderPaddingHorizontal: Dp = 14.dp
 private val BadgePaddingHorizontal: Dp = 10.dp
 private val BadgePaddingVertical: Dp = 2.dp
+private val MapControlIconSize: Dp = 22.dp
+private val SearchIconSize: Dp = 20.dp
+private val AiIconSize: Dp = 20.dp

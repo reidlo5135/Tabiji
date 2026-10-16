@@ -250,6 +250,7 @@ import org.jetbrains.compose.resources.painterResource
 | 증상 | 원인 |
 | --- | --- |
 | `Unresolved reference: ic_search` | XML 추가 후 재시작 안 함 (리소스 코드 생성은 빌드 때) |
+| `Box`에 `contentAlignment`가 없다고 나옴 | 내용 람다 `{ }`가 없는 `Box(modifier)`는 다른 오버로드다. 아이콘을 `{ }` 안에 넣으면 `contentAlignment`를 받는 오버로드로 바뀐다 |
 | 아이콘이 네모로 꽉 찬 검정 | `fillColor`를 넣음. stroke 아이콘은 fill을 아예 쓰지 않는다 |
 | 아이콘이 안 보임 | `strokeColor` 빠짐 (칠도 선도 없으면 투명) |
 | 원이 찌그러짐/안 닫힘 | 호 패스의 플래그·부호 실수. `a r,r 0 1,0 (2r),0` 두 번, 두 번째는 `-(2r)` |
