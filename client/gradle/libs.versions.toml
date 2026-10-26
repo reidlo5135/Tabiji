@@ -6,7 +6,7 @@
 # 빌드 도구
 kotlin = "2.4.21"
 composeMultiplatform = "1.12.1"
-agp = "9.3.3"
+agp = "9.4.1"
 
 # Android SDK 레벨
 android-compileSdk = "37"
