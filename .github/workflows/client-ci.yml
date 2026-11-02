@@ -45,7 +45,7 @@ jobs:
 
       - name: Validate Gradle wrapper
         if: hashFiles('client/gradlew') != ''
-        uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        uses: gradle/actions/wrapper-validation@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
 
       - name: Skip — build not enabled yet (before A1)
         if: hashFiles('client/gradlew') != '' && hashFiles('client/.ci-enabled') == ''
